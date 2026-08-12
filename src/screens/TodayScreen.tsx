@@ -66,12 +66,21 @@ export const TodayScreen: React.FC = () => {
           </div>
           <h2 className="text-xl font-bold text-white flex items-center mt-0.5">
             <Calendar className="w-5 h-5 mr-2 text-indigo-400" />
-            {new Date(displayDateStr).toLocaleDateString('en-US', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-            })}
+            {(() => {
+              const parts = displayDateStr.split('-');
+              if (parts.length === 3) {
+                const year = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const day = parseInt(parts[2], 10);
+                return new Date(year, month, day).toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                });
+              }
+              return displayDateStr;
+            })()}
           </h2>
         </div>
 

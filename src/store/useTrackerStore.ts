@@ -181,7 +181,33 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         isLoading: false,
       });
     } catch (err: any) {
-      set({ error: err?.message || 'Failed to load tracker data', isLoading: false });
+      console.warn('Failed to load data from active backend, falling back to IndexedDB:', err);
+      try {
+        await indexedDbService.init();
+        const [modules, rawSyllabusItems, scheduleBlocks, settings] = await Promise.all([
+          indexedDbService.getModules(),
+          indexedDbService.getSyllabusItems(),
+          indexedDbService.getScheduleBlocks(),
+          indexedDbService.getSettings(),
+        ]);
+
+        const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
+        const courseStart = settings?.courseStartDate || '2026-08-01';
+        const effectiveDate = settings?.simulatedDate || courseStart;
+
+        set({
+          modules,
+          syllabusItems,
+          scheduleBlocks,
+          settings,
+          currentDateStr: effectiveDate,
+          activeBackend: 'indexeddb',
+          isLoading: false,
+          error: null,
+        });
+      } catch (fallbackErr: any) {
+        set({ error: fallbackErr?.message || 'Failed to load tracker data', isLoading: false });
+      }
     }
   },
 

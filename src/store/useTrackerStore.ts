@@ -161,12 +161,33 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       const dataService = getDataService(get().activeBackend);
       await dataService.init();
 
-      const [modules, rawSyllabusItems, scheduleBlocks, settings] = await Promise.all([
-        dataService.getModules(),
-        dataService.getSyllabusItems(),
-        dataService.getScheduleBlocks(),
-        dataService.getSettings(),
-      ]);
+      const fetchWithTimeout = <T>(promise: Promise<T>, timeoutMs = 5000): Promise<T> => {
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            reject(new Error(`Backend operation timed out after ${timeoutMs}ms`));
+          }, timeoutMs);
+
+          promise
+            .then((res) => {
+              clearTimeout(timer);
+              resolve(res);
+            })
+            .catch((err) => {
+              clearTimeout(timer);
+              reject(err);
+            });
+        });
+      };
+
+      const [modules, rawSyllabusItems, scheduleBlocks, settings] = await fetchWithTimeout(
+        Promise.all([
+          dataService.getModules(),
+          dataService.getSyllabusItems(),
+          dataService.getScheduleBlocks(),
+          dataService.getSettings(),
+        ]),
+        5000
+      );
 
       if (modules.length === 0 || scheduleBlocks.length === 0) {
         throw new Error('Retrieved empty dataset from cloud. Triggering local fallback.');

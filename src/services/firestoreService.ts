@@ -7,6 +7,8 @@ import rawSeedData from '../data/seed_data.json';
 import { linkScheduleBlockItems } from '../utils/seedMigration';
 
 export class FirestoreDataService implements DataService {
+  private seedingPromise: Promise<void> | null = null;
+
   private getUserUid(): string {
     const uid = auth.currentUser?.uid;
     if (!uid) {
@@ -39,23 +41,33 @@ export class FirestoreDataService implements DataService {
   }
 
   private async seedInitialData(uid: string): Promise<void> {
-    const seed = rawSeedData as unknown as SeedData;
-    const linkedBlocks = linkScheduleBlockItems(seed.scheduleBlocks, seed.syllabusItems);
-
-    const docsToSet: Array<{ ref: any; data: any }> = [];
-
-    for (const mod of seed.modules) {
-      docsToSet.push({ ref: doc(db, 'users', uid, 'modules', mod.id), data: mod });
+    if (this.seedingPromise) {
+      return this.seedingPromise;
     }
-    for (const item of seed.syllabusItems) {
-      docsToSet.push({ ref: doc(db, 'users', uid, 'syllabusItems', item.id), data: item });
-    }
-    for (const block of linkedBlocks) {
-      docsToSet.push({ ref: doc(db, 'users', uid, 'scheduleBlocks', block.id), data: block });
-    }
-    docsToSet.push({ ref: doc(db, 'users', uid, 'settings', 'main'), data: seed.settings });
 
-    await this.commitInChunks(docsToSet);
+    this.seedingPromise = (async () => {
+      const seed = rawSeedData as unknown as SeedData;
+      const linkedBlocks = linkScheduleBlockItems(seed.scheduleBlocks, seed.syllabusItems);
+
+      const docsToSet: Array<{ ref: any; data: any }> = [];
+
+      for (const mod of seed.modules) {
+        docsToSet.push({ ref: doc(db, 'users', uid, 'modules', mod.id), data: mod });
+      }
+      for (const item of seed.syllabusItems) {
+        docsToSet.push({ ref: doc(db, 'users', uid, 'syllabusItems', item.id), data: item });
+      }
+      for (const block of linkedBlocks) {
+        docsToSet.push({ ref: doc(db, 'users', uid, 'scheduleBlocks', block.id), data: block });
+      }
+      docsToSet.push({ ref: doc(db, 'users', uid, 'settings', 'main'), data: seed.settings });
+
+      await this.commitInChunks(docsToSet);
+    })().finally(() => {
+      this.seedingPromise = null;
+    });
+
+    return this.seedingPromise;
   }
 
   async uploadLocalData(data: {

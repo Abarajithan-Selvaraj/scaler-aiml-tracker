@@ -168,6 +168,10 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         dataService.getSettings(),
       ]);
 
+      if (modules.length === 0 || scheduleBlocks.length === 0) {
+        throw new Error('Retrieved empty dataset from cloud. Triggering local fallback.');
+      }
+
       const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
       const courseStart = settings?.courseStartDate || '2026-08-01';
       const effectiveDate = settings?.simulatedDate || courseStart;

@@ -1,5 +1,5 @@
 import { 
-  doc, setDoc, getDoc, getDocs, collection, updateDoc, writeBatch 
+  doc, getDoc, getDocs, collection, updateDoc, writeBatch 
 } from 'firebase/firestore';
 import { db, auth } from './firebase';
 import { DataService, Module, ScheduleBlock, SyllabusItem, Settings, SeedData } from '../types/tracker';
@@ -19,11 +19,22 @@ export class FirestoreDataService implements DataService {
     const uid = auth.currentUser?.uid;
     if (!uid) return;
 
-    // Check if user has settings document initialized
-    const settingsRef = doc(db, 'users', uid, 'settings', 'main');
-    const snap = await getDoc(settingsRef);
-    if (!snap.exists()) {
+    // Check if user has modules initialized
+    const modulesSnap = await getDocs(collection(db, 'users', uid, 'modules'));
+    if (modulesSnap.empty) {
       await this.seedInitialData(uid);
+    }
+  }
+
+  private async commitInChunks(docsToSet: Array<{ ref: any; data: any }>): Promise<void> {
+    const BATCH_SIZE = 400; // Safe threshold under Firestore 500 write limit
+    for (let i = 0; i < docsToSet.length; i += BATCH_SIZE) {
+      const chunk = docsToSet.slice(i, i + BATCH_SIZE);
+      const batch = writeBatch(db);
+      for (const item of chunk) {
+        batch.set(item.ref, item.data);
+      }
+      await batch.commit();
     }
   }
 
@@ -31,20 +42,20 @@ export class FirestoreDataService implements DataService {
     const seed = rawSeedData as unknown as SeedData;
     const linkedBlocks = linkScheduleBlockItems(seed.scheduleBlocks, seed.syllabusItems);
 
-    const batch = writeBatch(db);
+    const docsToSet: Array<{ ref: any; data: any }> = [];
 
     for (const mod of seed.modules) {
-      batch.set(doc(db, 'users', uid, 'modules', mod.id), mod);
+      docsToSet.push({ ref: doc(db, 'users', uid, 'modules', mod.id), data: mod });
     }
     for (const item of seed.syllabusItems) {
-      batch.set(doc(db, 'users', uid, 'syllabusItems', item.id), item);
+      docsToSet.push({ ref: doc(db, 'users', uid, 'syllabusItems', item.id), data: item });
     }
     for (const block of linkedBlocks) {
-      batch.set(doc(db, 'users', uid, 'scheduleBlocks', block.id), block);
+      docsToSet.push({ ref: doc(db, 'users', uid, 'scheduleBlocks', block.id), data: block });
     }
-    batch.set(doc(db, 'users', uid, 'settings', 'main'), seed.settings);
+    docsToSet.push({ ref: doc(db, 'users', uid, 'settings', 'main'), data: seed.settings });
 
-    await batch.commit();
+    await this.commitInChunks(docsToSet);
   }
 
   async uploadLocalData(data: {
@@ -54,25 +65,29 @@ export class FirestoreDataService implements DataService {
     settings: Settings;
   }): Promise<void> {
     const uid = this.getUserUid();
-    const batch = writeBatch(db);
+    const docsToSet: Array<{ ref: any; data: any }> = [];
 
     for (const mod of data.modules) {
-      batch.set(doc(db, 'users', uid, 'modules', mod.id), mod);
+      docsToSet.push({ ref: doc(db, 'users', uid, 'modules', mod.id), data: mod });
     }
     for (const item of data.syllabusItems) {
-      batch.set(doc(db, 'users', uid, 'syllabusItems', item.id), item);
+      docsToSet.push({ ref: doc(db, 'users', uid, 'syllabusItems', item.id), data: item });
     }
     for (const block of data.scheduleBlocks) {
-      batch.set(doc(db, 'users', uid, 'scheduleBlocks', block.id), block);
+      docsToSet.push({ ref: doc(db, 'users', uid, 'scheduleBlocks', block.id), data: block });
     }
-    batch.set(doc(db, 'users', uid, 'settings', 'main'), data.settings);
+    docsToSet.push({ ref: doc(db, 'users', uid, 'settings', 'main'), data: data.settings });
 
-    await batch.commit();
+    await this.commitInChunks(docsToSet);
   }
 
   async getModules(): Promise<Module[]> {
     const uid = this.getUserUid();
-    const snap = await getDocs(collection(db, 'users', uid, 'modules'));
+    let snap = await getDocs(collection(db, 'users', uid, 'modules'));
+    if (snap.empty) {
+      await this.seedInitialData(uid);
+      snap = await getDocs(collection(db, 'users', uid, 'modules'));
+    }
     const modules: Module[] = [];
     snap.forEach(d => modules.push(d.data() as Module));
     return modules.sort((a, b) => a.moduleNumber - b.moduleNumber);
@@ -80,7 +95,11 @@ export class FirestoreDataService implements DataService {
 
   async getSyllabusItems(): Promise<SyllabusItem[]> {
     const uid = this.getUserUid();
-    const snap = await getDocs(collection(db, 'users', uid, 'syllabusItems'));
+    let snap = await getDocs(collection(db, 'users', uid, 'syllabusItems'));
+    if (snap.empty) {
+      await this.seedInitialData(uid);
+      snap = await getDocs(collection(db, 'users', uid, 'syllabusItems'));
+    }
     const items: SyllabusItem[] = [];
     snap.forEach(d => items.push(d.data() as SyllabusItem));
     return items.sort((a, b) => a.sequence - b.sequence);
@@ -88,7 +107,11 @@ export class FirestoreDataService implements DataService {
 
   async getScheduleBlocks(range?: { from: string; to: string }): Promise<ScheduleBlock[]> {
     const uid = this.getUserUid();
-    const snap = await getDocs(collection(db, 'users', uid, 'scheduleBlocks'));
+    let snap = await getDocs(collection(db, 'users', uid, 'scheduleBlocks'));
+    if (snap.empty) {
+      await this.seedInitialData(uid);
+      snap = await getDocs(collection(db, 'users', uid, 'scheduleBlocks'));
+    }
     let blocks: ScheduleBlock[] = [];
     snap.forEach(d => blocks.push(d.data() as ScheduleBlock));
     if (range) {

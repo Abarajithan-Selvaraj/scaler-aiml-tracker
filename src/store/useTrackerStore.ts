@@ -400,18 +400,21 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     }
 
     const dataService = getDataService(activeBackend);
-    await dataService.resetData();
-
-    for (const mod of parsed.modules) {
-      await dataService.updateModule(mod.id, mod);
+    if (dataService.importAll) {
+      await dataService.importAll(jsonString);
+    } else {
+      await dataService.resetData();
+      for (const mod of parsed.modules) {
+        await dataService.updateModule(mod.id, mod);
+      }
+      for (const item of parsed.syllabusItems) {
+        await dataService.updateSyllabusItem(item.id, item);
+      }
+      for (const block of parsed.scheduleBlocks) {
+        await dataService.updateScheduleBlock(block.id, block);
+      }
+      await dataService.updateSettings(parsed.settings);
     }
-    for (const item of parsed.syllabusItems) {
-      await dataService.updateSyllabusItem(item.id, item);
-    }
-    for (const block of parsed.scheduleBlocks) {
-      await dataService.updateScheduleBlock(block.id, block);
-    }
-    await dataService.updateSettings(parsed.settings);
 
     await get().loadData();
   },

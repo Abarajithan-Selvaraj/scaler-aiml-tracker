@@ -81,6 +81,20 @@ export class FirestoreDataService implements DataService {
     await this.commitInChunks(docsToSet);
   }
 
+  async importAll(json: string): Promise<void> {
+    const parsed = JSON.parse(json) as SeedData;
+    if (!parsed.modules || !parsed.syllabusItems || !parsed.scheduleBlocks || !parsed.settings) {
+      throw new Error('Invalid backup JSON file structure');
+    }
+
+    await this.uploadLocalData({
+      modules: parsed.modules,
+      syllabusItems: parsed.syllabusItems,
+      scheduleBlocks: parsed.scheduleBlocks,
+      settings: parsed.settings,
+    });
+  }
+
   async getModules(): Promise<Module[]> {
     const uid = this.getUserUid();
     let snap = await getDocs(collection(db, 'users', uid, 'modules'));

@@ -104,4 +104,5 @@ export interface DataService {
   updateScheduleBlock(id: string, patch: Partial<ScheduleBlock>): Promise<void>;
   updateSettings(patch: Partial<Settings>): Promise<void>;
   resetData(): Promise<void>;
+  importAll?(json: string): Promise<void>;
 }

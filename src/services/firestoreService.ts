@@ -1,5 +1,5 @@
 import { 
-  doc, setDoc, getDoc, getDocs, collection, updateDoc, writeBatch, deleteDoc 
+  doc, setDoc, getDoc, getDocs, collection, updateDoc, writeBatch 
 } from 'firebase/firestore';
 import { db, auth } from './firebase';
 import { DataService, Module, ScheduleBlock, SyllabusItem, Settings, SeedData } from '../types/tracker';
@@ -43,6 +43,29 @@ export class FirestoreDataService implements DataService {
       batch.set(doc(db, 'users', uid, 'scheduleBlocks', block.id), block);
     }
     batch.set(doc(db, 'users', uid, 'settings', 'main'), seed.settings);
+
+    await batch.commit();
+  }
+
+  async uploadLocalData(data: {
+    modules: Module[];
+    syllabusItems: SyllabusItem[];
+    scheduleBlocks: ScheduleBlock[];
+    settings: Settings;
+  }): Promise<void> {
+    const uid = this.getUserUid();
+    const batch = writeBatch(db);
+
+    for (const mod of data.modules) {
+      batch.set(doc(db, 'users', uid, 'modules', mod.id), mod);
+    }
+    for (const item of data.syllabusItems) {
+      batch.set(doc(db, 'users', uid, 'syllabusItems', item.id), item);
+    }
+    for (const block of data.scheduleBlocks) {
+      batch.set(doc(db, 'users', uid, 'scheduleBlocks', block.id), block);
+    }
+    batch.set(doc(db, 'users', uid, 'settings', 'main'), data.settings);
 
     await batch.commit();
   }
@@ -104,35 +127,7 @@ export class FirestoreDataService implements DataService {
     await updateDoc(doc(db, 'users', uid, 'settings', 'main'), patch);
   }
 
-  async exportAll(): Promise<string> {
-    const modules = await this.getModules();
-    const syllabusItems = await this.getSyllabusItems();
-    const scheduleBlocks = await this.getScheduleBlocks();
-    const settings = await this.getSettings();
-
-    return JSON.stringify({ modules, syllabusItems, scheduleBlocks, settings }, null, 2);
-  }
-
-  async importAll(json: string): Promise<void> {
-    const parsed = JSON.parse(json) as SeedData;
-    const uid = this.getUserUid();
-
-    const batch = writeBatch(db);
-    for (const mod of parsed.modules) {
-      batch.set(doc(db, 'users', uid, 'modules', mod.id), mod);
-    }
-    for (const item of parsed.syllabusItems) {
-      batch.set(doc(db, 'users', uid, 'syllabusItems', item.id), item);
-    }
-    for (const block of parsed.scheduleBlocks) {
-      batch.set(doc(db, 'users', uid, 'scheduleBlocks', block.id), block);
-    }
-    batch.set(doc(db, 'users', uid, 'settings', 'main'), parsed.settings);
-
-    await batch.commit();
-  }
-
-  async resetToSeed(): Promise<void> {
+  async resetData(): Promise<void> {
     const uid = this.getUserUid();
     await this.seedInitialData(uid);
   }

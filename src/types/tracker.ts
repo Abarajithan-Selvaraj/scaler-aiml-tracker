@@ -103,7 +103,5 @@ export interface DataService {
   updateSyllabusItem(id: string, patch: Partial<SyllabusItem>): Promise<void>;
   updateScheduleBlock(id: string, patch: Partial<ScheduleBlock>): Promise<void>;
   updateSettings(patch: Partial<Settings>): Promise<void>;
-  exportAll(): Promise<string>;
-  importAll(json: string): Promise<void>;
-  resetToSeed(): Promise<void>;
+  resetData(): Promise<void>;
 }

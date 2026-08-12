@@ -235,6 +235,10 @@ export class IndexedDBDataService implements DataService {
     await tx.done;
   }
 
+  async resetData(): Promise<void> {
+    await this.resetToSeed();
+  }
+
   async resetToSeed(): Promise<void> {
     if (!this.isIndexedDBAvailable()) {
       this.memoryStore = null;

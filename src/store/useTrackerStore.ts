@@ -2,6 +2,10 @@ import { create } from 'zustand';
 import { Module, ScheduleBlock, Settings, SyllabusItem } from '../types/tracker';
 import { getDataService } from '../services/dataService';
 import { computeTrackerMetrics, TrackerMetrics } from '../utils/calculations';
+import { auth, isFirebaseConfigured } from '../services/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { firestoreService } from '../services/firestoreService';
+import { indexedDbService } from '../services/indexedDbService';
 
 /**
  * Calculates whether a Class item should be automatically marked completed
@@ -68,6 +72,8 @@ interface TrackerState {
 
   // Actions
   loadData: () => Promise<void>;
+  setupAuthListener: () => () => void;
+  syncLocalToCloud: () => Promise<void>;
   toggleItemCompletion: (itemId: string) => Promise<void>;
   toggleSubComponentCompletion: (
     itemId: string,
@@ -96,6 +102,58 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   error: null,
   currentDateStr: new Date().toISOString().split('T')[0],
   activeBackend: 'indexeddb',
+
+  setupAuthListener: () => {
+    if (!isFirebaseConfigured() || !auth) {
+      get().loadData();
+      return () => {};
+    }
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        set({ activeBackend: 'firestore' });
+        await get().loadData();
+      } else {
+        set({ activeBackend: 'indexeddb' });
+        await get().loadData();
+      }
+    });
+
+    return unsubscribe;
+  },
+
+  syncLocalToCloud: async () => {
+    if (!auth?.currentUser || !isFirebaseConfigured()) return;
+    set({ isSyncing: true });
+    try {
+      // Read local IndexedDB data
+      await indexedDbService.init();
+      const [modules, rawItems, scheduleBlocks, settings] = await Promise.all([
+        indexedDbService.getModules(),
+        indexedDbService.getSyllabusItems(),
+        indexedDbService.getScheduleBlocks(),
+        indexedDbService.getSettings(),
+      ]);
+
+      const syllabusItems = rawItems.map(normalizeSyllabusItem);
+
+      // Upload local state to Firestore
+      await firestoreService.uploadLocalData({
+        modules,
+        syllabusItems,
+        scheduleBlocks,
+        settings,
+      });
+
+      // Switch active backend and reload
+      set({ activeBackend: 'firestore' });
+      await get().loadData();
+    } catch (err: any) {
+      console.error('Failed to sync local data to cloud:', err);
+    } finally {
+      set({ isSyncing: false });
+    }
+  },
 
   loadData: async () => {
     set({ isLoading: true, error: null });
@@ -151,42 +209,32 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       i.id === itemId ? { ...i, ...patch } : i
     );
 
-    // Auto update Module status
-    const moduleId = item.moduleId;
-    let updatedModules = [...modules];
+    // Update parent module completion stats
+    const moduleItems = updatedSyllabusItems.filter(i => i.moduleId === item.moduleId);
+    const moduleCompletedCount = moduleItems.filter(i => i.completed).length;
+    const moduleStatus: 'not_started' | 'in_progress' | 'completed' =
+      moduleCompletedCount === moduleItems.length
+        ? 'completed'
+        : moduleCompletedCount > 0
+        ? 'in_progress'
+        : 'not_started';
 
-    if (moduleId && !moduleId.startsWith('C')) {
-      const moduleItems = updatedSyllabusItems.filter(i => i.moduleId === moduleId);
-      const completedCount = moduleItems.filter(i => i.completed).length;
-      let newStatus: Module['status'] = 'not_started';
+    await dataService.updateModule(item.moduleId, { status: moduleStatus });
 
-      if (completedCount === moduleItems.length && moduleItems.length > 0) {
-        newStatus = 'completed';
-      } else if (completedCount > 0) {
-        newStatus = 'in_progress';
+    const updatedModules: Module[] = modules.map(m =>
+      m.id === item.moduleId ? { ...m, status: moduleStatus } : m
+    );
+
+    // Update schedule blocks referencing this item
+    const updatedBlocks = [...scheduleBlocks];
+    for (const block of updatedBlocks) {
+      if (block.itemIds?.includes(itemId)) {
+        const blockItems = updatedSyllabusItems.filter(i => block.itemIds?.includes(i.id));
+        const blockFullyDone = blockItems.length > 0 && blockItems.every(i => i.completed);
+        block.completed = blockFullyDone;
+        await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
       }
-
-      await dataService.updateModule(moduleId, { status: newStatus });
-      updatedModules = updatedModules.map(m =>
-        m.id === moduleId ? { ...m, status: newStatus } : m
-      );
     }
-
-    // Check schedule blocks containing this item
-    const updatedBlocks = scheduleBlocks.map(block => {
-      if (block.itemIds && block.itemIds.includes(itemId)) {
-        const allBlockItemsDone = block.itemIds.every(id => {
-          if (id === itemId) return newCompleted;
-          const found = updatedSyllabusItems.find(x => x.id === id);
-          return found ? found.completed : false;
-        });
-        if (block.completed !== allBlockItemsDone) {
-          dataService.updateScheduleBlock(block.id, { completed: allBlockItemsDone });
-          return { ...block, completed: allBlockItemsDone };
-        }
-      }
-      return block;
-    });
 
     set({
       syllabusItems: updatedSyllabusItems,
@@ -197,65 +245,57 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
 
   toggleSubComponentCompletion: async (itemId, subComponent) => {
     const { syllabusItems, modules, scheduleBlocks, activeBackend } = get();
-    const targetItem = syllabusItems.find(i => i.id === itemId);
-    if (!targetItem || targetItem.type !== 'Class') return;
+    const item = syllabusItems.find((i) => i.id === itemId);
+    if (!item || item.type !== 'Class') return;
 
-    const normalized = normalizeSyllabusItem(targetItem);
+    const normalizedItem = normalizeSyllabusItem(item);
     const patch: Partial<SyllabusItem> = {};
 
     if (subComponent === 'video') {
-      patch.videoCompleted = !normalized.videoCompleted;
+      patch.videoCompleted = !normalizedItem.videoCompleted;
     } else if (subComponent === 'assignment') {
-      patch.assignmentCompleted = !normalized.assignmentCompleted;
+      patch.assignmentCompleted = !normalizedItem.assignmentCompleted;
     } else if (subComponent === 'additional') {
-      patch.additionalProblemsCompleted = !normalized.additionalProblemsCompleted;
+      patch.additionalProblemsCompleted = !normalizedItem.additionalProblemsCompleted;
     }
 
-    const updatedTemp = { ...normalized, ...patch };
-    patch.completed = isClassItemFullyCompleted(updatedTemp);
+    const updatedItemState = { ...normalizedItem, ...patch };
+    const autoCompleted = isClassItemFullyCompleted(updatedItemState);
+    patch.completed = autoCompleted;
 
     const dataService = getDataService(activeBackend);
     await dataService.updateSyllabusItem(itemId, patch);
 
-    const updatedSyllabusItems = syllabusItems.map(i =>
+    const updatedSyllabusItems = syllabusItems.map((i) =>
       i.id === itemId ? { ...i, ...patch } : i
     );
 
-    // Auto update Module status
-    const moduleId = targetItem.moduleId;
-    let updatedModules = [...modules];
+    // Update module status
+    const moduleItems = updatedSyllabusItems.filter((i) => i.moduleId === item.moduleId);
+    const moduleCompletedCount = moduleItems.filter((i) => i.completed).length;
+    const moduleStatus: 'not_started' | 'in_progress' | 'completed' =
+      moduleCompletedCount === moduleItems.length
+        ? 'completed'
+        : moduleCompletedCount > 0
+        ? 'in_progress'
+        : 'not_started';
 
-    if (moduleId && !moduleId.startsWith('C')) {
-      const moduleItems = updatedSyllabusItems.filter(i => i.moduleId === moduleId);
-      const completedCount = moduleItems.filter(i => i.completed).length;
-      let newStatus: Module['status'] = 'not_started';
+    await dataService.updateModule(item.moduleId, { status: moduleStatus });
 
-      if (completedCount === moduleItems.length && moduleItems.length > 0) {
-        newStatus = 'completed';
-      } else if (completedCount > 0) {
-        newStatus = 'in_progress';
+    const updatedModules: Module[] = modules.map((m) =>
+      m.id === item.moduleId ? { ...m, status: moduleStatus } : m
+    );
+
+    // Update schedule blocks referencing this item
+    const updatedBlocks = [...scheduleBlocks];
+    for (const block of updatedBlocks) {
+      if (block.itemIds?.includes(itemId)) {
+        const blockItems = updatedSyllabusItems.filter((i) => block.itemIds?.includes(i.id));
+        const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
+        block.completed = blockFullyDone;
+        await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
       }
-
-      await dataService.updateModule(moduleId, { status: newStatus });
-      updatedModules = updatedModules.map(m =>
-        m.id === moduleId ? { ...m, status: newStatus } : m
-      );
     }
-
-    // Check schedule blocks containing this item
-    const updatedBlocks = scheduleBlocks.map(block => {
-      if (block.itemIds && block.itemIds.includes(itemId)) {
-        const allBlockItemsDone = block.itemIds.every(id => {
-          const found = updatedSyllabusItems.find(x => x.id === id);
-          return found ? found.completed : false;
-        });
-        if (block.completed !== allBlockItemsDone) {
-          dataService.updateScheduleBlock(block.id, { completed: allBlockItemsDone });
-          return { ...block, completed: allBlockItemsDone };
-        }
-      }
-      return block;
-    });
 
     set({
       syllabusItems: updatedSyllabusItems,
@@ -266,16 +306,14 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
 
   updateBlockLog: async (blockId, patch) => {
     const { scheduleBlocks, activeBackend } = get();
-    const targetBlock = scheduleBlocks.find(b => b.id === blockId);
-    if (!targetBlock) return;
-
-    const updatedBlock = { ...targetBlock, ...patch };
     const dataService = getDataService(activeBackend);
     await dataService.updateScheduleBlock(blockId, patch);
 
-    set({
-      scheduleBlocks: scheduleBlocks.map(b => (b.id === blockId ? updatedBlock : b)),
-    });
+    const updatedBlocks = scheduleBlocks.map(b =>
+      b.id === blockId ? { ...b, ...patch } : b
+    );
+
+    set({ scheduleBlocks: updatedBlocks });
   },
 
   updateModuleData: async (moduleId, patch) => {
@@ -283,22 +321,20 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     const dataService = getDataService(activeBackend);
     await dataService.updateModule(moduleId, patch);
 
-    set({
-      modules: modules.map(m => (m.id === moduleId ? { ...m, ...patch } : m)),
-    });
+    const updatedModules = modules.map(m =>
+      m.id === moduleId ? { ...m, ...patch } : m
+    );
+
+    set({ modules: updatedModules });
   },
 
   updateSettingsData: async (patch) => {
     const { settings, activeBackend } = get();
-    if (!settings) return;
-
     const dataService = getDataService(activeBackend);
     await dataService.updateSettings(patch);
 
-    set({
-      settings: { ...settings, ...patch },
-      ...(patch.simulatedDate ? { currentDateStr: patch.simulatedDate } : {}),
-    });
+    const updatedSettings = settings ? { ...settings, ...patch } : (patch as Settings);
+    set({ settings: updatedSettings });
   },
 
   setCurrentDateStr: (dateIso) => {
@@ -306,34 +342,55 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   },
 
   exportData: async () => {
-    const dataService = getDataService(get().activeBackend);
-    return await dataService.exportAll();
+    const { activeBackend } = get();
+    const dataService = getDataService(activeBackend);
+    const [modules, syllabusItems, scheduleBlocks, settings] = await Promise.all([
+      dataService.getModules(),
+      dataService.getSyllabusItems(),
+      dataService.getScheduleBlocks(),
+      dataService.getSettings(),
+    ]);
+
+    const backupData = {
+      exportDate: new Date().toISOString(),
+      modules,
+      syllabusItems,
+      scheduleBlocks,
+      settings,
+    };
+
+    return JSON.stringify(backupData, null, 2);
   },
 
-  importData: async (json) => {
-    set({ isSyncing: true, error: null });
-    try {
-      const dataService = getDataService(get().activeBackend);
-      await dataService.importAll(json);
-      await get().loadData();
-    } catch (err: any) {
-      set({ error: err?.message || 'Failed to import backup data' });
-    } finally {
-      set({ isSyncing: false });
+  importData: async (jsonString) => {
+    const { activeBackend } = get();
+    const parsed = JSON.parse(jsonString);
+    if (!parsed.modules || !parsed.syllabusItems || !parsed.scheduleBlocks || !parsed.settings) {
+      throw new Error('Invalid backup file format');
     }
+
+    const dataService = getDataService(activeBackend);
+    await dataService.resetData();
+
+    for (const mod of parsed.modules) {
+      await dataService.updateModule(mod.id, mod);
+    }
+    for (const item of parsed.syllabusItems) {
+      await dataService.updateSyllabusItem(item.id, item);
+    }
+    for (const block of parsed.scheduleBlocks) {
+      await dataService.updateScheduleBlock(block.id, block);
+    }
+    await dataService.updateSettings(parsed.settings);
+
+    await get().loadData();
   },
 
   resetToSeed: async () => {
-    set({ isSyncing: true, error: null });
-    try {
-      const dataService = getDataService(get().activeBackend);
-      await dataService.resetToSeed();
-      await get().loadData();
-    } catch (err: any) {
-      set({ error: err?.message || 'Failed to reset data to seed' });
-    } finally {
-      set({ isSyncing: false });
-    }
+    const { activeBackend } = get();
+    const dataService = getDataService(activeBackend);
+    await dataService.resetData();
+    await get().loadData();
   },
 
   getMetrics: () => {

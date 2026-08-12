@@ -5,11 +5,12 @@ import { BottomNav } from './BottomNav';
 import { Sparkles, Calendar, Settings as SettingsIcon, Database } from 'lucide-react';
 
 export const AppLayout: React.FC = () => {
-  const { loadData, isLoading, currentDateStr, settings, activeBackend } = useTrackerStore();
+  const { loadData, setupAuthListener, isLoading, currentDateStr, settings, activeBackend } = useTrackerStore();
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    const unsubscribe = setupAuthListener();
+    return () => unsubscribe();
+  }, [setupAuthListener]);
 
   if (isLoading) {
     return (

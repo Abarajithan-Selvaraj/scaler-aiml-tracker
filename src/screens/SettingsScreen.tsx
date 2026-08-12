@@ -26,6 +26,7 @@ export const SettingsScreen: React.FC = () => {
     importData,
     resetToSeed,
     setCurrentDateStr,
+    syncLocalToCloud,
   } = useTrackerStore();
 
   const [confirmPhrase, setConfirmPhrase] = useState('');
@@ -92,6 +93,7 @@ export const SettingsScreen: React.FC = () => {
     try {
       const res = await signInWithPopup(auth, googleProvider);
       setUser(res.user);
+      await syncLocalToCloud();
     } catch (err: any) {
       if (err?.code === 'auth/api-key-not-valid') {
         setAuthError('Invalid Firebase API Key. Please verify VITE_FIREBASE_API_KEY in your deployment settings.');

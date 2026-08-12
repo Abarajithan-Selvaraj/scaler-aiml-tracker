@@ -2,6 +2,17 @@ import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 
+export function isFirebaseConfigured(): boolean {
+  const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
+  return Boolean(
+    apiKey &&
+      apiKey !== 'demo-api-key' &&
+      apiKey !== 'YOUR_FIREBASE_API_KEY' &&
+      apiKey !== 'undefined' &&
+      apiKey.trim().length > 10
+  );
+}
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'demo-api-key',
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'scaler-tracker.firebaseapp.com',
@@ -10,10 +21,6 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '1234567890',
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:1234567890:web:abcdef',
 };
-
-export function isFirebaseConfigured(): boolean {
-  return Boolean(import.meta.env.VITE_FIREBASE_API_KEY);
-}
 
 let app: FirebaseApp;
 if (!getApps().length) {

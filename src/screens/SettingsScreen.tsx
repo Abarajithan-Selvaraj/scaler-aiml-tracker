@@ -85,11 +85,19 @@ export const SettingsScreen: React.FC = () => {
 
   const handleGoogleSignIn = async () => {
     setAuthError(null);
+    if (!isFirebaseConfigured()) {
+      setAuthError('Firebase API Key is missing or invalid. Please configure VITE_FIREBASE_API_KEY in your deployment environment variables.');
+      return;
+    }
     try {
       const res = await signInWithPopup(auth, googleProvider);
       setUser(res.user);
     } catch (err: any) {
-      setAuthError(err.message || 'Google sign in failed');
+      if (err?.code === 'auth/api-key-not-valid') {
+        setAuthError('Invalid Firebase API Key. Please verify VITE_FIREBASE_API_KEY in your deployment settings.');
+      } else {
+        setAuthError(err.message || 'Google sign in failed');
+      }
     }
   };
 

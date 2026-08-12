@@ -55,3 +55,6 @@ coverage
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local environment variables file
+src/vite-env.local.ts

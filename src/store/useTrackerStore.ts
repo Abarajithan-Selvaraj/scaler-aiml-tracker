@@ -109,13 +109,29 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       return () => {};
     }
 
+    // Firebase always fires onAuthStateChanged once immediately with the
+    // restored auth state (signed-in user OR null).  We wait for that single
+    // first callback before loading any data so we pick the right backend
+    // without a race between IndexedDB loading and Firestore restoring the
+    // session.  Subsequent callbacks (sign-in / sign-out at runtime) reload
+    // data to switch backends live.
+    let authResolved = false;
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        set({ activeBackend: 'firestore' });
+      const nextBackend = user ? 'firestore' : 'indexeddb';
+
+      if (!authResolved) {
+        // First callback: set correct backend then load once.
+        authResolved = true;
+        set({ activeBackend: nextBackend });
         await get().loadData();
       } else {
-        set({ activeBackend: 'indexeddb' });
-        await get().loadData();
+        // Subsequent callbacks: user signed in or out at runtime.
+        const prevBackend = get().activeBackend;
+        if (nextBackend !== prevBackend) {
+          set({ activeBackend: nextBackend });
+          await get().loadData();
+        }
       }
     });
 

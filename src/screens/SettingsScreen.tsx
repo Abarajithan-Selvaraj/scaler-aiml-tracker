@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTrackerStore } from '../store/useTrackerStore';
 import { auth, googleProvider, isFirebaseConfigured } from '../services/firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import {
   Settings as SettingsIcon,
   Download,
@@ -14,6 +15,7 @@ import {
   AlertTriangle,
   LogOut,
   LogIn,
+  Bug,
 } from 'lucide-react';
 
 export const SettingsScreen: React.FC = () => {
@@ -34,6 +36,18 @@ export const SettingsScreen: React.FC = () => {
   const [importError, setImportError] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
   const [user, setUser] = useState(auth.currentUser);
+  const [showDiag, setShowDiag] = useState(false);
+
+  // Keep user state in sync with Firebase auth so the UI reflects real state
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return unsub;
+  }, []);
+
+  const firebaseConfigured = isFirebaseConfigured();
+  const apiKeyRaw = import.meta.env.VITE_FIREBASE_API_KEY as string | undefined;
 
   // Assumptions state (FR-19)
   const assumptions = settings?.assumptions || {};
@@ -207,6 +221,59 @@ export const SettingsScreen: React.FC = () => {
               <span>Sign In with Google for Cloud Sync</span>
             </button>
             {authError && <div className="text-xs text-rose-400 mt-2">{authError}</div>}
+          </div>
+        )}
+      </div>
+
+      {/* ── Firebase Diagnostics (collapsible) ───────────────────────── */}
+      <div className="glass-panel rounded-2xl p-4 space-y-3 border border-slate-700/50">
+        <button
+          onClick={() => setShowDiag(v => !v)}
+          className="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider w-full text-left hover:text-slate-200 transition-colors"
+        >
+          <Bug className="w-4 h-4 text-slate-500" />
+          <span>Firebase Diagnostics</span>
+          <span className="ml-auto text-slate-600">{showDiag ? '▲' : '▼'}</span>
+        </button>
+
+        {showDiag && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <DiagRow
+              label="isFirebaseConfigured()"
+              value={firebaseConfigured ? '✅ true' : '❌ false'}
+              ok={firebaseConfigured}
+            />
+            <DiagRow
+              label="VITE_FIREBASE_API_KEY"
+              value={
+                !apiKeyRaw || apiKeyRaw === 'undefined'
+                  ? '❌ not set'
+                  : apiKeyRaw.length > 10
+                  ? `✅ set (…${apiKeyRaw.slice(-6)})`
+                  : `⚠️ too short (${apiKeyRaw})`
+              }
+              ok={Boolean(apiKeyRaw && apiKeyRaw !== 'undefined' && apiKeyRaw.length > 10)}
+            />
+            <DiagRow
+              label="VITE_FIREBASE_PROJECT_ID"
+              value={(import.meta.env.VITE_FIREBASE_PROJECT_ID as string) || '❌ not set'}
+              ok={Boolean(import.meta.env.VITE_FIREBASE_PROJECT_ID)}
+            />
+            <DiagRow
+              label="VITE_FIREBASE_AUTH_DOMAIN"
+              value={(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string) || '❌ not set'}
+              ok={Boolean(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN)}
+            />
+            <DiagRow
+              label="Signed-in user"
+              value={user ? `✅ ${user.email}` : '❌ not signed in'}
+              ok={Boolean(user)}
+            />
+            <DiagRow
+              label="Active backend"
+              value={activeBackend === 'firestore' ? '✅ firestore' : '⚠️ indexeddb'}
+              ok={activeBackend === 'firestore'}
+            />
           </div>
         )}
       </div>
@@ -388,3 +455,11 @@ export const SettingsScreen: React.FC = () => {
     </div>
   );
 };
+
+// ── Diagnostic row helper ──────────────────────────────────────────────────
+const DiagRow: React.FC<{ label: string; value: string; ok: boolean }> = ({ label, value, ok }) => (
+  <div className={`rounded-xl p-3 border text-xs font-mono ${ok ? 'bg-emerald-950/30 border-emerald-700/30' : 'bg-rose-950/30 border-rose-700/30'}`}>
+    <div className="text-slate-500 text-[10px] uppercase tracking-wider mb-1">{label}</div>
+    <div className={ok ? 'text-emerald-300' : 'text-rose-300'}>{value}</div>
+  </div>
+);

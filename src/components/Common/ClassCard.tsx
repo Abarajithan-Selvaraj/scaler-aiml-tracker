@@ -192,7 +192,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                   {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
                 </div>
                 <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
-                  Recordings
+                  Recording
                 </span>
               </button>
 
@@ -223,7 +223,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                 </span>
               </button>
 
-              {/* Additional Problems Chip */}
+              {/* Homeworks Chip */}
               <button
                 type="button"
                 onClick={(e) => {
@@ -246,7 +246,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                   {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
                 </div>
                 <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
-                  Additional Problems
+                  Homeworks
                 </span>
               </button>
             </div>

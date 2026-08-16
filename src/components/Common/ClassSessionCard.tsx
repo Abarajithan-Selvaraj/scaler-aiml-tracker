@@ -164,7 +164,7 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
                   {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
                 </div>
                 <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
-                  Recordings
+                  Recording
                 </span>
               </button>
 
@@ -197,7 +197,7 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
                 </button>
               )}
 
-              {/* Additional Problems Chip (Only on final split session block or non-split class) */}
+              {/* Homeworks Chip (Only on final split session block or non-split class) */}
               {isLastSplitBlock && (
                 <button
                   type="button"
@@ -221,7 +221,7 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
                     {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
                   </div>
                   <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
-                    Additional Problems
+                    Homeworks
                   </span>
                 </button>
               )}

@@ -9,6 +9,18 @@ export function cleanFocusTitle(focusItemStr: string): string {
 }
 
 /**
+ * Extracts session-specific duration if split, e.g. "(part 1.4h of 2.8h)" -> 1.4
+ */
+export function parseFocusItemHours(focusStr: string, fallbackHours?: number): number {
+  if (!focusStr) return fallbackHours || 0;
+  const match = focusStr.match(/\(part\s+([\d.]+)h\s+of\s+[\d.]+\s*h?\)/i);
+  if (match && match[1]) {
+    return parseFloat(match[1]) || fallbackHours || 0;
+  }
+  return fallbackHours || 0;
+}
+
+/**
  * Performs Section 5.5 Seed-Linking Pass:
  * Maps each ScheduleBlock's focusItems strings to their corresponding SyllabusItem.id array.
  */

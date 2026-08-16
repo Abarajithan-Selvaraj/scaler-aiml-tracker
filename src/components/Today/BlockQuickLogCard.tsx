@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
 import { Check, Clock, Moon, Plus, Minus, CheckCircle, Plane, Shield, Video, FileCode, HelpCircle } from 'lucide-react';
-import { cleanFocusTitle } from '../../utils/seedMigration';
+import { cleanFocusTitle, parseFocusItemHours } from '../../utils/seedMigration';
 import { normalizeSyllabusItem } from '../../store/useTrackerStore';
 
 interface BlockQuickLogCardProps {
@@ -83,35 +83,41 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
 
         {blockSyllabusItems.length > 0 ? (
           <div className="space-y-2.5">
-            {blockSyllabusItems.map((item) => (
-              <div
-                key={item.id}
-                className={`p-3 rounded-xl border transition-all ${
-                  item.completed
-                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
-                    : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
-                }`}
-              >
-                {/* Main Class Checkbox */}
-                <div className="flex items-start space-x-3 cursor-pointer" onClick={() => onToggleItem(item.id)}>
-                  <div
-                    className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-                      item.completed
-                        ? 'bg-emerald-500 border-emerald-400 text-slate-950'
-                        : 'border-slate-600 bg-slate-800'
-                    }`}
-                  >
-                    {item.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                  </div>
-                  <div className="flex-1 text-xs leading-snug">
-                    <span className={item.completed ? 'line-through opacity-80' : 'font-medium'}>
-                      {item.title}
-                    </span>
-                    <div className="text-[10px] text-slate-400 mt-0.5">
-                      Est: {item.estimatedHours}h • Type: {item.type}
+            {blockSyllabusItems.map((item) => {
+              const matchedFocusStr = block.focusItems.find(f => cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim())) || block.focusItems[0] || '';
+              const sessionHours = parseFocusItemHours(matchedFocusStr, item.estimatedHours);
+              const isSplit = sessionHours > 0 && sessionHours !== item.estimatedHours;
+
+              return (
+                <div
+                  key={item.id}
+                  className={`p-3 rounded-xl border transition-all ${
+                    block.completed || item.completed
+                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
+                      : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
+                  }`}
+                >
+                  {/* Main Class Checkbox */}
+                  <div className="flex items-start space-x-3 cursor-pointer" onClick={() => onToggleItem(item.id)}>
+                    <div
+                      className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
+                        item.completed || block.completed
+                          ? 'bg-emerald-500 border-emerald-400 text-slate-950'
+                          : 'border-slate-600 bg-slate-800'
+                      }`}
+                    >
+                      {(item.completed || block.completed) && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                    </div>
+                    <div className="flex-1 text-xs leading-snug">
+                      <span className={item.completed || block.completed ? 'line-through opacity-80' : 'font-medium'}>
+                        {item.title}
+                      </span>
+                      <div className="text-[10px] text-slate-400 mt-0.5">
+                        Session Est: <strong className="text-slate-300">{sessionHours}h</strong>
+                        {isSplit && <span> (Class Total: {item.estimatedHours}h)</span>} • Type: {item.type}
+                      </div>
                     </div>
                   </div>
-                </div>
 
                 {/* Sub-Components Pills for Class Items */}
                 {item.type === 'Class' && (
@@ -172,7 +178,8 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                   </div>
                 )}
               </div>
-            ))}
+            );
+            })}
           </div>
         ) : (
           <div className="space-y-1.5">

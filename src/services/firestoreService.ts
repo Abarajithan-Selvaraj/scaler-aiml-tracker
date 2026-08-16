@@ -1,5 +1,5 @@
 import { 
-  doc, getDoc, getDocs, collection, updateDoc, writeBatch 
+  doc, getDoc, getDocs, collection, updateDoc, writeBatch, onSnapshot
 } from 'firebase/firestore';
 import { db, auth } from './firebase';
 import { DataService, Module, ScheduleBlock, SyllabusItem, Settings, SeedData } from '../types/tracker';
@@ -180,6 +180,96 @@ export class FirestoreDataService implements DataService {
     const uid = this.getUserUid();
     await this.seedInitialData(uid);
   }
+
+  subscribeToRealtime(
+    onData: (data: {
+      modules: Module[];
+      syllabusItems: SyllabusItem[];
+      scheduleBlocks: ScheduleBlock[];
+      settings: Settings;
+    }) => void,
+    onError?: (err: Error) => void
+  ): () => void {
+    const uid = auth.currentUser?.uid;
+    if (!uid) return () => {};
+
+    let modules: Module[] = [];
+    let syllabusItems: SyllabusItem[] = [];
+    let scheduleBlocks: ScheduleBlock[] = [];
+    let settings: Settings | null = null;
+
+    let hasModules = false;
+    let hasSyllabus = false;
+    let hasBlocks = false;
+    let hasSettings = false;
+
+    const checkAndEmit = () => {
+      if (hasModules && hasSyllabus && hasBlocks && hasSettings && settings) {
+        onData({
+          modules: [...modules].sort((a, b) => a.moduleNumber - b.moduleNumber),
+          syllabusItems: [...syllabusItems].sort((a, b) => a.sequence - b.sequence),
+          scheduleBlocks: [...scheduleBlocks].sort((a, b) => a.id.localeCompare(b.id)),
+          settings,
+        });
+      }
+    };
+
+    const unsubModules = onSnapshot(
+      collection(db, 'users', uid, 'modules'),
+      (snap) => {
+        const list: Module[] = [];
+        snap.forEach((d) => list.push(d.data() as Module));
+        modules = list;
+        hasModules = true;
+        checkAndEmit();
+      },
+      (err) => onError?.(err)
+    );
+
+    const unsubSyllabus = onSnapshot(
+      collection(db, 'users', uid, 'syllabusItems'),
+      (snap) => {
+        const list: SyllabusItem[] = [];
+        snap.forEach((d) => list.push(d.data() as SyllabusItem));
+        syllabusItems = list;
+        hasSyllabus = true;
+        checkAndEmit();
+      },
+      (err) => onError?.(err)
+    );
+
+    const unsubBlocks = onSnapshot(
+      collection(db, 'users', uid, 'scheduleBlocks'),
+      (snap) => {
+        const list: ScheduleBlock[] = [];
+        snap.forEach((d) => list.push(d.data() as ScheduleBlock));
+        scheduleBlocks = list;
+        hasBlocks = true;
+        checkAndEmit();
+      },
+      (err) => onError?.(err)
+    );
+
+    const unsubSettings = onSnapshot(
+      doc(db, 'users', uid, 'settings', 'main'),
+      (snap) => {
+        if (snap.exists()) {
+          settings = snap.data() as Settings;
+        }
+        hasSettings = true;
+        checkAndEmit();
+      },
+      (err) => onError?.(err)
+    );
+
+    return () => {
+      unsubModules();
+      unsubSyllabus();
+      unsubBlocks();
+      unsubSettings();
+    };
+  }
 }
+
 
 export const firestoreService = new FirestoreDataService();

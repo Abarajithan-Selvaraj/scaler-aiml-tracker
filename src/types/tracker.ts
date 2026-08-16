@@ -105,4 +105,13 @@ export interface DataService {
   updateSettings(patch: Partial<Settings>): Promise<void>;
   resetData(): Promise<void>;
   importAll?(json: string): Promise<void>;
+  subscribeToRealtime?(
+    onData: (data: {
+      modules: Module[];
+      syllabusItems: SyllabusItem[];
+      scheduleBlocks: ScheduleBlock[];
+      settings: Settings;
+    }) => void,
+    onError?: (err: Error) => void
+  ): () => void;
 }

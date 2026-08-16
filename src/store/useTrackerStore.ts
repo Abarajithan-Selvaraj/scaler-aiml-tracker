@@ -89,8 +89,50 @@ interface TrackerState {
   exportData: () => Promise<string>;
   importData: (json: string) => Promise<void>;
   resetToSeed: () => Promise<void>;
+  reassignScheduleBlockDate: (blockId: string, newDateIso: string) => Promise<void>;
   getMetrics: () => TrackerMetrics | null;
 }
+
+let realtimeUnsubscribe: (() => void) | null = null;
+
+const getInitialEffectiveDate = (settings: Settings | null): string => {
+  if (settings?.simulatedDate) {
+    return settings.simulatedDate;
+  }
+  const todayIso = new Date().toISOString().split('T')[0];
+  const courseStart = settings?.courseStartDate || '2026-08-01';
+  return todayIso < courseStart ? courseStart : todayIso;
+};
+
+const setupRealtimeSubscription = (set: any, get: any) => {
+  if (realtimeUnsubscribe) {
+    realtimeUnsubscribe();
+    realtimeUnsubscribe = null;
+  }
+
+  const { activeBackend } = get();
+  if (activeBackend !== 'firestore') return;
+
+  realtimeUnsubscribe = firestoreService.subscribeToRealtime(
+    (data) => {
+      if (data.modules.length === 0 || data.scheduleBlocks.length === 0) return;
+      const syllabusItems = data.syllabusItems.map(normalizeSyllabusItem);
+      const effectiveDate = getInitialEffectiveDate(data.settings);
+
+      set({
+        modules: data.modules,
+        syllabusItems,
+        scheduleBlocks: data.scheduleBlocks,
+        settings: data.settings,
+        currentDateStr: effectiveDate,
+        isLoading: false,
+      });
+    },
+    (err) => {
+      console.warn('Realtime subscription error:', err);
+    }
+  );
+};
 
 export const useTrackerStore = create<TrackerState>((set, get) => ({
   modules: [],
@@ -109,24 +151,16 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       return () => {};
     }
 
-    // Firebase always fires onAuthStateChanged once immediately with the
-    // restored auth state (signed-in user OR null).  We wait for that single
-    // first callback before loading any data so we pick the right backend
-    // without a race between IndexedDB loading and Firestore restoring the
-    // session.  Subsequent callbacks (sign-in / sign-out at runtime) reload
-    // data to switch backends live.
     let authResolved = false;
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       const nextBackend = user ? 'firestore' : 'indexeddb';
 
       if (!authResolved) {
-        // First callback: set correct backend then load once.
         authResolved = true;
         set({ activeBackend: nextBackend });
         await get().loadData();
       } else {
-        // Subsequent callbacks: user signed in or out at runtime.
         const prevBackend = get().activeBackend;
         if (nextBackend !== prevBackend) {
           set({ activeBackend: nextBackend });
@@ -135,7 +169,13 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       }
     });
 
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+      if (realtimeUnsubscribe) {
+        realtimeUnsubscribe();
+        realtimeUnsubscribe = null;
+      }
+    };
   },
 
   syncLocalToCloud: async () => {
@@ -210,8 +250,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       }
 
       const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
-      const courseStart = settings?.courseStartDate || '2026-08-01';
-      const effectiveDate = settings?.simulatedDate || courseStart;
+      const effectiveDate = getInitialEffectiveDate(settings);
 
       set({
         modules,
@@ -221,6 +260,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         currentDateStr: effectiveDate,
         isLoading: false,
       });
+      setupRealtimeSubscription(set, get);
     } catch (err: any) {
       console.warn('Failed to load data from active backend, falling back to IndexedDB:', err);
       try {
@@ -233,8 +273,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         ]);
 
         const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
-        const courseStart = settings?.courseStartDate || '2026-08-01';
-        const effectiveDate = settings?.simulatedDate || courseStart;
+        const effectiveDate = getInitialEffectiveDate(settings);
 
         set({
           modules,
@@ -246,6 +285,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
           isLoading: false,
           error: null,
         });
+        setupRealtimeSubscription(set, get);
       } catch (fallbackErr: any) {
         set({ error: fallbackErr?.message || 'Failed to load tracker data', isLoading: false });
       }
@@ -296,10 +336,17 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     const updatedBlocks = [...scheduleBlocks];
     for (const block of updatedBlocks) {
       if (block.itemIds?.includes(itemId)) {
-        const blockItems = updatedSyllabusItems.filter(i => block.itemIds?.includes(i.id));
-        const blockFullyDone = blockItems.length > 0 && blockItems.every(i => i.completed);
-        block.completed = blockFullyDone;
-        await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
+        if (!newCompleted) {
+          block.completed = false;
+          await dataService.updateScheduleBlock(block.id, { completed: false });
+        } else {
+          const blockItems = updatedSyllabusItems.filter(i => block.itemIds?.includes(i.id));
+          const blockFullyDone = blockItems.length > 0 && blockItems.every(i => i.completed);
+          if (block.completed !== blockFullyDone) {
+            block.completed = blockFullyDone;
+            await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
+          }
+        }
       }
     }
 
@@ -357,10 +404,17 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     const updatedBlocks = [...scheduleBlocks];
     for (const block of updatedBlocks) {
       if (block.itemIds?.includes(itemId)) {
-        const blockItems = updatedSyllabusItems.filter((i) => block.itemIds?.includes(i.id));
-        const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
-        block.completed = blockFullyDone;
-        await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
+        if (!autoCompleted) {
+          block.completed = false;
+          await dataService.updateScheduleBlock(block.id, { completed: false });
+        } else {
+          const blockItems = updatedSyllabusItems.filter((i) => block.itemIds?.includes(i.id));
+          const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
+          if (block.completed !== blockFullyDone) {
+            block.completed = blockFullyDone;
+            await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
+          }
+        }
       }
     }
 
@@ -372,12 +426,66 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   },
 
   updateBlockLog: async (blockId, patch) => {
-    const { scheduleBlocks, activeBackend } = get();
+    const { scheduleBlocks, syllabusItems, modules, activeBackend } = get();
     const dataService = getDataService(activeBackend);
     await dataService.updateScheduleBlock(blockId, patch);
 
     const updatedBlocks = scheduleBlocks.map(b =>
       b.id === blockId ? { ...b, ...patch } : b
+    );
+
+    const targetBlock = updatedBlocks.find(b => b.id === blockId);
+    let updatedSyllabusItems = [...syllabusItems];
+    let updatedModules = [...modules];
+
+    if (targetBlock && targetBlock.itemIds && targetBlock.itemIds.length > 0 && patch.completed !== undefined) {
+      for (const itemId of targetBlock.itemIds) {
+        const itemBlocks = updatedBlocks.filter(b => b.itemIds?.includes(itemId));
+        const allBlocksDone = itemBlocks.length > 0 && itemBlocks.every(b => b.completed);
+        const item = updatedSyllabusItems.find(i => i.id === itemId);
+
+        if (item && item.completed !== allBlocksDone) {
+          const itemPatch: Partial<SyllabusItem> = { completed: allBlocksDone };
+          if (item.type === 'Class' && allBlocksDone) {
+            itemPatch.videoCompleted = true;
+            itemPatch.assignmentCompleted = true;
+            itemPatch.additionalProblemsCompleted = true;
+          }
+          await dataService.updateSyllabusItem(itemId, itemPatch);
+
+          updatedSyllabusItems = updatedSyllabusItems.map(i =>
+            i.id === itemId ? { ...i, ...itemPatch } : i
+          );
+
+          // Update parent module status
+          const moduleItems = updatedSyllabusItems.filter(i => i.moduleId === item.moduleId);
+          const moduleCompletedCount = moduleItems.filter(i => i.completed).length;
+          const moduleStatus: 'not_started' | 'in_progress' | 'completed' =
+            moduleCompletedCount === moduleItems.length
+              ? 'completed'
+              : moduleCompletedCount > 0
+              ? 'in_progress'
+              : 'not_started';
+
+          await dataService.updateModule(item.moduleId, { status: moduleStatus });
+
+          updatedModules = updatedModules.map(m =>
+            m.id === item.moduleId ? { ...m, status: moduleStatus } : m
+          );
+        }
+      }
+    }
+
+    set({ scheduleBlocks: updatedBlocks, syllabusItems: updatedSyllabusItems, modules: updatedModules });
+  },
+
+  reassignScheduleBlockDate: async (blockId, newDateIso) => {
+    const { scheduleBlocks, activeBackend } = get();
+    const dataService = getDataService(activeBackend);
+    await dataService.updateScheduleBlock(blockId, { date: newDateIso });
+
+    const updatedBlocks = scheduleBlocks.map(b =>
+      b.id === blockId ? { ...b, date: newDateIso } : b
     );
 
     set({ scheduleBlocks: updatedBlocks });

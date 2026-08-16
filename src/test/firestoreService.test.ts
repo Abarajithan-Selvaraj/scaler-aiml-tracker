@@ -112,6 +112,20 @@ vi.mock('firebase/firestore', () => ({
   }),
   updateDoc: updateDocMock,
   writeBatch: writeBatchMock,
+  onSnapshot: vi.fn((ref: any, callback: Function) => {
+    const path = ref._path;
+    if (path) {
+      const [, uid, col, maybeSub, id] = path;
+      if (col === 'settings' && maybeSub === 'main') {
+        const data = getCollection(uid, 'settings')['main'];
+        callback({ exists: () => Boolean(data), data: () => data });
+      } else {
+        const docs = Object.values(getCollection(uid, col));
+        callback(makeQuerySnapshot(docs));
+      }
+    }
+    return vi.fn();
+  }),
 }));
 
 vi.mock('../data/seed_data.json', () => ({
@@ -450,3 +464,39 @@ describe('FirestoreDataService — resetData()', () => {
     await expect(new FirestoreDataService().resetData()).rejects.toThrow();
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+describe('FirestoreDataService — subscribeToRealtime()', () => {
+  beforeEach(() => {
+    mockAuth.currentUser = { uid: 'test-uid-123' };
+    seedStore('test-uid-123');
+    vi.clearAllMocks();
+  });
+
+  it('subscribes to collections and emits combined data', () => {
+    const onData = vi.fn();
+    const service = new FirestoreDataService();
+    const unsub = service.subscribeToRealtime(onData);
+
+    expect(onData).toHaveBeenCalledWith({
+      modules: [baseModule],
+      syllabusItems: [baseItem],
+      scheduleBlocks: [baseBlock],
+      settings: baseSettings,
+    });
+    expect(typeof unsub).toBe('function');
+    unsub();
+  });
+
+  it('returns noop cleanup when user is unauthenticated', () => {
+    mockAuth.currentUser = null;
+    const onData = vi.fn();
+    const service = new FirestoreDataService();
+    const unsub = service.subscribeToRealtime(onData);
+
+    expect(onData).not.toHaveBeenCalled();
+    expect(typeof unsub).toBe('function');
+    unsub();
+  });
+});
+

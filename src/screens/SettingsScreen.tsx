@@ -135,6 +135,66 @@ export const SettingsScreen: React.FC = () => {
         </p>
       </div>
 
+      {/* Course Start & Target Deadline Configuration (Authenticated) */}
+      <div className="glass-panel rounded-2xl p-5 space-y-4">
+        <div className="flex items-center space-x-2 text-xs font-bold text-slate-200 uppercase tracking-wider">
+          <Calendar className="w-4 h-4 text-indigo-400" />
+          <span>Course Start & Target Finish Date Configuration</span>
+        </div>
+        <p className="text-xs text-slate-400 leading-relaxed">
+          Configure official course start date and target completion deadline. Authentication is required to update cloud settings.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          <div>
+            <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+              Course Start Date
+            </label>
+            <input
+              type="date"
+              value={settings?.courseStartDate || '2026-08-01'}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (!auth.currentUser) {
+                  setAuthError('Authentication required: Sign in with Google to edit official course dates.');
+                  return;
+                }
+                setAuthError(null);
+                updateSettingsData({ courseStartDate: val });
+              }}
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-indigo-300 font-mono focus:outline-none focus:border-indigo-500"
+            />
+          </div>
+
+          <div>
+            <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+              Target Completion Deadline
+            </label>
+            <input
+              type="date"
+              value={settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18'}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (!auth.currentUser) {
+                  setAuthError('Authentication required: Sign in with Google to edit official course dates.');
+                  return;
+                }
+                setAuthError(null);
+                updateSettingsData({ chosenPaceFinish: val, targetDeadline: val });
+              }}
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-indigo-300 font-mono focus:outline-none focus:border-indigo-500"
+            />
+          </div>
+        </div>
+
+        {!user && (
+          <div className="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl flex items-center space-x-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            <span>Sign in with Google below to unlock persistent course date editing.</span>
+          </div>
+        )}
+      </div>
+
       {/* Date Simulation & Testing Widget */}
       <div className="glass-panel rounded-2xl p-5 space-y-3">
         <div className="flex items-center space-x-2 text-xs font-bold text-slate-200 uppercase tracking-wider">

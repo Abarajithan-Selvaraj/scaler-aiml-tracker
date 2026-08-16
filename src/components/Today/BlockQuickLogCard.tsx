@@ -205,23 +205,23 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
       </div>
 
       {/* Auto-Calculated Actual Hours Logged Pill */}
-      <div className="pt-2 border-t border-slate-800/80">
-        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-slate-800/90 shadow-sm">
+      <div className="pt-2 border-t border-slate-200 dark:border-slate-800/80">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 shadow-sm">
           <div className="flex items-center space-x-2.5">
             <div
               className={`p-2 rounded-lg ${
                 calculatedActualHours > 0
-                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
-                  : 'bg-slate-800 text-slate-400 border border-slate-700'
+                  ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30'
+                  : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700'
               }`}
             >
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-200">
+              <div className="text-xs font-bold text-slate-900 dark:text-slate-200">
                 Actual Hours Logged
               </div>
-              <div className="text-[10px] text-slate-400">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">
                 Auto-appended from session progress ({block.targetHours}h target)
               </div>
             </div>
@@ -230,11 +230,11 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
           <div className="text-right">
             <span
               className={`text-base font-bold font-mono ${
-                calculatedActualHours > 0 ? 'text-indigo-300' : 'text-slate-400'
+                calculatedActualHours > 0 ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'
               }`}
             >
               {calculatedActualHours.toFixed(2)}{' '}
-              <span className="text-xs font-sans font-normal text-slate-400">hrs</span>
+              <span className="text-xs font-sans font-normal text-slate-500 dark:text-slate-400">hrs</span>
             </span>
           </div>
         </div>

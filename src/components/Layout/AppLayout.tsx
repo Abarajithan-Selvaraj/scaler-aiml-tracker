@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useTrackerStore } from '../../store/useTrackerStore';
 import { BottomNav } from './BottomNav';
-import { Sparkles, Calendar, Settings as SettingsIcon, Database, Sun, Moon } from 'lucide-react';
+import { Sparkles, Calendar, Settings as SettingsIcon, Database } from 'lucide-react';
 
 export const AppLayout: React.FC = () => {
-  const { loadData, setupAuthListener, isLoading, currentDateStr, settings, activeBackend, theme, toggleTheme } = useTrackerStore();
+  const { loadData, setupAuthListener, isLoading, currentDateStr, settings, activeBackend } = useTrackerStore();
 
   useEffect(() => {
     const unsubscribe = setupAuthListener();
@@ -26,117 +26,101 @@ export const AppLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col transition-colors duration-200">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Desktop & Mobile Header */}
-      <header className="sticky top-0 z-40 glass-panel border-b px-4 py-3">
+      <header className="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <div className="min-w-0">
-              <h1 className="text-sm sm:text-base font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-600 dark:from-white dark:via-slate-100 dark:to-indigo-200 bg-clip-text text-transparent truncate">
+              <h1 className="text-sm sm:text-base font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent truncate">
                 Scaler AI/ML Tracker
               </h1>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-500 dark:text-slate-400">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-400">
                 <span className="flex items-center font-mono">
-                  <Calendar className="w-3 h-3 mr-1 text-indigo-500 dark:text-indigo-400 shrink-0" />
+                  <Calendar className="w-3 h-3 mr-1 text-indigo-400 shrink-0" />
                   {currentDateStr}
                   {settings?.simulatedDate && (
-                    <span className="ml-1 text-[9px] bg-amber-500/20 text-amber-600 dark:text-amber-300 px-1 py-0.2 rounded font-mono">
+                    <span className="ml-1 text-[9px] bg-amber-500/20 text-amber-300 px-1 py-0.2 rounded font-mono">
                       Sim
                     </span>
                   )}
                 </span>
-                <span className="hidden sm:inline text-slate-400 dark:text-slate-600">•</span>
-                <span className="flex items-center text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400">
-                  <Database className="w-3 h-3 mr-1 text-indigo-500 dark:text-indigo-400 shrink-0" />
+                <span className="hidden sm:inline text-slate-600">•</span>
+                <span className="flex items-center text-[10px] sm:text-[11px] text-slate-400">
+                  <Database className="w-3 h-3 mr-1 text-indigo-400 shrink-0" />
                   {activeBackend === 'firestore' ? 'Cloud Sync' : 'Offline'}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center space-x-1.5 sm:space-x-2">
-            {/* Theme Toggle Button (Mobile & Desktop) */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="p-2 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all cursor-pointer shadow-sm"
-              title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+          {/* Desktop Nav Items */}
+          <nav className="hidden md:flex items-center space-x-1">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-300 hover:bg-slate-800'
+                }`
+              }
             >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400 animate-in fade-in zoom-in-75 duration-200" />
-              ) : (
-                <Moon className="w-4 h-4 text-indigo-600 animate-in fade-in zoom-in-75 duration-200" />
-              )}
-            </button>
-
-            {/* Desktop Nav Items */}
-            <nav className="hidden md:flex items-center space-x-1">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
-                  }`
-                }
-              >
-                Today
-              </NavLink>
-              <NavLink
-                to="/timetable"
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
-                  }`
-                }
-              >
-                Timetable
-              </NavLink>
-              <NavLink
-                to="/modules"
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
-                  }`
-                }
-              >
-                Modules
-              </NavLink>
-              <NavLink
-                to="/syllabus"
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
-                  }`
-                }
-              >
-                Syllabus
-              </NavLink>
-              <NavLink
-                to="/insights"
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'
-                  }`
-                }
-              >
-                Insights
-              </NavLink>
-              <NavLink
-                to="/settings"
-                className={({ isActive }) =>
-                  `p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors ${
-                    isActive ? 'bg-slate-200 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400' : ''
-                  }`
-                }
-                title="Settings"
-              >
-                <SettingsIcon className="w-4 h-4" />
-              </NavLink>
-            </nav>
-          </div>
+              Today
+            </NavLink>
+            <NavLink
+              to="/timetable"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-300 hover:bg-slate-800'
+                }`
+              }
+            >
+              Timetable
+            </NavLink>
+            <NavLink
+              to="/modules"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-300 hover:bg-slate-800'
+                }`
+              }
+            >
+              Modules
+            </NavLink>
+            <NavLink
+              to="/syllabus"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-300 hover:bg-slate-800'
+                }`
+              }
+            >
+              Syllabus
+            </NavLink>
+            <NavLink
+              to="/insights"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  isActive ? 'bg-indigo-600 text-white shadow' : 'text-slate-300 hover:bg-slate-800'
+                }`
+              }
+            >
+              Insights
+            </NavLink>
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                `p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors ${
+                  isActive ? 'bg-slate-800 text-indigo-400' : ''
+                }`
+              }
+              title="Settings"
+            >
+              <SettingsIcon className="w-4 h-4" />
+            </NavLink>
+          </nav>
         </div>
       </header>
 

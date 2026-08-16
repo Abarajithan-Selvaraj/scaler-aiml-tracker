@@ -92,14 +92,11 @@ interface TrackerState {
   error: string | null;
   currentDateStr: string;
   activeBackend: 'indexeddb' | 'firestore';
-  theme: 'dark' | 'light';
 
   // Actions
   loadData: () => Promise<void>;
   setupAuthListener: () => () => void;
   syncLocalToCloud: () => Promise<void>;
-  toggleTheme: () => void;
-  setTheme: (theme: 'dark' | 'light') => void;
   toggleItemCompletion: (itemId: string) => Promise<void>;
   toggleSubComponentCompletion: (
     itemId: string,
@@ -206,29 +203,9 @@ const setupRealtimeSubscription = (set: any, get: any) => {
   );
 };
 
-export function applyTheme(theme: 'dark' | 'light') {
-  if (typeof document !== 'undefined') {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-    }
-  }
+if (typeof document !== 'undefined') {
+  document.documentElement.classList.add('dark');
 }
-
-const getInitialTheme = (): 'dark' | 'light' => {
-  if (typeof localStorage !== 'undefined') {
-    const saved = localStorage.getItem('scaler_tracker_theme');
-    if (saved === 'light' || saved === 'dark') {
-      applyTheme(saved);
-      return saved;
-    }
-  }
-  applyTheme('dark');
-  return 'dark';
-};
 
 export const useTrackerStore = create<TrackerState>((set, get) => ({
   modules: [],
@@ -240,25 +217,6 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   error: null,
   currentDateStr: new Date().toISOString().split('T')[0],
   activeBackend: 'indexeddb',
-  theme: getInitialTheme(),
-
-  toggleTheme: () => {
-    const current = get().theme;
-    const nextTheme: 'dark' | 'light' = current === 'dark' ? 'light' : 'dark';
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('scaler_tracker_theme', nextTheme);
-    }
-    applyTheme(nextTheme);
-    set({ theme: nextTheme });
-  },
-
-  setTheme: (nextTheme: 'dark' | 'light') => {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('scaler_tracker_theme', nextTheme);
-    }
-    applyTheme(nextTheme);
-    set({ theme: nextTheme });
-  },
 
   setupAuthListener: () => {
     if (!isFirebaseConfigured() || !auth) {

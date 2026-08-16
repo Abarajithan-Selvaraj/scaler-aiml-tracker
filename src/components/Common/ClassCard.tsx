@@ -185,18 +185,18 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                 }}
                 className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.videoCompleted
-                    ? 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 border-indigo-300 dark:border-indigo-500/40 shadow-sm'
-                    : 'bg-slate-100 dark:bg-slate-900/90 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-slate-200'
+                    ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm shadow-indigo-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
                 <div
                   className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
                     item.videoCompleted
-                      ? 'bg-indigo-600 dark:bg-indigo-500 border-indigo-400 text-white dark:text-slate-950'
-                      : 'border-slate-400 dark:border-slate-600 bg-white dark:bg-slate-800'
+                      ? 'bg-indigo-500 border-indigo-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
                   }`}
                 >
-                  {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-600 dark:text-indigo-400" />}
+                  {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
                 </div>
                 <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
                   Recording
@@ -213,18 +213,18 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                   }}
                   className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer group/chip ${
                     item.assignmentCompleted
-                      ? 'bg-purple-100 dark:bg-purple-500/20 text-purple-800 dark:text-purple-300 border-purple-300 dark:border-purple-500/40 shadow-sm hover:bg-purple-200 dark:hover:bg-purple-500/30'
-                      : 'bg-slate-100 dark:bg-slate-900/90 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-slate-200'
+                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10 hover:bg-purple-500/30'
+                      : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                   }`}
                 >
                   <div
                     className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
                       item.assignmentCompleted
-                        ? 'bg-purple-600 dark:bg-purple-500 border-purple-400 text-white dark:text-slate-950'
-                        : 'border-slate-400 dark:border-slate-600 bg-white dark:bg-slate-800'
+                        ? 'bg-purple-500 border-purple-400 text-slate-950'
+                        : 'border-slate-600 bg-slate-800'
                     }`}
                   >
-                    {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-600 dark:text-purple-400" />}
+                    {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
                   </div>
                   <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
                     Assignments
@@ -237,7 +237,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                         e.stopPropagation();
                         onRemoveSubComponent(item.id, 'assignment');
                       }}
-                      className="ml-1 p-0.5 rounded-full hover:bg-rose-500/20 dark:hover:bg-rose-500/30 text-slate-400 hover:text-rose-600 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer"
+                      className="ml-1 p-0.5 rounded-full hover:bg-rose-500/30 text-slate-400 hover:text-rose-300 transition-colors shrink-0 cursor-pointer"
                       title="Remove Assignments (adds 20% weight to Recording)"
                     >
                       <X className="w-3 h-3" />
@@ -256,18 +256,18 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                   }}
                   className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer group/chip ${
                     item.additionalProblemsCompleted
-                      ? 'bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 border-amber-300 dark:border-amber-500/40 shadow-sm hover:bg-amber-200 dark:hover:bg-amber-500/30'
-                      : 'bg-slate-100 dark:bg-slate-900/90 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-slate-200'
+                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10 hover:bg-amber-500/30'
+                      : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                   }`}
                 >
                   <div
                     className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
                       item.additionalProblemsCompleted
-                        ? 'bg-amber-600 dark:bg-amber-500 border-amber-400 text-white dark:text-slate-950'
-                        : 'border-slate-400 dark:border-slate-600 bg-white dark:bg-slate-800'
+                        ? 'bg-amber-500 border-amber-400 text-slate-950'
+                        : 'border-slate-600 bg-slate-800'
                     }`}
                   >
-                    {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-600 dark:text-amber-400" />}
+                    {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
                   </div>
                   <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
                     Homeworks
@@ -280,7 +280,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                         e.stopPropagation();
                         onRemoveSubComponent(item.id, 'additional');
                       }}
-                      className="ml-1 p-0.5 rounded-full hover:bg-rose-500/20 dark:hover:bg-rose-500/30 text-slate-400 hover:text-rose-600 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer"
+                      className="ml-1 p-0.5 rounded-full hover:bg-rose-500/30 text-slate-400 hover:text-rose-300 transition-colors shrink-0 cursor-pointer"
                       title="Remove Homeworks (adds 10% weight to Recording)"
                     >
                       <X className="w-3 h-3" />
@@ -298,15 +298,15 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                       e.stopPropagation();
                       setShowAddMenu(!showAddMenu);
                     }}
-                    className="flex items-center space-x-1 px-2.5 py-1 rounded-full border border-dashed border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 text-[11px] font-medium transition-all cursor-pointer bg-slate-100 dark:bg-slate-900/50 shadow-sm"
+                    className="flex items-center space-x-1 px-2.5 py-1 rounded-full border border-dashed border-slate-700 text-slate-400 hover:text-slate-200 hover:border-slate-500 text-[11px] font-medium transition-all cursor-pointer bg-slate-900/50"
                     title="Restore deleted sub-component chips"
                   >
-                    <Plus className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                    <Plus className="w-3 h-3 text-indigo-400" />
                     <span>Add</span>
                   </button>
 
                   {showAddMenu && (
-                    <div className="absolute left-0 top-full mt-1.5 z-50 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-1.5 shadow-2xl flex flex-col space-y-1 min-w-[160px]">
+                    <div className="absolute left-0 top-full mt-1.5 z-50 bg-slate-900 border border-slate-700 rounded-xl p-1.5 shadow-2xl flex flex-col space-y-1 min-w-[160px]">
                       {item.hasAssignment === false && (
                         <button
                           type="button"
@@ -315,9 +315,9 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                             onRestoreSubComponent(item.id, 'assignment');
                             setShowAddMenu(false);
                           }}
-                          className="flex items-center space-x-2 px-2.5 py-1.5 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 text-[11px] font-medium text-left cursor-pointer transition-colors"
+                          className="flex items-center space-x-2 px-2.5 py-1.5 rounded-lg hover:bg-purple-500/20 text-purple-300 text-[11px] font-medium text-left cursor-pointer transition-colors"
                         >
-                          <FileCode className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+                          <FileCode className="w-3 h-3 text-purple-400" />
                           <span>+ Assignments (20%)</span>
                         </button>
                       )}
@@ -329,9 +329,9 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                             onRestoreSubComponent(item.id, 'additional');
                             setShowAddMenu(false);
                           }}
-                          className="flex items-center space-x-2 px-2.5 py-1.5 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-[11px] font-medium text-left cursor-pointer transition-colors"
+                          className="flex items-center space-x-2 px-2.5 py-1.5 rounded-lg hover:bg-amber-500/20 text-amber-300 text-[11px] font-medium text-left cursor-pointer transition-colors"
                         >
-                          <HelpCircle className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                          <HelpCircle className="w-3 h-3 text-amber-400" />
                           <span>+ Homeworks (10%)</span>
                         </button>
                       )}

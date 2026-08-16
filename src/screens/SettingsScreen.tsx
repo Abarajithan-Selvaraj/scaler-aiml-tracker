@@ -52,10 +52,6 @@ export const SettingsScreen: React.FC = () => {
   }, [settings]);
 
   const handleApplyDateChanges = async () => {
-    if (!auth.currentUser) {
-      setAuthError('Authentication required: You must be signed in with Google to confirm official schedule date edits.');
-      return;
-    }
     setAuthError(null);
     await updateSettingsData({
       courseStartDate: pendingStartDate,
@@ -204,10 +200,6 @@ export const SettingsScreen: React.FC = () => {
           <button
             type="button"
             onClick={() => {
-              if (!auth.currentUser) {
-                setAuthError('Authentication required: Sign in with Google below to modify official course dates.');
-                return;
-              }
               setAuthError(null);
               setShowDateConfirmModal(true);
             }}
@@ -219,17 +211,10 @@ export const SettingsScreen: React.FC = () => {
 
           {dateChangeSuccess && (
             <span className="text-xs font-semibold text-emerald-400 flex items-center">
-              <Check className="w-4 h-4 mr-1" /> Dates Updated Successfully!
+              <Check className="w-4 h-4 mr-1" /> Dates Updated & Schedule Shifted!
             </span>
           )}
         </div>
-
-        {!user && (
-          <div className="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl flex items-center space-x-2">
-            <AlertTriangle className="w-4 h-4 shrink-0" />
-            <span>Sign in with Google below to unlock persistent course date editing.</span>
-          </div>
-        )}
       </div>
 
       {/* Date Simulation & Testing Widget */}

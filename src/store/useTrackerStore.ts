@@ -135,7 +135,8 @@ const setupRealtimeSubscription = (set: any, get: any) => {
     (data) => {
       if (data.modules.length === 0 || data.scheduleBlocks.length === 0) return;
       const syllabusItems = data.syllabusItems.map(normalizeSyllabusItem);
-      const effectiveDate = getInitialEffectiveDate(data.settings);
+      const currentSelectedDate = get().currentDateStr;
+      const effectiveDate = currentSelectedDate || getInitialEffectiveDate(data.settings);
 
       set({
         modules: data.modules,
@@ -270,7 +271,8 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
 
       const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
       const scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
-      const effectiveDate = getInitialEffectiveDate(settings);
+      const currentSelectedDate = get().currentDateStr;
+      const effectiveDate = currentSelectedDate || getInitialEffectiveDate(settings);
 
       set({
         modules,
@@ -294,7 +296,8 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
 
         const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
         const scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
-        const effectiveDate = getInitialEffectiveDate(settings);
+        const currentSelectedDate = get().currentDateStr;
+        const effectiveDate = currentSelectedDate || getInitialEffectiveDate(settings);
 
         set({
           modules,

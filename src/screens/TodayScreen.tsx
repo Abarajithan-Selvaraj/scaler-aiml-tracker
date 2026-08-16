@@ -25,25 +25,17 @@ export const TodayScreen: React.FC = () => {
   const minDateStr = settings?.courseStartDate || '2026-08-01';
   const maxDateStr = metrics?.projectedFinishDate || settings?.chosenPaceFinish || '2027-02-18';
 
-  // Find blocks for current date
-  const todayBlocks = scheduleBlocks.filter((b) => b.date === currentDateStr);
-
-  // If outside plan range, fallback to first date in schedule
-  const isOutsideRange = todayBlocks.length === 0;
-  const displayBlocks = isOutsideRange && scheduleBlocks.length > 0
-    ? scheduleBlocks.filter((b) => b.date === scheduleBlocks[0].date)
-    : todayBlocks;
-
-  const displayDateStr = isOutsideRange && scheduleBlocks.length > 0
-    ? scheduleBlocks[0].date
-    : currentDateStr;
+  // Find blocks for active selected date
+  const displayBlocks = scheduleBlocks.filter((b) => b.date === currentDateStr);
+  const displayDateStr = currentDateStr;
 
   const navigateDate = (offsetDays: number) => {
-    const d = new Date(currentDateStr);
-    d.setDate(d.getDate() + offsetDays);
-    const newIso = d.toISOString().split('T')[0];
+    const [y, m, d] = currentDateStr.split('-').map(Number);
+    const dateObj = new Date(Date.UTC(y, m - 1, d));
+    dateObj.setUTCDate(dateObj.getUTCDate() + offsetDays);
+    const newIso = dateObj.toISOString().split('T')[0];
 
-    // Enforce date bounds: minDate (2026-08-01) <= date <= maxDate
+    // Enforce date bounds: minDate <= date <= maxDate
     if (newIso < minDateStr) {
       setCurrentDateStr(minDateStr);
     } else if (newIso > maxDateStr) {
@@ -142,10 +134,10 @@ export const TodayScreen: React.FC = () => {
       {/* Quick Stats Widget */}
       {metrics && <QuickStatsWidget metrics={metrics} />}
 
-      {/* Outside Range Notice */}
-      {isOutsideRange && (
-        <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-200">
-          Showing reference blocks for course start date (<strong className="text-white">{displayDateStr}</strong>). Use date controls or settings to test specific dates.
+      {/* Empty / Rest Day Notice */}
+      {displayBlocks.length === 0 && (
+        <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/80 text-xs text-slate-400">
+          No scheduled class blocks for <strong className="text-white">{displayDateStr}</strong> (Rest Day / Buffer Day). Use date controls or Timetable to view other dates.
         </div>
       )}
 

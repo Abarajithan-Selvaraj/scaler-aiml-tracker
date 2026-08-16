@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SyllabusItem, ScheduleBlock } from '../../types/tracker';
-import { CheckCircle, Video, FileCode, HelpCircle, Check, GripVertical, ChevronUp, ChevronDown, X } from 'lucide-react';
+import { CheckCircle, Video, FileCode, HelpCircle, Check, GripVertical, ChevronUp, ChevronDown, X, Plus } from 'lucide-react';
 import { getClassHoursCoverage } from '../../utils/seedMigration';
 
 export interface ClassCardProps {
@@ -15,6 +15,7 @@ export interface ClassCardProps {
   onToggleBlock?: () => void;
   onToggleSubComponent?: (itemId: string, subComponent: 'video' | 'assignment' | 'additional') => void;
   onRemoveSubComponent?: (itemId: string, subComponent: 'assignment' | 'additional') => void;
+  onRestoreSubComponent?: (itemId: string, subComponent: 'assignment' | 'additional') => void;
   showDragHandle?: boolean;
   onDragStart?: (e: React.DragEvent, index: number) => void;
   onDragOver?: (e: React.DragEvent, index: number) => void;
@@ -36,6 +37,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
   onToggleBlock,
   onToggleSubComponent,
   onRemoveSubComponent,
+  onRestoreSubComponent,
   showDragHandle = false,
   onDragStart,
   onDragOver,
@@ -44,6 +46,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
   onMoveDown,
   index = 0,
 }) => {
+  const [showAddMenu, setShowAddMenu] = useState(false);
   const coverage = getClassHoursCoverage(item, scheduleBlocks);
   const isFullyCompleted =
     Boolean(item.completed) ||
@@ -282,6 +285,57 @@ export const ClassCard: React.FC<ClassCardProps> = ({
                     </span>
                   )}
                 </button>
+              )}
+
+              {/* Restore Missing Chips Dropdown */}
+              {onRestoreSubComponent && (item.hasAssignment === false || item.hasAdditionalProblems === false) && (
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowAddMenu(!showAddMenu);
+                    }}
+                    className="flex items-center space-x-1 px-2 py-1 rounded-full border border-dashed border-slate-700 text-slate-400 hover:text-slate-200 hover:border-slate-500 text-[11px] font-medium transition-all cursor-pointer bg-slate-900/50"
+                    title="Restore deleted sub-component chips"
+                  >
+                    <Plus className="w-3 h-3 text-indigo-400" />
+                    <span>Add</span>
+                  </button>
+
+                  {showAddMenu && (
+                    <div className="absolute left-0 top-full mt-1 z-30 bg-slate-900 border border-slate-700 rounded-xl p-1.5 shadow-xl flex flex-col space-y-1 min-w-[150px]">
+                      {item.hasAssignment === false && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRestoreSubComponent(item.id, 'assignment');
+                            setShowAddMenu(false);
+                          }}
+                          className="flex items-center space-x-2 px-2.5 py-1.5 rounded-lg hover:bg-purple-500/20 text-purple-300 text-[11px] font-medium text-left cursor-pointer transition-colors"
+                        >
+                          <FileCode className="w-3 h-3 text-purple-400" />
+                          <span>+ Assignments (20%)</span>
+                        </button>
+                      )}
+                      {item.hasAdditionalProblems === false && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRestoreSubComponent(item.id, 'additional');
+                            setShowAddMenu(false);
+                          }}
+                          className="flex items-center space-x-2 px-2.5 py-1.5 rounded-lg hover:bg-amber-500/20 text-amber-300 text-[11px] font-medium text-left cursor-pointer transition-colors"
+                        >
+                          <HelpCircle className="w-3 h-3 text-amber-400" />
+                          <span>+ Homeworks (10%)</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 

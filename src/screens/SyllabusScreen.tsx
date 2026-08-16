@@ -11,6 +11,7 @@ export const SyllabusScreen: React.FC = () => {
     toggleItemCompletion,
     toggleSubComponentCompletion,
     removeSubComponent,
+    restoreSubComponent,
     reorderSyllabusItems,
     moveSyllabusItem,
   } = useTrackerStore();
@@ -131,6 +132,7 @@ export const SyllabusScreen: React.FC = () => {
               onToggleItem={toggleItemCompletion}
               onToggleSubComponent={toggleSubComponentCompletion}
               onRemoveSubComponent={removeSubComponent}
+              onRestoreSubComponent={restoreSubComponent}
               showDragHandle={true}
               index={idx}
               onDragStart={(e, i) => {

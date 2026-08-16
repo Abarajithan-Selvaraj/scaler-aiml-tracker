@@ -101,4 +101,20 @@ describe('Class Sub-Components Auto-Completion Logic', () => {
     expect(updatedClass.assignmentCompleted).toBe(false);
     expect(updatedClass.additionalProblemsCompleted).toBe(false);
   });
+
+  it('should remove and restore sub-components correctly', async () => {
+    const store = useTrackerStore.getState();
+    const classItem = store.syllabusItems.find((i) => i.type === 'Class')!;
+    expect(classItem).toBeDefined();
+
+    // Remove assignment sub-component
+    await store.removeSubComponent(classItem.id, 'assignment');
+    let itemAfterRemove = useTrackerStore.getState().syllabusItems.find((i) => i.id === classItem.id)!;
+    expect(itemAfterRemove.hasAssignment).toBe(false);
+
+    // Restore assignment sub-component
+    await store.restoreSubComponent(classItem.id, 'assignment');
+    let itemAfterRestore = useTrackerStore.getState().syllabusItems.find((i) => i.id === classItem.id)!;
+    expect(itemAfterRestore.hasAssignment).toBe(true);
+  });
 });

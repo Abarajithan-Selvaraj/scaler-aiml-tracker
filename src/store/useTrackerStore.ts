@@ -106,6 +106,10 @@ interface TrackerState {
     itemId: string,
     subComponent: 'assignment' | 'additional'
   ) => Promise<void>;
+  restoreSubComponent: (
+    itemId: string,
+    subComponent: 'assignment' | 'additional'
+  ) => Promise<void>;
   updateBlockLog: (
     blockId: string,
     patch: { actualHours?: number | null; sleepHours?: number | null; notes?: string; completed?: boolean }
@@ -510,6 +514,71 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     } else if (subComponent === 'additional') {
       patch.hasAdditionalProblems = false;
       patch.additionalProblemsCompleted = false;
+    }
+
+    const updatedItemState = { ...normalizedItem, ...patch };
+    const autoCompleted = isClassItemFullyCompleted(updatedItemState);
+    patch.completed = autoCompleted;
+
+    const dataService = getDataService(activeBackend);
+    await dataService.updateSyllabusItem(itemId, patch);
+
+    const updatedSyllabusItems = syllabusItems.map((i) =>
+      i.id === itemId ? { ...i, ...patch } : i
+    );
+
+    // Update module status
+    const moduleItems = updatedSyllabusItems.filter((i) => i.moduleId === item.moduleId);
+    const moduleCompletedCount = moduleItems.filter((i) => i.completed).length;
+    const moduleStatus: 'not_started' | 'in_progress' | 'completed' =
+      moduleCompletedCount === moduleItems.length
+        ? 'completed'
+        : moduleCompletedCount > 0
+        ? 'in_progress'
+        : 'not_started';
+
+    await dataService.updateModule(item.moduleId, { status: moduleStatus });
+
+    const updatedModules: Module[] = modules.map((m) =>
+      m.id === item.moduleId ? { ...m, status: moduleStatus } : m
+    );
+
+    // Update schedule blocks referencing this item & auto-sync actualHours
+    const updatedBlocks = [...scheduleBlocks];
+    for (const block of updatedBlocks) {
+      if (blockMatchesSyllabusItem(block, item)) {
+        if (!autoCompleted) {
+          block.completed = false;
+        } else {
+          const blockItems = updatedSyllabusItems.filter((i) => blockMatchesSyllabusItem(block, i));
+          const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
+          block.completed = blockFullyDone;
+        }
+        const calcActual = calculateBlockActualHours(block, updatedSyllabusItems, updatedBlocks);
+        block.actualHours = calcActual;
+        await dataService.updateScheduleBlock(block.id, { completed: block.completed, actualHours: calcActual });
+      }
+    }
+
+    set({
+      syllabusItems: updatedSyllabusItems,
+      modules: updatedModules,
+      scheduleBlocks: updatedBlocks,
+    });
+  },
+
+  restoreSubComponent: async (itemId, subComponent) => {
+    const { syllabusItems, modules, scheduleBlocks, activeBackend } = get();
+    const item = syllabusItems.find((i) => i.id === itemId);
+    if (!item || item.type !== 'Class') return;
+
+    const normalizedItem = normalizeSyllabusItem(item);
+    const patch: Partial<SyllabusItem> = {};
+
+    if (subComponent === 'assignment') {
+      patch.hasAssignment = true;
+    } else if (subComponent === 'additional') {
+      patch.hasAdditionalProblems = true;
     }
 
     const updatedItemState = { ...normalizedItem, ...patch };

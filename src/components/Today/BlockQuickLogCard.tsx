@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
-import { Check, Clock, Moon, Plus, Minus, Plane, Shield, CheckCircle } from 'lucide-react';
+import { Clock, Plane, Shield, CheckCircle } from 'lucide-react';
 import { cleanFocusTitle, parseFocusItemHours, getSessionHoursAndSplitState, calculateBlockActualHours } from '../../utils/seedMigration';
 import { useTrackerStore, normalizeSyllabusItem } from '../../store/useTrackerStore';
 import { ClassSessionCard } from '../Common/ClassSessionCard';
@@ -27,8 +27,6 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
   const calculatedActualHours = React.useMemo(() => {
     return calculateBlockActualHours(block, syllabusItems, scheduleBlocks);
   }, [block, syllabusItems, scheduleBlocks]);
-  const sleepHours = block.sleepHours ?? 6.0;
-
   // Resolve item titles & completion with robust string matching fallback
   const blockSyllabusItems = React.useMemo(() => {
     let items: SyllabusItem[] = [];
@@ -55,16 +53,6 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
 
     return items.map(normalizeSyllabusItem);
   }, [block, syllabusItems]);
-
-  const handleActualHoursChange = (newVal: number) => {
-    const clamped = Math.max(0, Math.min(8, Math.round(newVal * 4) / 4));
-    onUpdateBlock(block.id, { actualHours: clamped });
-  };
-
-  const handleSleepHoursChange = (newVal: number) => {
-    const clamped = Math.max(0, Math.min(12, Math.round(newVal * 4) / 4));
-    onUpdateBlock(block.id, { sleepHours: clamped });
-  };
 
   return (
     <div className="glass-panel rounded-2xl p-4 space-y-4 border border-slate-800 shadow-xl">
@@ -237,62 +225,6 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Sleep Log Section (AM Block Only) - 1-Tap Preset Pills */}
-      {block.block === 'AM' && (
-        <div className="pt-2.5 border-t border-slate-800/80 space-y-2.5">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-300 flex items-center">
-              <Moon className="w-3.5 h-3.5 mr-1.5 text-purple-400" />
-              Sleep Logged Last Night
-            </span>
-            <div className="flex items-center space-x-2">
-              <button
-                type="button"
-                onClick={() => handleSleepHoursChange(sleepHours - 0.25)}
-                className="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 flex items-center justify-center font-bold text-xs transition-transform border border-slate-700"
-                aria-label="Decrease sleep hours"
-                title="-15 mins"
-              >
-                <Minus className="w-3 h-3" />
-              </button>
-              <span className="font-bold text-purple-300 font-mono text-sm min-w-[56px] text-center">
-                {sleepHours.toFixed(2)} hrs
-              </span>
-              <button
-                type="button"
-                onClick={() => handleSleepHoursChange(sleepHours + 0.25)}
-                className="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 flex items-center justify-center font-bold text-xs transition-transform border border-slate-700"
-                aria-label="Increase sleep hours"
-                title="+15 mins"
-              >
-                <Plus className="w-3 h-3" />
-              </button>
-            </div>
-          </div>
-
-          {/* Quick Preset Pills */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            {[5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map((val) => {
-              const isSelected = Math.abs(sleepHours - val) < 0.05;
-              return (
-                <button
-                  key={val}
-                  type="button"
-                  onClick={() => handleSleepHoursChange(val)}
-                  className={`px-2.5 py-1 rounded-full text-xs font-semibold font-mono transition-all cursor-pointer ${
-                    isSelected
-                      ? 'bg-purple-500/25 text-purple-300 border border-purple-500/50 shadow-sm shadow-purple-500/10'
-                      : 'bg-slate-900/90 text-slate-400 border border-slate-800 hover:border-slate-700 hover:text-slate-200'
-                  }`}
-                >
-                  {val.toFixed(1)}h
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       {/* Block Completed Toggle */}
       <div className="pt-2">

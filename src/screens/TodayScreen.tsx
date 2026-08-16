@@ -4,6 +4,7 @@ import { QuickStatsWidget } from '../components/Today/QuickStatsWidget';
 import { SleepWarningBanner } from '../components/Today/SleepWarningBanner';
 import { HomeFinishTrendCard } from '../components/Today/HomeFinishTrendCard';
 import { BlockQuickLogCard } from '../components/Today/BlockQuickLogCard';
+import { DailySleepLogCard } from '../components/Today/DailySleepLogCard';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const TodayScreen: React.FC = () => {
@@ -27,6 +28,7 @@ export const TodayScreen: React.FC = () => {
 
   // Find blocks for active selected date
   const displayBlocks = scheduleBlocks.filter((b) => b.date === currentDateStr);
+  const amSleepBlock = displayBlocks.find((b) => b.block === 'AM') || displayBlocks[0];
   const displayDateStr = currentDateStr;
 
   const navigateDate = (offsetDays: number) => {
@@ -133,6 +135,15 @@ export const TodayScreen: React.FC = () => {
 
       {/* Quick Stats Widget */}
       {metrics && <QuickStatsWidget metrics={metrics} />}
+
+      {/* Standalone Sleep & Recovery Log Card */}
+      {amSleepBlock && (
+        <DailySleepLogCard
+          amBlock={amSleepBlock}
+          sleepFloorHours={settings?.sleepFloorHours || 6.0}
+          onUpdateSleep={(blockId, sleepHours) => updateBlockLog(blockId, { sleepHours })}
+        />
+      )}
 
       {/* Empty / Rest Day Notice */}
       {displayBlocks.length === 0 && (

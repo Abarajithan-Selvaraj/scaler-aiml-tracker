@@ -6,7 +6,22 @@ import { auth, isFirebaseConfigured } from '../services/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firestoreService } from '../services/firestoreService';
 import { indexedDbService } from '../services/indexedDbService';
-import { linkScheduleBlockItems } from '../utils/seedMigration';
+import { linkScheduleBlockItems, cleanFocusTitle } from '../utils/seedMigration';
+
+/**
+ * Robustly matches a ScheduleBlock to a SyllabusItem either by explicit itemIds or fuzzy title matching.
+ */
+export function blockMatchesSyllabusItem(block: ScheduleBlock, item: SyllabusItem): boolean {
+  if (block.itemIds?.includes(item.id)) return true;
+  if (block.focusItems && block.focusItems.length > 0 && item.title) {
+    const itemTitleClean = item.title.toLowerCase().trim();
+    return block.focusItems.some((f) => {
+      const cleaned = cleanFocusTitle(f).toLowerCase().trim();
+      return cleaned.length > 3 && (itemTitleClean.includes(cleaned) || cleaned.includes(itemTitleClean));
+    });
+  }
+  return false;
+}
 
 /**
  * Calculates whether a Class item should be automatically marked completed
@@ -338,16 +353,16 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       m.id === item.moduleId ? { ...m, status: moduleStatus } : m
     );
 
-    // Update schedule blocks referencing this item
+    // Update schedule blocks referencing this item (via itemIds or focusItems title match)
     const updatedBlocks = [...scheduleBlocks];
     for (const block of updatedBlocks) {
-      if (block.itemIds?.includes(itemId)) {
+      if (blockMatchesSyllabusItem(block, item)) {
         if (!newCompleted) {
           block.completed = false;
           await dataService.updateScheduleBlock(block.id, { completed: false });
         } else {
-          const blockItems = updatedSyllabusItems.filter(i => block.itemIds?.includes(i.id));
-          const blockFullyDone = blockItems.length > 0 && blockItems.every(i => i.completed);
+          const blockItems = updatedSyllabusItems.filter((i) => blockMatchesSyllabusItem(block, i));
+          const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
           if (block.completed !== blockFullyDone) {
             block.completed = blockFullyDone;
             await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
@@ -409,12 +424,12 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     // Update schedule blocks referencing this item
     const updatedBlocks = [...scheduleBlocks];
     for (const block of updatedBlocks) {
-      if (block.itemIds?.includes(itemId)) {
+      if (blockMatchesSyllabusItem(block, item)) {
         if (!autoCompleted) {
           block.completed = false;
           await dataService.updateScheduleBlock(block.id, { completed: false });
         } else {
-          const blockItems = updatedSyllabusItems.filter((i) => block.itemIds?.includes(i.id));
+          const blockItems = updatedSyllabusItems.filter((i) => blockMatchesSyllabusItem(block, i));
           const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
           if (block.completed !== blockFullyDone) {
             block.completed = blockFullyDone;
@@ -436,49 +451,55 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     const dataService = getDataService(activeBackend);
     await dataService.updateScheduleBlock(blockId, patch);
 
-    const updatedBlocks = scheduleBlocks.map(b =>
+    const updatedBlocks = scheduleBlocks.map((b) =>
       b.id === blockId ? { ...b, ...patch } : b
     );
 
-    const targetBlock = updatedBlocks.find(b => b.id === blockId);
+    const targetBlock = updatedBlocks.find((b) => b.id === blockId);
     let updatedSyllabusItems = [...syllabusItems];
     let updatedModules = [...modules];
 
-    if (targetBlock && targetBlock.itemIds && targetBlock.itemIds.length > 0 && patch.completed !== undefined) {
-      for (const itemId of targetBlock.itemIds) {
-        const itemBlocks = updatedBlocks.filter(b => b.itemIds?.includes(itemId));
-        const allBlocksDone = itemBlocks.length > 0 && itemBlocks.every(b => b.completed);
-        const item = updatedSyllabusItems.find(i => i.id === itemId);
+    if (targetBlock && patch.completed !== undefined) {
+      // Find all syllabus items matching this targetBlock (via itemIds or focusItems title matching)
+      const matchingItems = updatedSyllabusItems.filter((i) => blockMatchesSyllabusItem(targetBlock, i));
 
-        if (item && item.completed !== allBlocksDone) {
-          const itemPatch: Partial<SyllabusItem> = { completed: allBlocksDone };
-          if (item.type === 'Class' && allBlocksDone) {
+      for (const item of matchingItems) {
+        const itemBlocks = updatedBlocks.filter((b) => blockMatchesSyllabusItem(b, item));
+        const allBlocksDone = itemBlocks.length > 0 && itemBlocks.every((b) => b.completed);
+
+        const itemPatch: Partial<SyllabusItem> = { completed: allBlocksDone };
+        if (item.type === 'Class') {
+          if (allBlocksDone) {
             itemPatch.videoCompleted = true;
             itemPatch.assignmentCompleted = true;
             itemPatch.additionalProblemsCompleted = true;
+          } else if (patch.completed === false) {
+            // When a block is unchecked, mark the syllabus master item incomplete as well
+            itemPatch.completed = false;
           }
-          await dataService.updateSyllabusItem(itemId, itemPatch);
-
-          updatedSyllabusItems = updatedSyllabusItems.map(i =>
-            i.id === itemId ? { ...i, ...itemPatch } : i
-          );
-
-          // Update parent module status
-          const moduleItems = updatedSyllabusItems.filter(i => i.moduleId === item.moduleId);
-          const moduleCompletedCount = moduleItems.filter(i => i.completed).length;
-          const moduleStatus: 'not_started' | 'in_progress' | 'completed' =
-            moduleCompletedCount === moduleItems.length
-              ? 'completed'
-              : moduleCompletedCount > 0
-              ? 'in_progress'
-              : 'not_started';
-
-          await dataService.updateModule(item.moduleId, { status: moduleStatus });
-
-          updatedModules = updatedModules.map(m =>
-            m.id === item.moduleId ? { ...m, status: moduleStatus } : m
-          );
         }
+
+        await dataService.updateSyllabusItem(item.id, itemPatch);
+
+        updatedSyllabusItems = updatedSyllabusItems.map((i) =>
+          i.id === item.id ? { ...i, ...itemPatch } : i
+        );
+
+        // Update parent module status
+        const moduleItems = updatedSyllabusItems.filter((i) => i.moduleId === item.moduleId);
+        const moduleCompletedCount = moduleItems.filter((i) => i.completed).length;
+        const moduleStatus: 'not_started' | 'in_progress' | 'completed' =
+          moduleCompletedCount === moduleItems.length
+            ? 'completed'
+            : moduleCompletedCount > 0
+            ? 'in_progress'
+            : 'not_started';
+
+        await dataService.updateModule(item.moduleId, { status: moduleStatus });
+
+        updatedModules = updatedModules.map((m) =>
+          m.id === item.moduleId ? { ...m, status: moduleStatus } : m
+        );
       }
     }
 

@@ -30,28 +30,28 @@ export const AppLayout: React.FC = () => {
       {/* Desktop & Mobile Header */}
       <header className="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <Sparkles className="w-5 h-5 text-white" />
+          <div className="flex items-center space-x-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
-            <div>
-              <h1 className="text-base font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">
+            <div className="min-w-0">
+              <h1 className="text-sm sm:text-base font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent truncate">
                 Scaler AI/ML Tracker
               </h1>
-              <div className="flex items-center space-x-2 text-xs text-slate-400">
-                <span className="flex items-center">
-                  <Calendar className="w-3 h-3 mr-1 text-indigo-400" />
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-400">
+                <span className="flex items-center font-mono">
+                  <Calendar className="w-3 h-3 mr-1 text-indigo-400 shrink-0" />
                   {currentDateStr}
                   {settings?.simulatedDate && (
-                    <span className="ml-1 text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">
-                      Simulated
+                    <span className="ml-1 text-[9px] bg-amber-500/20 text-amber-300 px-1 py-0.2 rounded font-mono">
+                      Sim
                     </span>
                   )}
                 </span>
-                <span>•</span>
-                <span className="flex items-center text-[11px] text-slate-400">
-                  <Database className="w-3 h-3 mr-1 text-indigo-400" />
-                  {activeBackend === 'firestore' ? 'Firebase Sync' : 'IndexedDB Offline'}
+                <span className="hidden sm:inline text-slate-600">•</span>
+                <span className="flex items-center text-[10px] sm:text-[11px] text-slate-400">
+                  <Database className="w-3 h-3 mr-1 text-indigo-400 shrink-0" />
+                  {activeBackend === 'firestore' ? 'Cloud Sync' : 'Offline'}
                 </span>
               </div>
             </div>

@@ -13,8 +13,8 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 glass-panel border-t border-slate-800 px-2 py-1 md:hidden">
-      <div className="flex justify-around items-center">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 glass-panel border-t border-slate-800/90 px-1 py-1.5 md:hidden backdrop-blur-xl bg-slate-950/90">
+      <div className="flex justify-around items-center max-w-md mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -22,15 +22,15 @@ export const BottomNav: React.FC = () => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex flex-col items-center justify-center py-2 px-3 rounded-xl text-xs font-medium min-h-[44px] transition-colors ${
+                `flex flex-col items-center justify-center py-1.5 px-1 sm:px-2 rounded-xl text-xs font-medium min-h-[44px] transition-all ${
                   isActive
-                    ? 'text-indigo-400 font-semibold bg-indigo-500/10'
+                    ? 'text-indigo-400 font-semibold bg-indigo-500/15 border border-indigo-500/20 shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
                 }`
               }
             >
-              <Icon className="w-5 h-5 mb-1" />
-              <span className="text-[10px]">{item.label}</span>
+              <Icon className="w-4 h-4 mb-0.5" />
+              <span className="text-[9px] font-medium leading-none">{item.label}</span>
             </NavLink>
           );
         })}

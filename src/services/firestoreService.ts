@@ -178,7 +178,23 @@ export class FirestoreDataService implements DataService {
 
   async resetData(): Promise<void> {
     const uid = this.getUserUid();
-    await this.seedInitialData(uid);
+    const seed = rawSeedData as unknown as SeedData;
+    const linkedBlocks = linkScheduleBlockItems(seed.scheduleBlocks, seed.syllabusItems);
+
+    const docsToSet: Array<{ ref: any; data: any }> = [];
+
+    for (const mod of seed.modules) {
+      docsToSet.push({ ref: doc(db, 'users', uid, 'modules', mod.id), data: mod });
+    }
+    for (const item of seed.syllabusItems) {
+      docsToSet.push({ ref: doc(db, 'users', uid, 'syllabusItems', item.id), data: item });
+    }
+    for (const block of linkedBlocks) {
+      docsToSet.push({ ref: doc(db, 'users', uid, 'scheduleBlocks', block.id), data: block });
+    }
+    docsToSet.push({ ref: doc(db, 'users', uid, 'settings', 'main'), data: seed.settings });
+
+    await this.commitInChunks(docsToSet);
   }
 
   subscribeToRealtime(

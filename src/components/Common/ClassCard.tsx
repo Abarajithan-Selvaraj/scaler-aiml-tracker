@@ -251,16 +251,28 @@ export const ClassCard: React.FC<ClassCardProps> = ({
               </button>
             </div>
 
-            {/* Coverage Badge & Progress Bar (Placed below SYLLABUS SYNC label) */}
-            <div className="flex items-center space-x-2 shrink-0 self-start sm:self-auto pt-1 sm:pt-0">
-              <div className="text-[10px] font-bold text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 whitespace-nowrap">
-                Coverage: {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
-              </div>
-              <div className="w-16 sm:w-20 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800 shrink-0">
+            {/* Coverage Fill Badge (Integrated Progress Bar inside Box) */}
+            <div className="shrink-0 self-start sm:self-auto pt-1 sm:pt-0">
+              <div
+                className={`relative overflow-hidden rounded-lg px-2.5 py-1 text-[10px] font-bold font-mono border whitespace-nowrap transition-colors ${
+                  coverage.progressPct === 100
+                    ? 'border-emerald-500/40 text-emerald-300 bg-slate-950/80 shadow-sm shadow-emerald-500/10'
+                    : 'border-indigo-500/30 text-indigo-200 bg-slate-950/80'
+                }`}
+              >
+                {/* Dynamic Fill Layer */}
                 <div
-                  className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
+                  className={`absolute inset-y-0 left-0 transition-all duration-500 ease-out border-r ${
+                    coverage.progressPct === 100
+                      ? 'bg-emerald-500/25 border-emerald-400/50'
+                      : 'bg-indigo-500/25 border-indigo-400/50'
+                  }`}
                   style={{ width: `${coverage.progressPct}%` }}
                 />
+                {/* Badge Label */}
+                <span className="relative z-10">
+                  Coverage: {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
+                </span>
               </div>
             </div>
           </div>

@@ -19,6 +19,8 @@ import {
   Shield,
   Check,
   Loader2,
+  Sun,
+  Moon,
 } from 'lucide-react';
 
 export const SettingsScreen: React.FC = () => {
@@ -26,6 +28,8 @@ export const SettingsScreen: React.FC = () => {
     settings,
     currentDateStr,
     activeBackend,
+    theme,
+    setTheme,
     updateSettingsData,
     exportData,
     importData,
@@ -160,13 +164,61 @@ export const SettingsScreen: React.FC = () => {
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Header */}
       <div>
-        <h2 className="text-xl font-bold text-white flex items-center">
-          <SettingsIcon className="w-5 h-5 mr-2 text-indigo-400" />
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center">
+          <SettingsIcon className="w-5 h-5 mr-2 text-indigo-500 dark:text-indigo-400" />
           Tracker Settings & Data Management
         </h2>
-        <p className="text-xs text-slate-400 mt-0.5">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           Configure velocity assumptions, test simulated dates, export/import data, and manage cloud sync
         </p>
+      </div>
+
+      {/* Theme Selection Section */}
+      <div className="glass-panel rounded-2xl p-5 space-y-3">
+        <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider">
+          <Sun className="w-4 h-4 text-amber-400" />
+          <span>App Appearance & Theme</span>
+        </div>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Select your preferred visual appearance. Theme choice persists across sessions.
+        </p>
+        <div className="grid grid-cols-2 gap-3 pt-1">
+          <button
+            type="button"
+            onClick={() => setTheme('dark')}
+            className={`flex items-center space-x-3 p-3 rounded-xl border transition-all text-left cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-md'
+                : 'bg-slate-100 dark:bg-slate-900/60 border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-700'
+            }`}
+          >
+            <div className="w-8 h-8 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center text-amber-400 shrink-0">
+              <Moon className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold">Dark Theme</div>
+              <div className="text-[10px] opacity-75">Slate dark contrast</div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTheme('light')}
+            className={`flex items-center space-x-3 p-3 rounded-xl border transition-all text-left cursor-pointer ${
+              theme === 'light'
+                ? 'bg-indigo-600/20 border-indigo-500 text-indigo-900 dark:text-white shadow-md'
+                : 'bg-slate-100 dark:bg-slate-900/60 border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-700'
+            }`}
+          >
+            <div className="w-8 h-8 rounded-lg bg-white border border-slate-300 flex items-center justify-center text-amber-500 shrink-0 shadow-sm">
+              <Sun className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold">Light Theme</div>
+              <div className="text-[10px] opacity-75">Clean light contrast</div>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Course Start & Target Deadline Configuration (Authenticated + Confirmation Modal) */}

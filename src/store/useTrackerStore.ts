@@ -551,14 +551,15 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     const { settings, scheduleBlocks, activeBackend } = get();
     const dataService = getDataService(activeBackend);
 
-    const oldStartDate = settings?.courseStartDate;
+    const baseBlockDate =
+      scheduleBlocks.find((b) => Boolean(b.date))?.date || settings?.courseStartDate || '2026-08-01';
     const newStartDate = patch.courseStartDate;
 
     let updatedBlocks = [...scheduleBlocks];
     let newCurrentDateStr = get().currentDateStr;
 
-    if (oldStartDate && newStartDate && oldStartDate !== newStartDate) {
-      const [oldY, oldM, oldD] = oldStartDate.split('-').map(Number);
+    if (baseBlockDate && newStartDate && baseBlockDate !== newStartDate) {
+      const [oldY, oldM, oldD] = baseBlockDate.split('-').map(Number);
       const [newY, newM, newD] = newStartDate.split('-').map(Number);
       const oldUtc = Date.UTC(oldY, oldM - 1, oldD);
       const newUtc = Date.UTC(newY, newM - 1, newD);

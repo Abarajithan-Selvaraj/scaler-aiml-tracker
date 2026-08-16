@@ -1,6 +1,6 @@
 import React from 'react';
 import { SyllabusItem, ScheduleBlock } from '../../types/tracker';
-import { CheckCircle, Video, FileCode, HelpCircle, Check, Clock, Link2 } from 'lucide-react';
+import { CheckCircle, Video, FileCode, HelpCircle, Check, Clock, Link2, X } from 'lucide-react';
 import { getClassHoursCoverage, cleanFocusTitle } from '../../utils/seedMigration';
 
 export interface ClassSessionCardProps {
@@ -13,6 +13,7 @@ export interface ClassSessionCardProps {
   isSplit?: boolean;
   onToggleBlockCompleted?: () => void;
   onToggleSubComponent?: (itemId: string, subComponent: 'video' | 'assignment' | 'additional') => void;
+  onRemoveSubComponent?: (itemId: string, subComponent: 'assignment' | 'additional') => void;
 }
 
 export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
@@ -25,6 +26,7 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
   isSplit,
   onToggleBlockCompleted,
   onToggleSubComponent,
+  onRemoveSubComponent,
 }) => {
   const coverage = getClassHoursCoverage(item, allScheduleBlocks);
   const matchingBlocks = allScheduleBlocks.filter(
@@ -169,61 +171,91 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
               </button>
 
               {/* Assignments Chip (Only on final split session block or non-split class) */}
-              {isLastSplitBlock && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
-                  }}
-                  className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                    item.assignmentCompleted
-                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
-                      : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-                  }`}
-                >
-                  <div
-                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+              {isLastSplitBlock && item.hasAssignment !== false && (
+                <div className="flex items-center">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
+                    }}
+                    className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                       item.assignmentCompleted
-                        ? 'bg-purple-500 border-purple-400 text-slate-950'
-                        : 'border-slate-600 bg-slate-800'
+                        ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
+                        : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                     }`}
                   >
-                    {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
-                  </div>
-                  <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
-                    Assignments
-                  </span>
-                </button>
+                    <div
+                      className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                        item.assignmentCompleted
+                          ? 'bg-purple-500 border-purple-400 text-slate-950'
+                          : 'border-slate-600 bg-slate-800'
+                      }`}
+                    >
+                      {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
+                    </div>
+                    <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
+                      Assignments
+                    </span>
+                  </button>
+                  {onRemoveSubComponent && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onRemoveSubComponent(item.id, 'assignment');
+                      }}
+                      className="ml-1 p-0.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                      title="Remove Assignments"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
               )}
 
               {/* Homeworks Chip (Only on final split session block or non-split class) */}
-              {isLastSplitBlock && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
-                  }}
-                  className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                    item.additionalProblemsCompleted
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
-                      : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-                  }`}
-                >
-                  <div
-                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+              {isLastSplitBlock && item.hasAdditionalProblems !== false && (
+                <div className="flex items-center">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
+                    }}
+                    className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                       item.additionalProblemsCompleted
-                        ? 'bg-amber-500 border-amber-400 text-slate-950'
-                        : 'border-slate-600 bg-slate-800'
+                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
+                        : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                     }`}
                   >
-                    {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
-                  </div>
-                  <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
-                    Homeworks
-                  </span>
-                </button>
+                    <div
+                      className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                        item.additionalProblemsCompleted
+                          ? 'bg-amber-500 border-amber-400 text-slate-950'
+                          : 'border-slate-600 bg-slate-800'
+                      }`}
+                    >
+                      {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
+                    </div>
+                    <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
+                      Homeworks
+                    </span>
+                  </button>
+                  {onRemoveSubComponent && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onRemoveSubComponent(item.id, 'additional');
+                      }}
+                      className="ml-1 p-0.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                      title="Remove Homeworks"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
               )}
             </div>
 

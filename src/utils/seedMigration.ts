@@ -174,10 +174,17 @@ export function getClassHoursCoverage(
   }
 
   if (item.type === 'Class') {
+    const hasAssignment = item.hasAssignment !== false;
+    const hasHomeworks = item.hasAdditionalProblems !== false;
+
+    const assignmentWeight = hasAssignment ? 20 : 0;
+    const homeworkWeight = hasHomeworks ? 10 : 0;
+    const recordingWeight = 70 + (hasAssignment ? 0 : 20) + (hasHomeworks ? 0 : 10);
+
     let pct = 0;
-    if (item.videoCompleted) pct += 70;
-    if (item.assignmentCompleted) pct += 20;
-    if (item.additionalProblemsCompleted) pct += 10;
+    if (item.videoCompleted) pct += recordingWeight;
+    if (hasAssignment && item.assignmentCompleted) pct += assignmentWeight;
+    if (hasHomeworks && item.additionalProblemsCompleted) pct += homeworkWeight;
 
     const progressPct = Math.min(100, pct);
     const completedHours = Math.round((totalHours * (progressPct / 100)) * 100) / 100;
@@ -245,10 +252,17 @@ export function calculateBlockActualHours(
     if (item.completed) {
       totalBlockHours += sessionHours;
     } else if (item.type === 'Class') {
+      const hasAssignment = item.hasAssignment !== false;
+      const hasHomeworks = item.hasAdditionalProblems !== false;
+
+      const assignmentWeight = hasAssignment ? 20 : 0;
+      const homeworkWeight = hasHomeworks ? 10 : 0;
+      const recordingWeight = 70 + (hasAssignment ? 0 : 20) + (hasHomeworks ? 0 : 10);
+
       let pct = 0;
-      if (item.videoCompleted) pct += 70;
-      if (item.assignmentCompleted) pct += 20;
-      if (item.additionalProblemsCompleted) pct += 10;
+      if (item.videoCompleted) pct += recordingWeight;
+      if (hasAssignment && item.assignmentCompleted) pct += assignmentWeight;
+      if (hasHomeworks && item.additionalProblemsCompleted) pct += homeworkWeight;
 
       totalBlockHours += sessionHours * (pct / 100);
     }

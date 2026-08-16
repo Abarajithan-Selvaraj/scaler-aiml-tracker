@@ -16,6 +16,7 @@ export const TodayScreen: React.FC = () => {
     getMetrics,
     toggleItemCompletion,
     toggleSubComponentCompletion,
+    removeSubComponent,
     updateBlockLog,
     setCurrentDateStr,
   } = useTrackerStore();
@@ -166,6 +167,7 @@ export const TodayScreen: React.FC = () => {
               syllabusItems={syllabusItems}
               onToggleItem={toggleItemCompletion}
               onToggleSubComponent={toggleSubComponentCompletion}
+              onRemoveSubComponent={removeSubComponent}
               onUpdateBlock={updateBlockLog}
             />
           ))}

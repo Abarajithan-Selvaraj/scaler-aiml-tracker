@@ -25,6 +25,7 @@ export const TimetableScreen: React.FC = () => {
     updateBlockLog,
     toggleItemCompletion,
     toggleSubComponentCompletion,
+    removeSubComponent,
     reassignScheduleBlockDate,
     setCurrentDateStr,
   } = useTrackerStore();
@@ -287,6 +288,7 @@ export const TimetableScreen: React.FC = () => {
                                     isSplit={isSplit}
                                     onToggleBlockCompleted={() => updateBlockLog(block.id, { completed: !block.completed })}
                                     onToggleSubComponent={toggleSubComponentCompletion}
+                                    onRemoveSubComponent={removeSubComponent}
                                   />
                                 );
                               })
@@ -316,6 +318,7 @@ export const TimetableScreen: React.FC = () => {
                                       isSplit={isSplit}
                                       onToggleBlockCompleted={() => updateBlockLog(block.id, { completed: !block.completed })}
                                       onToggleSubComponent={toggleSubComponentCompletion}
+                                      onRemoveSubComponent={removeSubComponent}
                                     />
                                   );
                                 }

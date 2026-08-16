@@ -10,6 +10,7 @@ interface BlockQuickLogCardProps {
   syllabusItems: SyllabusItem[];
   onToggleItem: (itemId: string) => void;
   onToggleSubComponent: (itemId: string, subComponent: 'video' | 'assignment' | 'additional') => void;
+  onRemoveSubComponent?: (itemId: string, subComponent: 'assignment' | 'additional') => void;
   onUpdateBlock: (
     blockId: string,
     patch: { actualHours?: number | null; sleepHours?: number | null; notes?: string; completed?: boolean }
@@ -21,6 +22,7 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
   syllabusItems,
   onToggleItem,
   onToggleSubComponent,
+  onRemoveSubComponent,
   onUpdateBlock,
 }) => {
   const { scheduleBlocks, modules } = useTrackerStore();
@@ -143,6 +145,7 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                     isSplit={isSplit}
                     onToggleBlockCompleted={() => onUpdateBlock(block.id, { completed: !block.completed })}
                     onToggleSubComponent={onToggleSubComponent}
+                    onRemoveSubComponent={onRemoveSubComponent}
                   />
                 );
               }

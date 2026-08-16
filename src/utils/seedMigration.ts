@@ -162,39 +162,36 @@ export function getClassHoursCoverage(
   item: SyllabusItem,
   scheduleBlocks: ScheduleBlock[]
 ): { completedHours: number; totalHours: number; progressPct: number } {
-  const totalHours = item.estimatedHours || 0;
+  const totalHours = item.estimatedHours || 3.0;
   if (totalHours === 0) return { completedHours: 0, totalHours: 0, progressPct: 0 };
 
-  const matchingBlocks = scheduleBlocks.filter((b) => b.itemIds && b.itemIds.includes(item.id));
-
-  if (matchingBlocks.length === 0) {
+  if (item.completed) {
     return {
-      completedHours: item.completed ? totalHours : 0,
-      totalHours,
-      progressPct: item.completed ? 100 : 0,
+      completedHours: Math.round(totalHours * 100) / 100,
+      totalHours: Math.round(totalHours * 100) / 100,
+      progressPct: 100,
     };
   }
 
-  let completedHours = 0;
-  for (const block of matchingBlocks) {
-    const matchedFocusStr =
-      block.focusItems?.find((f) => cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim())) ||
-      block.focusItems?.[0] ||
-      '';
-    const sessionHours = parseFocusItemHours(matchedFocusStr, totalHours / matchingBlocks.length);
+  if (item.type === 'Class') {
+    let pct = 0;
+    if (item.videoCompleted) pct += 70;
+    if (item.assignmentCompleted) pct += 20;
+    if (item.additionalProblemsCompleted) pct += 10;
 
-    if (block.completed) {
-      completedHours += sessionHours;
-    }
+    const progressPct = Math.min(100, pct);
+    const completedHours = Math.round((totalHours * (progressPct / 100)) * 100) / 100;
+
+    return {
+      completedHours,
+      totalHours: Math.round(totalHours * 100) / 100,
+      progressPct,
+    };
   }
 
-  if (item.completed) {
-    completedHours = totalHours;
-  } else {
-    completedHours = Math.min(completedHours, totalHours);
-  }
-
-  const progressPct = Math.min(100, Math.round((completedHours / totalHours) * 100));
+  // Fallback for non-Class items (Papers, PSP, Skill Tests)
+  const completedHours = item.completed ? totalHours : 0;
+  const progressPct = item.completed ? 100 : 0;
 
   return {
     completedHours: Math.round(completedHours * 100) / 100,

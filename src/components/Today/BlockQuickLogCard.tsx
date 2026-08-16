@@ -189,6 +189,14 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                     const allDone = nextVid && nextAssign && nextAdd;
                     onUpdateBlock(block.id, { completed: allDone });
                   }}
+                  onRemoveSubComponent={onRemoveSubComponent ? (_id, subComp) => {
+                    const matched = syllabusItems.find((s) => s.title && s.title.toLowerCase().trim().includes(cleaned.toLowerCase()));
+                    if (matched) onRemoveSubComponent(matched.id, subComp);
+                  } : undefined}
+                  onRestoreSubComponent={onRestoreSubComponent ? (_id, subComp) => {
+                    const matched = syllabusItems.find((s) => s.title && s.title.toLowerCase().trim().includes(cleaned.toLowerCase()));
+                    if (matched) onRestoreSubComponent(matched.id, subComp);
+                  } : undefined}
                 />
               );
             })}

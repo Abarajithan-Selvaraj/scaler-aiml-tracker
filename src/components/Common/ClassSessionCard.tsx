@@ -59,7 +59,9 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
 
   return (
     <div
-      className={`rounded-2xl p-4 border transition-all space-y-3 relative ${
+      className={`rounded-2xl p-4 border transition-all space-y-3 ${
+        showAddMenu ? 'z-40 relative' : 'relative'
+      } ${
         isBlockDone
           ? 'bg-emerald-950/20 border-emerald-500/30'
           : 'glass-panel border-slate-800 hover:border-slate-700'

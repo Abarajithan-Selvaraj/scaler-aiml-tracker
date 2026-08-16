@@ -362,6 +362,14 @@ export const TimetableScreen: React.FC = () => {
                                       const allDone = nextVid && nextAssign && nextAdd;
                                       updateBlockLog(block.id, { completed: allDone });
                                     }}
+                                    onRemoveSubComponent={removeSubComponent ? (_id, subComp) => {
+                                      const matched = syllabusItems.find((s) => s.title && s.title.toLowerCase().trim().includes(cleaned.toLowerCase()));
+                                      if (matched) removeSubComponent(matched.id, subComp);
+                                    } : undefined}
+                                    onRestoreSubComponent={restoreSubComponent ? (_id, subComp) => {
+                                      const matched = syllabusItems.find((s) => s.title && s.title.toLowerCase().trim().includes(cleaned.toLowerCase()));
+                                      if (matched) restoreSubComponent(matched.id, subComp);
+                                    } : undefined}
                                   />
                                 );
                               })

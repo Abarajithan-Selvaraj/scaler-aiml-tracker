@@ -66,7 +66,9 @@ export const ClassCard: React.FC<ClassCardProps> = ({
       onDragStart={(e) => showDragHandle && onDragStart && onDragStart(e, index)}
       onDragOver={(e) => showDragHandle && onDragOver && onDragOver(e, index)}
       onDrop={(e) => showDragHandle && onDrop && onDrop(e, index)}
-      className="glass-panel rounded-2xl p-4 border border-slate-800 space-y-3 relative group transition-all"
+      className={`glass-panel rounded-2xl p-4 border border-slate-800 space-y-3 group transition-all ${
+        showAddMenu ? 'z-40 relative' : 'relative'
+      }`}
     >
       {/* Top Header & Main Checkbox */}
       <div className="flex items-start space-x-3">

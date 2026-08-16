@@ -6,6 +6,7 @@ import { auth, isFirebaseConfigured } from '../services/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firestoreService } from '../services/firestoreService';
 import { indexedDbService } from '../services/indexedDbService';
+import { linkScheduleBlockItems } from '../utils/seedMigration';
 
 /**
  * Calculates whether a Class item should be automatically marked completed
@@ -186,7 +187,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     try {
       // Read local IndexedDB data
       await indexedDbService.init();
-      const [modules, rawItems, scheduleBlocks, settings] = await Promise.all([
+      const [modules, rawItems, rawBlocks, settings] = await Promise.all([
         indexedDbService.getModules(),
         indexedDbService.getSyllabusItems(),
         indexedDbService.getScheduleBlocks(),
@@ -194,6 +195,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       ]);
 
       const syllabusItems = rawItems.map(normalizeSyllabusItem);
+      const scheduleBlocks = linkScheduleBlockItems(rawBlocks, syllabusItems);
 
       // Upload local state to Firestore
       await firestoreService.uploadLocalData({
@@ -237,7 +239,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         });
       };
 
-      const [modules, rawSyllabusItems, scheduleBlocks, settings] = await fetchWithTimeout(
+      const [modules, rawSyllabusItems, rawScheduleBlocks, settings] = await fetchWithTimeout(
         Promise.all([
           dataService.getModules(),
           dataService.getSyllabusItems(),
@@ -247,11 +249,12 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         5000
       );
 
-      if (modules.length === 0 || scheduleBlocks.length === 0) {
+      if (modules.length === 0 || rawScheduleBlocks.length === 0) {
         throw new Error('Retrieved empty dataset from cloud. Triggering local fallback.');
       }
 
       const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
+      const scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
       const effectiveDate = getInitialEffectiveDate(settings);
 
       set({
@@ -267,7 +270,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       console.warn('Failed to load data from active backend, falling back to IndexedDB:', err);
       try {
         await indexedDbService.init();
-        const [modules, rawSyllabusItems, scheduleBlocks, settings] = await Promise.all([
+        const [modules, rawSyllabusItems, rawScheduleBlocks, settings] = await Promise.all([
           indexedDbService.getModules(),
           indexedDbService.getSyllabusItems(),
           indexedDbService.getScheduleBlocks(),
@@ -275,6 +278,7 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         ]);
 
         const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
+        const scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
         const effectiveDate = getInitialEffectiveDate(settings);
 
         set({

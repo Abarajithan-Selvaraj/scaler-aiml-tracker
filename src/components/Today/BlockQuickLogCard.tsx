@@ -3,7 +3,7 @@ import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
 import { Check, Clock, Moon, Plus, Minus, Plane, Shield, CheckCircle } from 'lucide-react';
 import { cleanFocusTitle, parseFocusItemHours } from '../../utils/seedMigration';
 import { useTrackerStore, normalizeSyllabusItem } from '../../store/useTrackerStore';
-import { ClassCard } from '../Common/ClassCard';
+import { ClassSessionCard } from '../Common/ClassSessionCard';
 
 interface BlockQuickLogCardProps {
   block: ScheduleBlock;
@@ -23,7 +23,7 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
   onToggleSubComponent,
   onUpdateBlock,
 }) => {
-  const { scheduleBlocks } = useTrackerStore();
+  const { scheduleBlocks, modules } = useTrackerStore();
   const actualHours = block.actualHours ?? 0;
   const sleepHours = block.sleepHours ?? 7.0;
 
@@ -114,16 +114,19 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
               const sessionHours = parseFocusItemHours(matchedFocusStr, item.estimatedHours);
               const isSplit = sessionHours > 0 && sessionHours !== item.estimatedHours;
 
+              const mod = modules.find((m) => m.id === item.moduleId);
+
               return (
-                <ClassCard
+                <ClassSessionCard
                   key={item.id}
                   item={item}
-                  scheduleBlocks={scheduleBlocks}
+                  scheduleBlock={block}
+                  allScheduleBlocks={scheduleBlocks}
+                  moduleName={mod?.name}
+                  moduleNumber={mod?.moduleNumber}
                   sessionHours={sessionHours}
                   isSplit={isSplit}
-                  blockCompleted={block.completed}
-                  onToggleBlock={() => onUpdateBlock(block.id, { completed: !block.completed })}
-                  onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                  onToggleBlockCompleted={() => onUpdateBlock(block.id, { completed: !block.completed })}
                   onToggleSubComponent={onToggleSubComponent}
                 />
               );
@@ -143,16 +146,18 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
 
               if (realMatch) {
                 const isSplit = sessionHours > 0 && sessionHours !== realMatch.estimatedHours;
+                const mod = modules.find((m) => m.id === realMatch.moduleId);
                 return (
-                  <ClassCard
+                  <ClassSessionCard
                     key={realMatch.id}
                     item={realMatch}
-                    scheduleBlocks={scheduleBlocks}
+                    scheduleBlock={block}
+                    allScheduleBlocks={scheduleBlocks}
+                    moduleName={mod?.name}
+                    moduleNumber={mod?.moduleNumber}
                     sessionHours={sessionHours}
                     isSplit={isSplit}
-                    blockCompleted={block.completed}
-                    onToggleBlock={() => onUpdateBlock(block.id, { completed: !block.completed })}
-                    onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                    onToggleBlockCompleted={() => onUpdateBlock(block.id, { completed: !block.completed })}
                     onToggleSubComponent={onToggleSubComponent}
                   />
                 );
@@ -172,13 +177,14 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
               };
 
               return (
-                <ClassCard
+                <ClassSessionCard
                   key={idx}
                   item={fallbackItem}
-                  scheduleBlocks={scheduleBlocks}
+                  scheduleBlock={block}
+                  allScheduleBlocks={scheduleBlocks}
                   sessionHours={sessionHours}
                   isSplit={false}
-                  onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                  onToggleBlockCompleted={() => onUpdateBlock(block.id, { completed: !block.completed })}
                   onToggleSubComponent={(_id, subComp) => {
                     const updatedSub = !fallbackItem[
                       subComp === 'video'

@@ -5,7 +5,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { ScheduleBlock, SyllabusItem } from '../types/tracker';
 import { Calendar, Plane, Shield, Clock, ArrowRight, Moon } from 'lucide-react';
 import { cleanFocusTitle, parseFocusItemHours } from '../utils/seedMigration';
-import { ClassCard } from '../components/Common/ClassCard';
+import { ClassSessionCard } from '../components/Common/ClassSessionCard';
 
 interface DateGroup {
   date: string;
@@ -281,17 +281,16 @@ export const TimetableScreen: React.FC = () => {
                                 const mod = modules.find((m) => m.id === item.moduleId);
 
                                 return (
-                                  <ClassCard
+                                  <ClassSessionCard
                                     key={item.id}
                                     item={item}
-                                    scheduleBlocks={scheduleBlocks}
+                                    scheduleBlock={block}
+                                    allScheduleBlocks={scheduleBlocks}
                                     moduleName={mod?.name}
                                     moduleNumber={mod?.moduleNumber}
                                     sessionHours={sessionHours}
                                     isSplit={isSplit}
-                                    blockCompleted={block.completed}
-                                    onToggleBlock={() => updateBlockLog(block.id, { completed: !block.completed })}
-                                    onToggleItem={() => updateBlockLog(block.id, { completed: !block.completed })}
+                                    onToggleBlockCompleted={() => updateBlockLog(block.id, { completed: !block.completed })}
                                     onToggleSubComponent={toggleSubComponentCompletion}
                                   />
                                 );
@@ -311,17 +310,16 @@ export const TimetableScreen: React.FC = () => {
                                   const isSplit = sessionHours > 0 && sessionHours !== realMatch.estimatedHours;
                                   const mod = modules.find((m) => m.id === realMatch.moduleId);
                                   return (
-                                    <ClassCard
+                                    <ClassSessionCard
                                       key={realMatch.id}
                                       item={realMatch}
-                                      scheduleBlocks={scheduleBlocks}
+                                      scheduleBlock={block}
+                                      allScheduleBlocks={scheduleBlocks}
                                       moduleName={mod?.name}
                                       moduleNumber={mod?.moduleNumber}
                                       sessionHours={sessionHours}
                                       isSplit={isSplit}
-                                      blockCompleted={block.completed}
-                                      onToggleBlock={() => updateBlockLog(block.id, { completed: !block.completed })}
-                                      onToggleItem={() => updateBlockLog(block.id, { completed: !block.completed })}
+                                      onToggleBlockCompleted={() => updateBlockLog(block.id, { completed: !block.completed })}
                                       onToggleSubComponent={toggleSubComponentCompletion}
                                     />
                                   );
@@ -341,13 +339,14 @@ export const TimetableScreen: React.FC = () => {
                                 };
 
                                 return (
-                                  <ClassCard
+                                  <ClassSessionCard
                                     key={i}
                                     item={fallbackItem}
-                                    scheduleBlocks={scheduleBlocks}
+                                    scheduleBlock={block}
+                                    allScheduleBlocks={scheduleBlocks}
                                     sessionHours={sessionHours}
                                     isSplit={false}
-                                    onToggleItem={() => updateBlockLog(block.id, { completed: !block.completed })}
+                                    onToggleBlockCompleted={() => updateBlockLog(block.id, { completed: !block.completed })}
                                     onToggleSubComponent={(_id, subComp) => {
                                       const updatedSub = !fallbackItem[
                                         subComp === 'video'

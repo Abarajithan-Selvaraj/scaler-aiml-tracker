@@ -383,7 +383,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 1/15: Intro to Databases & BigQuery Setup",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -392,7 +392,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 2/15: SQL-01 - Extracting data using SQL",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -401,7 +401,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 3/15: SQL-02: Functions, Filtering and Subqueries",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -410,7 +410,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 4/15: SQL-03: JoinsSQL-03 Filtering and Subqueries",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -419,7 +419,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 5/15: SQL - 03 Joins",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -428,7 +428,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 6/15: SQL - 03 Joins Contd.",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -437,7 +437,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 7/15: SQL - 04 - Group By & Aggregation Fns",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -446,7 +446,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 8/15: SQL : Doubt Resolution - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -455,7 +455,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 9/15: Business Case: Target SQL Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -464,7 +464,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 10/15: SQL-06 Window Functions",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -473,7 +473,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 11/15: SQL07: Date and Time Functions & CTEs",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -482,7 +482,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 12/15: SQL-07: Date & Time functions",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -491,7 +491,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 13/15: SQL-09: Indexes and Partitioning",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -500,7 +500,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 14/15: SQL : Problem Solving - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -509,7 +509,7 @@
       "moduleId": "M4",
       "type": "Class",
       "title": "M4 Class 15/15: SQL : Problem Solving - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -563,7 +563,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 1/16: Numpy-1  - Airbnb's NPS",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -572,7 +572,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 2/16: Numpy-2  - Fitbit User Analysis",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -581,7 +581,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 3/16: Numpy-2 - Fitbit User Analysis cont.",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -590,7 +590,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 4/16: Numpy-2 - Fitbit User Analysis cont. 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -599,7 +599,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 5/16: Numpy-3  - Image Manipulation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -608,7 +608,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 6/16: Numpy-4  - Misc Topics",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -617,7 +617,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 7/16: Numpy -4 - Contd",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -626,7 +626,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 8/16: Pandas - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -635,7 +635,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 9/16: Pandas-1-Cont",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -644,7 +644,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 10/16: Pandas - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -653,7 +653,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 11/16: Pandas - 3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -662,7 +662,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 12/16: Pandas - 4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -671,7 +671,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 13/16: Pandas - 5",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -680,7 +680,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 14/16: Data Visualisation-1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -689,7 +689,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 15/16: Data Visualisation-2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -698,7 +698,7 @@
       "moduleId": "M5",
       "type": "Class",
       "title": "M5 Class 16/16: Data Visualisation - 3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -743,7 +743,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 1/14: Business Case: Target SQL Review, Netflix Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -752,7 +752,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 2/14: Probability - Basic Definitions",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -761,7 +761,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 3/14: Bayes' Theorem",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -770,7 +770,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 4/14: Problem solving - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -779,7 +779,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 5/14: Combinatorics",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -788,7 +788,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 6/14: Descriptive Statistics",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -797,7 +797,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 7/14: Probability distributions - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -806,7 +806,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 8/14: Business Case : Netflix Review & Aerofit Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -815,7 +815,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 9/14: Probability distributions - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -824,7 +824,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 10/14: Probability distributions - 3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -833,7 +833,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 11/14: Probability distributions - 4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -842,7 +842,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 12/14: Business Case : Aerofit Review, Walmart Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -851,7 +851,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 13/14: CLT and Confidence Interval",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -860,7 +860,7 @@
       "moduleId": "M6",
       "type": "Class",
       "title": "M6 Class 14/14: Problem Solving - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -896,7 +896,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 1/14: Hypothesis testing - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -905,7 +905,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 2/14: Hypothesis testing - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -914,7 +914,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 3/14: Hypothesis Testing-3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -923,7 +923,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 4/14: ANOVA",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -932,7 +932,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 5/14: Correlation Test",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -941,7 +941,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 6/14: Fundamentals: Problem Solving - 3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -950,7 +950,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 7/14: Fundamentals: Problem Solving - 4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -959,7 +959,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 8/14: ANOVA",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -968,7 +968,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 9/14: Correlation Test",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -977,7 +977,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 10/14: Advanced Distributions - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -986,7 +986,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 11/14: Advanced Distributions - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -995,7 +995,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 12/14: Business Case: Walmart Review,Yulu Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1004,7 +1004,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 13/14: Feature Engineering - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1013,7 +1013,7 @@
       "moduleId": "M7",
       "type": "Class",
       "title": "M7 Class 14/14: Feature Engineering - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1058,7 +1058,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 1/12: Product Strategy & Business Acumen",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1067,7 +1067,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 2/12: Product Metrics - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1076,7 +1076,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 3/12: Product Metrics - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1085,7 +1085,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 4/12: Root Cause Analysis - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1094,7 +1094,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 5/12: Root Cause Analysis - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1103,7 +1103,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 6/12: CRM Analytics - RFM model",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1112,7 +1112,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 7/12: Customer Segmentation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1121,7 +1121,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 8/12: A/B Testing & Launch Recommendation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1130,7 +1130,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 9/12: Guess Estimate - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1139,7 +1139,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 10/12: Guess Estimate - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1148,7 +1148,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 11/12: Flight Overbooking problem",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1157,7 +1157,7 @@
       "moduleId": "M8",
       "type": "Class",
       "title": "M8 Class 12/12: Data Analysis & Visualization",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1193,7 +1193,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 1/10: Linear Algebra 1 - The ML context",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1202,7 +1202,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 2/10: Linear Algebra 2 - Dot products and hyperplanes",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1211,7 +1211,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 3/10: Linear Algebra 3 - Halfspaces and distance",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1220,7 +1220,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 4/10: Linear Algebra 4 - Loss minimization in classification",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1229,7 +1229,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 5/10: Linear Algebra 5 - Problem solving",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1238,7 +1238,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 6/10: Optimization 1 - The need for calculus in ML",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1247,7 +1247,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 7/10: Optimization 2 - Towards gradient descent",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1256,7 +1256,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 8/10: Optimization 3 - Gradient descent in action",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1265,7 +1265,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 9/10: Optimization 4 - Constrained optimization",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1274,7 +1274,7 @@
       "moduleId": "M9",
       "type": "Class",
       "title": "M9 Class 10/10: Optimization 5 - Principal component analysis",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1310,7 +1310,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 1/13: ML: Intro to Machine Learning",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1319,7 +1319,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 2/13: ML: Linear Regression-1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1328,7 +1328,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 3/13: ML: Linear Regression-2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1337,7 +1337,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 4/13: ML: Linear Regression-3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1346,7 +1346,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 5/13: Business Case: Delhivery Review, Jamboree Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1355,7 +1355,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 6/13: ML: Linear Regression-4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1364,7 +1364,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 7/13: ML:Polyomial Regression, Bias-Variance, Regularisation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1373,7 +1373,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 8/13: ML: Cross Validation, Logistic Regression-1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1382,7 +1382,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 9/13: ML: Logistic Regression-2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1391,7 +1391,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 10/13: ML: Logistic Regression-3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1400,7 +1400,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 11/13: ML: Classification Metrics (CM)",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1409,7 +1409,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 12/13: ML: CM contd.  + Imbalanced Data",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1418,7 +1418,7 @@
       "moduleId": "M10",
       "type": "Class",
       "title": "M10 Class 13/13: Business Case: Jamboree Review, LoanTap Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1454,7 +1454,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 1/13: ML: k Nearest Neighbors",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1463,7 +1463,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 2/13: ML : KNN Contd.",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1472,7 +1472,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 3/13: ML: Decision Trees-1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1481,7 +1481,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 4/13: Business Case: LoanTap Review,Ola Intro",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1490,7 +1490,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 5/13: ML: Decision Trees-2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1499,7 +1499,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 6/13: ML: Decision Trees-3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1508,7 +1508,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 7/13: ML: Bagging and Random Forest",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1517,7 +1517,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 8/13: ML:  Boosting -1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1526,7 +1526,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 9/13: ML:  Boosting -2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1535,7 +1535,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 10/13: ML: Other Ensemble Techniques",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1544,7 +1544,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 11/13: ML: SVM-1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1553,7 +1553,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 12/13: ML: SVM-2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1562,7 +1562,7 @@
       "moduleId": "M11",
       "type": "Class",
       "title": "M11 Class 13/13: Supervised ML wrap-up",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1598,7 +1598,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 1/11: ML: Intro to Unsupervised Learning, KMeans Revisited",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1607,7 +1607,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 2/11: ML: KMeans++",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1616,7 +1616,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 3/11: Business Case: OLA Review",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1625,7 +1625,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 4/11: ML : Hierarchical clustering",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1634,7 +1634,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 5/11: ML: Gaussian Mixture Models",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1643,7 +1643,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 6/11: ML:Anomaly/Outlier/Novelty Detection - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1652,7 +1652,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 7/11: ML:Anomaly/Outlier/Novelty Detection - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1661,7 +1661,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 8/11: ML: High Dimensional Viz - PCA",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1670,7 +1670,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 9/11: ML: High Dimensional Viz - T-SNE",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1679,7 +1679,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 10/11: ML: High Dimensional Viz - UMAP",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1688,7 +1688,7 @@
       "moduleId": "M12",
       "type": "Class",
       "title": "M12 Class 11/11: ML: Unsupervised Learning Wrap-up",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1733,7 +1733,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 1/14: ML: Intro to Time Series and Forecasting",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1742,7 +1742,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 2/14: ML: Time Series Analysis - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1751,7 +1751,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 3/14: ML: Time Series Analysis - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1760,7 +1760,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 4/14: ML: Time Series Analysis - 3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1769,7 +1769,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 5/14: ML: Time Series Analysis - 4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1778,7 +1778,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 6/14: Business Case: Scaler Review",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1787,7 +1787,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 7/14: ML: Time Series Analysis - 5",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1796,7 +1796,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 8/14: ML: Recommender Systems-1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1805,7 +1805,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 9/14: ML: Recommender Systems-2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1814,7 +1814,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 10/14: Business Case: AdEase review",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1823,7 +1823,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 11/14: ML: Recommender Systems-3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1832,7 +1832,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 12/14: ML: Recommender Systems-4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1841,7 +1841,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 13/14: ML: Recommender Systems-5",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1850,7 +1850,7 @@
       "moduleId": "M13",
       "type": "Class",
       "title": "M13 Class 14/14: ML: End-to-end Practical Session",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1913,7 +1913,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 1/13: Git & GitHub: Setup for MLOps",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1922,7 +1922,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 2/13: Building Cars24 ML tool using Streamlit",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1931,7 +1931,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 3/13: Develop Web APIs using Flask",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1940,7 +1940,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 4/13: Containerization - Docker & DockerHub",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1949,7 +1949,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 5/13: Deploying APIs on AWS using ECS",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1958,7 +1958,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 6/13: GitHub Actions - Setting up CI/CD pipelines",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1967,7 +1967,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 7/13: GitHub Actions - Setting up CI/CD pipelines - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1976,7 +1976,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 8/13: Business Case:Zee Review",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1985,7 +1985,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 9/13: Experiment Tracking & Data Management using MLFlow",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -1994,7 +1994,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 10/13: ML System Design - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2003,7 +2003,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 11/13: ML System Design - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2012,7 +2012,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 12/13: Building ML pipelines with AWS Sagemaker",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2021,7 +2021,7 @@
       "moduleId": "M14",
       "type": "Class",
       "title": "M14 Class 13/13: Processing large scale data using Apache Spark",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2075,7 +2075,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 1/14: NN: Intro to Neural Networks",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2084,7 +2084,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 2/14: NN : Forward and Back Propagation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2093,7 +2093,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 3/14: N-Layer Neural Network - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2102,7 +2102,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 4/14: N-Layer Neural Network - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2111,7 +2111,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 5/14: N-Layer BackPropagation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2120,7 +2120,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 6/14: Tensorflow and Keras - 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2129,7 +2129,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 7/14: Tensorflow and Keras - 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2138,7 +2138,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 8/14: Optimizers for NNs",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2147,7 +2147,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 9/14: NN : Optimizers 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2156,7 +2156,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 10/14: Basic image classification of hand written digits",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2165,7 +2165,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 11/14: NN : Hyper Parameter Tuning for NNs",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2174,7 +2174,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 12/14: Autoencoders",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2183,7 +2183,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 13/14: Practical aspects of designing MLPs and debugging",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2192,7 +2192,7 @@
       "moduleId": "M15",
       "type": "Class",
       "title": "M15 Class 14/14: Model interpretability: LIME",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2255,7 +2255,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 1/14: Business Case: Porter review",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2264,7 +2264,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 2/14: Introduction to Computer Vision(CNN)",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2273,7 +2273,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 3/14: Revisting CNN: Deal with Overfitting",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2282,7 +2282,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 4/14: Cnn under the hood",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2291,7 +2291,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 5/14: Introduction to Transfer Learning",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2300,7 +2300,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 6/14: Image similarity: Understanding Embeddings",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2309,7 +2309,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 7/14: Cnn for medical diagnosis",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2318,7 +2318,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 8/14: CV : Cnn for medical diagnosis",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2327,7 +2327,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 9/14: Object Localisation and Detection -1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2336,7 +2336,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 10/14: Object Localisation and Detection -2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2345,7 +2345,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 11/14: Object Segmentation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2354,7 +2354,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 12/14: Open Discussion Ninjacart Review, Myntra: BuyMethatLook",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2363,7 +2363,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 13/14: Siamese networks",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2372,7 +2372,7 @@
       "moduleId": "M16",
       "type": "Class",
       "title": "M16 Class 14/14: Generative Models & GANs  Introduction",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2417,7 +2417,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 1/13: NLP : Intro to NLP",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2426,7 +2426,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 2/13: NLP : Text Representation",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2435,7 +2435,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 3/13: NLP : Word Embedding - Word2Vec",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2444,7 +2444,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 4/13: NLP : Language Modeling",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2453,7 +2453,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 5/13: NLP : RNNs",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2462,7 +2462,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 6/13: NLP : LSTM",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2471,7 +2471,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 7/13: NLP : LSTM Contd.",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2480,7 +2480,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 8/13: NLP - NER",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2489,7 +2489,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 9/13: NLP : Topic Modeling",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2498,7 +2498,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 10/13: NLP : Attention",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2507,7 +2507,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 11/13: NLP : Transformers",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2516,7 +2516,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 12/13: Business Case: Flip it News Review",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2525,7 +2525,7 @@
       "moduleId": "M17",
       "type": "Class",
       "title": "M17 Class 13/13: NLP : BERT",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2570,7 +2570,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 1/24: ML System Design & Data Engineering - Class 1",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2579,7 +2579,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 2/24: ML System Design & Data Engineering - Class 2",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2588,7 +2588,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 3/24: ML System Design & Data Engineering - Class 3",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2597,7 +2597,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 4/24: ML System Design & Data Engineering - Class 4",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2606,7 +2606,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 5/24: ML System Design & Data Engineering - Class 5",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2615,7 +2615,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 6/24: ML System Design & Data Engineering - Class 6",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2624,7 +2624,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 7/24: ML System Design & Data Engineering - Class 7",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2633,7 +2633,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 8/24: ML System Design & Data Engineering - Class 8",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2642,7 +2642,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 9/24: ML System Design & Data Engineering - Class 9",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2651,7 +2651,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 10/24: ML System Design & Data Engineering - Class 10",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2660,7 +2660,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 11/24: ML System Design & Data Engineering - Class 11",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2669,7 +2669,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 12/24: ML System Design & Data Engineering - Class 12",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2678,7 +2678,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 13/24: ML System Design & Data Engineering - Class 13",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2687,7 +2687,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 14/24: ML System Design & Data Engineering - Class 14",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2696,7 +2696,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 15/24: ML System Design & Data Engineering - Class 15",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2705,7 +2705,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 16/24: ML System Design & Data Engineering - Class 16",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2714,7 +2714,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 17/24: ML System Design & Data Engineering - Class 17",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2723,7 +2723,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 18/24: ML System Design & Data Engineering - Class 18",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2732,7 +2732,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 19/24: ML System Design & Data Engineering - Class 19",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2741,7 +2741,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 20/24: ML System Design & Data Engineering - Class 20",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2750,7 +2750,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 21/24: ML System Design & Data Engineering - Class 21",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2759,7 +2759,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 22/24: ML System Design & Data Engineering - Class 22",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2768,7 +2768,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 23/24: ML System Design & Data Engineering - Class 23",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2777,7 +2777,7 @@
       "moduleId": "M18",
       "type": "Class",
       "title": "M18 Class 24/24: ML System Design & Data Engineering - Class 24",
-      "estimatedHours": 2.833,
+      "estimatedHours": 3,
       "completed": false
     },
     {
@@ -2820,7 +2820,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 1/15: Intro to Databases & BigQuery Setup",
-        "M4 Class 2/15: SQL-01 - Extracting data using SQL (part 1.2h of 2.8h)"
+        "M4 Class 2/15: SQL-01 - Extracting data using SQL (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2838,7 +2838,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 2/15: SQL-01 - Extracting data using SQL",
-        "M4 Class 3/15: SQL-02: Functions, Filtering and Subqueries (part 0.8h of 2.8h)"
+        "M4 Class 3/15: SQL-02: Functions, Filtering and Subqueries (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2856,7 +2856,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 3/15: SQL-02: Functions, Filtering and Subqueries",
-        "M4 Class 4/15: SQL-03: JoinsSQL-03 Filtering and Subqueries (part 2.0h of 2.8h)"
+        "M4 Class 4/15: SQL-03: JoinsSQL-03 Filtering and Subqueries (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2874,7 +2874,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 4/15: SQL-03: JoinsSQL-03 Filtering and Subqueries",
-        "M4 Class 5/15: SQL - 03 Joins (part 1.7h of 2.8h)"
+        "M4 Class 5/15: SQL - 03 Joins (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2892,7 +2892,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 5/15: SQL - 03 Joins",
-        "M4 Class 6/15: SQL - 03 Joins Contd. (part 0.3h of 2.8h)"
+        "M4 Class 6/15: SQL - 03 Joins Contd. (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2910,7 +2910,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 6/15: SQL - 03 Joins Contd.",
-        "M4 Class 7/15: SQL - 04 - Group By & Aggregation Fns (part 0.5h of 2.8h)"
+        "M4 Class 7/15: SQL - 04 - Group By & Aggregation Fns (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2927,7 +2927,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M4 Class 7/15: SQL - 04 - Group By & Aggregation Fns (part 1.5h of 2.8h)"
+        "M4 Class 7/15: SQL - 04 - Group By & Aggregation Fns (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2945,7 +2945,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 7/15: SQL - 04 - Group By & Aggregation Fns",
-        "M4 Class 8/15: SQL : Doubt Resolution - 1 (part 2.2h of 2.8h)"
+        "M4 Class 8/15: SQL : Doubt Resolution - 1 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2963,7 +2963,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 8/15: SQL : Doubt Resolution - 1",
-        "M4 Class 9/15: Business Case: Target SQL Intro (part 0.8h of 2.8h)"
+        "M4 Class 9/15: Business Case: Target SQL Intro (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -2981,7 +2981,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 9/15: Business Case: Target SQL Intro",
-        "M4 Class 10/15: SQL-06 Window Functions (part 1.0h of 2.8h)"
+        "M4 Class 10/15: SQL-06 Window Functions (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3014,7 +3014,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 10/15: SQL-06 Window Functions",
-        "M4 Class 11/15: SQL07: Date and Time Functions & CTEs (part 1.2h of 2.8h)"
+        "M4 Class 11/15: SQL07: Date and Time Functions & CTEs (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3031,7 +3031,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M4 Class 11/15: SQL07: Date and Time Functions & CTEs (part 1.5h of 2.8h)"
+        "M4 Class 11/15: SQL07: Date and Time Functions & CTEs (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3065,7 +3065,7 @@
       "focusItems": [
         "M4 Class 11/15: SQL07: Date and Time Functions & CTEs",
         "M4 Class 12/15: SQL-07: Date & Time functions",
-        "M4 Class 13/15: SQL-09: Indexes and Partitioning (part 1.0h of 2.8h)"
+        "M4 Class 13/15: SQL-09: Indexes and Partitioning (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3083,7 +3083,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 13/15: SQL-09: Indexes and Partitioning",
-        "M4 Class 14/15: SQL : Problem Solving - 1 (part 0.7h of 2.8h)"
+        "M4 Class 14/15: SQL : Problem Solving - 1 (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3101,7 +3101,7 @@
       "isBuffer": false,
       "focusItems": [
         "M4 Class 14/15: SQL : Problem Solving - 1",
-        "M4 Class 15/15: SQL : Problem Solving - 2 (part 1.8h of 2.8h)"
+        "M4 Class 15/15: SQL : Problem Solving - 2 (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3205,7 +3205,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M5 Class 1/16: Numpy-1  - Airbnb's NPS (part 1.5h of 2.8h)"
+        "M5 Class 1/16: Numpy-1  - Airbnb's NPS (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3223,7 +3223,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 1/16: Numpy-1  - Airbnb's NPS",
-        "M5 Class 2/16: Numpy-2  - Fitbit User Analysis (part 1.7h of 2.8h)"
+        "M5 Class 2/16: Numpy-2  - Fitbit User Analysis (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3256,7 +3256,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 2/16: Numpy-2  - Fitbit User Analysis",
-        "M5 Class 3/16: Numpy-2 - Fitbit User Analysis cont. (part 1.8h of 2.8h)"
+        "M5 Class 3/16: Numpy-2 - Fitbit User Analysis cont. (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3274,7 +3274,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 3/16: Numpy-2 - Fitbit User Analysis cont.",
-        "M5 Class 4/16: Numpy-2 - Fitbit User Analysis cont. 2 (part 0.5h of 2.8h)"
+        "M5 Class 4/16: Numpy-2 - Fitbit User Analysis cont. 2 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3307,7 +3307,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 4/16: Numpy-2 - Fitbit User Analysis cont. 2",
-        "M5 Class 5/16: Numpy-3  - Image Manipulation (part 1.7h of 2.8h)"
+        "M5 Class 5/16: Numpy-3  - Image Manipulation (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3325,7 +3325,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 5/16: Numpy-3  - Image Manipulation",
-        "M5 Class 6/16: Numpy-4  - Misc Topics (part 1.3h of 2.8h)"
+        "M5 Class 6/16: Numpy-4  - Misc Topics (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3343,7 +3343,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 6/16: Numpy-4  - Misc Topics",
-        "M5 Class 7/16: Numpy -4 - Contd (part 2.5h of 2.8h)"
+        "M5 Class 7/16: Numpy -4 - Contd (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3361,7 +3361,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 7/16: Numpy -4 - Contd",
-        "M5 Class 8/16: Pandas - 1 (part 2.2h of 2.8h)"
+        "M5 Class 8/16: Pandas - 1 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3379,7 +3379,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 8/16: Pandas - 1",
-        "M5 Class 9/16: Pandas-1-Cont (part 0.8h of 2.8h)"
+        "M5 Class 9/16: Pandas-1-Cont (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3397,7 +3397,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 9/16: Pandas-1-Cont",
-        "M5 Class 10/16: Pandas - 2 (part 1.0h of 2.8h)"
+        "M5 Class 10/16: Pandas - 2 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3414,7 +3414,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M5 Class 10/16: Pandas - 2 (part 1.5h of 2.8h)"
+        "M5 Class 10/16: Pandas - 2 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3432,7 +3432,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 10/16: Pandas - 2",
-        "M5 Class 11/16: Pandas - 3 (part 2.7h of 2.8h)"
+        "M5 Class 11/16: Pandas - 3 (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3450,7 +3450,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 11/16: Pandas - 3",
-        "M5 Class 12/16: Pandas - 4 (part 1.3h of 2.8h)"
+        "M5 Class 12/16: Pandas - 4 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3468,7 +3468,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 12/16: Pandas - 4",
-        "M5 Class 13/16: Pandas - 5 (part 1.5h of 2.8h)"
+        "M5 Class 13/16: Pandas - 5 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3501,7 +3501,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 13/16: Pandas - 5",
-        "M5 Class 14/16: Data Visualisation-1 (part 1.7h of 2.8h)"
+        "M5 Class 14/16: Data Visualisation-1 (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3519,7 +3519,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 14/16: Data Visualisation-1",
-        "M5 Class 15/16: Data Visualisation-2 (part 0.3h of 2.8h)"
+        "M5 Class 15/16: Data Visualisation-2 (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3551,7 +3551,7 @@
       "isTravelWeekend": true,
       "isBuffer": false,
       "focusItems": [
-        "M5 Class 15/16: Data Visualisation-2 (part 2.0h of 2.8h)"
+        "M5 Class 15/16: Data Visualisation-2 (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3584,7 +3584,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Class 15/16: Data Visualisation-2",
-        "M5 Class 16/16: Data Visualisation - 3 (part 0.5h of 2.8h)"
+        "M5 Class 16/16: Data Visualisation - 3 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3616,7 +3616,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M5 Class 16/16: Data Visualisation - 3 (part 1.5h of 2.8h)"
+        "M5 Class 16/16: Data Visualisation - 3 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3706,7 +3706,7 @@
       "isBuffer": false,
       "focusItems": [
         "M5 Companion/Expert Mock Interview \u2014 Data Analytics & Visualisation (Python Libs) \u2014 Numerical Programming in Python",
-        "M6 Class 1/14: Business Case: Target SQL Review, Netflix Intro (part 2.2h of 2.8h)"
+        "M6 Class 1/14: Business Case: Target SQL Review, Netflix Intro (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3739,7 +3739,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 1/14: Business Case: Target SQL Review, Netflix Intro",
-        "M6 Class 2/14: Probability - Basic Definitions (part 2.3h of 2.8h)"
+        "M6 Class 2/14: Probability - Basic Definitions (part 2.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3757,7 +3757,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 2/14: Probability - Basic Definitions",
-        "M6 Class 3/14: Bayes' Theorem (part 1.0h of 2.8h)"
+        "M6 Class 3/14: Bayes' Theorem (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3790,7 +3790,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 3/14: Bayes' Theorem",
-        "M6 Class 4/14: Problem solving - 1 (part 2.2h of 2.8h)"
+        "M6 Class 4/14: Problem solving - 1 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3808,7 +3808,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 4/14: Problem solving - 1",
-        "M6 Class 5/14: Combinatorics (part 1.8h of 2.8h)"
+        "M6 Class 5/14: Combinatorics (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3827,7 +3827,7 @@
       "focusItems": [
         "M6 Class 5/14: Combinatorics",
         "M6 Class 6/14: Descriptive Statistics",
-        "M6 Class 7/14: Probability distributions - 1 (part 0.2h of 2.8h)"
+        "M6 Class 7/14: Probability distributions - 1 (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3844,7 +3844,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M6 Class 7/14: Probability distributions - 1 (part 2.5h of 2.8h)"
+        "M6 Class 7/14: Probability distributions - 1 (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3862,7 +3862,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 7/14: Probability distributions - 1",
-        "M6 Class 8/14: Business Case : Netflix Review & Aerofit Intro (part 1.3h of 2.8h)"
+        "M6 Class 8/14: Business Case : Netflix Review & Aerofit Intro (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3880,7 +3880,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 8/14: Business Case : Netflix Review & Aerofit Intro",
-        "M6 Class 9/14: Probability distributions - 2 (part 1.5h of 2.8h)"
+        "M6 Class 9/14: Probability distributions - 2 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3898,7 +3898,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 9/14: Probability distributions - 2",
-        "M6 Class 10/14: Probability distributions - 3 (part 0.2h of 2.8h)"
+        "M6 Class 10/14: Probability distributions - 3 (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3916,7 +3916,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 10/14: Probability distributions - 3",
-        "M6 Class 11/14: Probability distributions - 4 (part 0.3h of 2.8h)"
+        "M6 Class 11/14: Probability distributions - 4 (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3933,7 +3933,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M6 Class 11/14: Probability distributions - 4 (part 1.5h of 2.8h)"
+        "M6 Class 11/14: Probability distributions - 4 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3951,7 +3951,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 11/14: Probability distributions - 4",
-        "M6 Class 12/14: Business Case : Aerofit Review, Walmart Intro (part 2.0h of 2.8h)"
+        "M6 Class 12/14: Business Case : Aerofit Review, Walmart Intro (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -3984,7 +3984,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 12/14: Business Case : Aerofit Review, Walmart Intro",
-        "M6 Class 13/14: CLT and Confidence Interval (part 2.2h of 2.8h)"
+        "M6 Class 13/14: CLT and Confidence Interval (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4002,7 +4002,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Class 13/14: CLT and Confidence Interval",
-        "M6 Class 14/14: Problem Solving - 2 (part 0.8h of 2.8h)"
+        "M6 Class 14/14: Problem Solving - 2 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4072,7 +4072,7 @@
       "isBuffer": false,
       "focusItems": [
         "M6 Mandatory Skill Test \u2014 Data Analytics & Visualisation (Prob & Stats) \u2014 Applied Statistics (+ revision)",
-        "M7 Class 1/14: Hypothesis testing - 1 (part 2.5h of 2.8h)"
+        "M7 Class 1/14: Hypothesis testing - 1 (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4090,7 +4090,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 1/14: Hypothesis testing - 1",
-        "M7 Class 2/14: Hypothesis testing - 2 (part 2.2h of 2.8h)"
+        "M7 Class 2/14: Hypothesis testing - 2 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4108,7 +4108,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 2/14: Hypothesis testing - 2",
-        "M7 Class 3/14: Hypothesis Testing-3 (part 0.8h of 2.8h)"
+        "M7 Class 3/14: Hypothesis Testing-3 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4126,7 +4126,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 3/14: Hypothesis Testing-3",
-        "M7 Class 4/14: ANOVA (part 1.0h of 2.8h)"
+        "M7 Class 4/14: ANOVA (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4143,7 +4143,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M7 Class 4/14: ANOVA (part 1.5h of 2.8h)"
+        "M7 Class 4/14: ANOVA (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4161,7 +4161,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 4/14: ANOVA",
-        "M7 Class 5/14: Correlation Test (part 2.7h of 2.8h)"
+        "M7 Class 5/14: Correlation Test (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4179,7 +4179,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 5/14: Correlation Test",
-        "M7 Class 6/14: Fundamentals: Problem Solving - 3 (part 1.3h of 2.8h)"
+        "M7 Class 6/14: Fundamentals: Problem Solving - 3 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4197,7 +4197,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 6/14: Fundamentals: Problem Solving - 3",
-        "M7 Class 7/14: Fundamentals: Problem Solving - 4 (part 1.5h of 2.8h)"
+        "M7 Class 7/14: Fundamentals: Problem Solving - 4 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4230,7 +4230,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 7/14: Fundamentals: Problem Solving - 4",
-        "M7 Class 8/14: ANOVA (part 1.7h of 2.8h)"
+        "M7 Class 8/14: ANOVA (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4248,7 +4248,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 8/14: ANOVA",
-        "M7 Class 9/14: Correlation Test (part 0.3h of 2.8h)"
+        "M7 Class 9/14: Correlation Test (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4281,7 +4281,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 9/14: Correlation Test",
-        "M7 Class 10/14: Advanced Distributions - 1 (part 1.5h of 2.8h)"
+        "M7 Class 10/14: Advanced Distributions - 1 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4299,7 +4299,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 10/14: Advanced Distributions - 1",
-        "M7 Class 11/14: Advanced Distributions - 2 (part 1.2h of 2.8h)"
+        "M7 Class 11/14: Advanced Distributions - 2 (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4317,7 +4317,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 11/14: Advanced Distributions - 2",
-        "M7 Class 12/14: Business Case: Walmart Review,Yulu Intro (part 2.3h of 2.8h)"
+        "M7 Class 12/14: Business Case: Walmart Review,Yulu Intro (part 2.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4335,7 +4335,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 12/14: Business Case: Walmart Review,Yulu Intro",
-        "M7 Class 13/14: Feature Engineering - 1 (part 2.0h of 2.8h)"
+        "M7 Class 13/14: Feature Engineering - 1 (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4353,7 +4353,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Class 13/14: Feature Engineering - 1",
-        "M7 Class 14/14: Feature Engineering - 2 (part 0.7h of 2.8h)"
+        "M7 Class 14/14: Feature Engineering - 2 (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4443,7 +4443,7 @@
       "isBuffer": false,
       "focusItems": [
         "M7 Companion/Expert Mock Interview \u2014 Data Analytics & Visualisation (Fundamentals) \u2014 Statistical Programming",
-        "M8 Class 1/12: Product Strategy & Business Acumen (part 0.8h of 2.8h)"
+        "M8 Class 1/12: Product Strategy & Business Acumen (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4476,7 +4476,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 1/12: Product Strategy & Business Acumen",
-        "M8 Class 2/12: Product Metrics - 1 (part 1.0h of 2.8h)"
+        "M8 Class 2/12: Product Metrics - 1 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4493,7 +4493,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M8 Class 2/12: Product Metrics - 1 (part 1.5h of 2.8h)"
+        "M8 Class 2/12: Product Metrics - 1 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4526,7 +4526,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 2/12: Product Metrics - 1",
-        "M8 Class 3/12: Product Metrics - 2 (part 1.7h of 2.8h)"
+        "M8 Class 3/12: Product Metrics - 2 (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4558,7 +4558,7 @@
       "isTravelWeekend": true,
       "isBuffer": false,
       "focusItems": [
-        "M8 Class 3/12: Product Metrics - 2 (part 1.0h of 2.8h)"
+        "M8 Class 3/12: Product Metrics - 2 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4591,7 +4591,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 3/12: Product Metrics - 2",
-        "M8 Class 4/12: Root Cause Analysis - 1 (part 1.3h of 2.8h)"
+        "M8 Class 4/12: Root Cause Analysis - 1 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4609,7 +4609,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 4/12: Root Cause Analysis - 1",
-        "M8 Class 5/12: Root Cause Analysis - 2 (part 1.5h of 2.8h)"
+        "M8 Class 5/12: Root Cause Analysis - 2 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4627,7 +4627,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 5/12: Root Cause Analysis - 2",
-        "M8 Class 6/12: CRM Analytics - RFM model (part 0.2h of 2.8h)"
+        "M8 Class 6/12: CRM Analytics - RFM model (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4645,7 +4645,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 6/12: CRM Analytics - RFM model",
-        "M8 Class 7/12: Customer Segmentation (part 0.3h of 2.8h)"
+        "M8 Class 7/12: Customer Segmentation (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4662,7 +4662,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M8 Class 7/12: Customer Segmentation (part 1.5h of 2.8h)"
+        "M8 Class 7/12: Customer Segmentation (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4680,7 +4680,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 7/12: Customer Segmentation",
-        "M8 Class 8/12: A/B Testing & Launch Recommendation (part 2.0h of 2.8h)"
+        "M8 Class 8/12: A/B Testing & Launch Recommendation (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4713,7 +4713,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 8/12: A/B Testing & Launch Recommendation",
-        "M8 Class 9/12: Guess Estimate - 1 (part 2.2h of 2.8h)"
+        "M8 Class 9/12: Guess Estimate - 1 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4731,7 +4731,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 9/12: Guess Estimate - 1",
-        "M8 Class 10/12: Guess Estimate - 2 (part 0.8h of 2.8h)"
+        "M8 Class 10/12: Guess Estimate - 2 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4764,7 +4764,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 10/12: Guess Estimate - 2",
-        "M8 Class 11/12: Flight Overbooking problem (part 2.0h of 2.8h)"
+        "M8 Class 11/12: Flight Overbooking problem (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4782,7 +4782,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Class 11/12: Flight Overbooking problem",
-        "M8 Class 12/12: Data Analysis & Visualization (part 1.7h of 2.8h)"
+        "M8 Class 12/12: Data Analysis & Visualization (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4837,7 +4837,7 @@
       "isBuffer": false,
       "focusItems": [
         "M8 Mandatory Skill Test \u2014 Product Analytics (+ revision)",
-        "M9 Class 1/10: Linear Algebra 1 - The ML context (part 0.8h of 2.8h)"
+        "M9 Class 1/10: Linear Algebra 1 - The ML context (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4855,7 +4855,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 1/10: Linear Algebra 1 - The ML context",
-        "M9 Class 2/10: Linear Algebra 2 - Dot products and hyperplanes (part 1.0h of 2.8h)"
+        "M9 Class 2/10: Linear Algebra 2 - Dot products and hyperplanes (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4872,7 +4872,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M9 Class 2/10: Linear Algebra 2 - Dot products and hyperplanes (part 1.5h of 2.8h)"
+        "M9 Class 2/10: Linear Algebra 2 - Dot products and hyperplanes (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4890,7 +4890,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 2/10: Linear Algebra 2 - Dot products and hyperplanes",
-        "M9 Class 3/10: Linear Algebra 3 - Halfspaces and distance (part 2.7h of 2.8h)"
+        "M9 Class 3/10: Linear Algebra 3 - Halfspaces and distance (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4908,7 +4908,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 3/10: Linear Algebra 3 - Halfspaces and distance",
-        "M9 Class 4/10: Linear Algebra 4 - Loss minimization in classification (part 1.3h of 2.8h)"
+        "M9 Class 4/10: Linear Algebra 4 - Loss minimization in classification (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4926,7 +4926,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 4/10: Linear Algebra 4 - Loss minimization in classification",
-        "M9 Class 5/10: Linear Algebra 5 - Problem solving (part 1.5h of 2.8h)"
+        "M9 Class 5/10: Linear Algebra 5 - Problem solving (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4959,7 +4959,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 5/10: Linear Algebra 5 - Problem solving",
-        "M9 Class 6/10: Optimization 1 - The need for calculus in ML (part 1.7h of 2.8h)"
+        "M9 Class 6/10: Optimization 1 - The need for calculus in ML (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -4977,7 +4977,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 6/10: Optimization 1 - The need for calculus in ML",
-        "M9 Class 7/10: Optimization 2 - Towards gradient descent (part 0.3h of 2.8h)"
+        "M9 Class 7/10: Optimization 2 - Towards gradient descent (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5010,7 +5010,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 7/10: Optimization 2 - Towards gradient descent",
-        "M9 Class 8/10: Optimization 3 - Gradient descent in action (part 1.5h of 2.8h)"
+        "M9 Class 8/10: Optimization 3 - Gradient descent in action (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5028,7 +5028,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 8/10: Optimization 3 - Gradient descent in action",
-        "M9 Class 9/10: Optimization 4 - Constrained optimization (part 1.2h of 2.8h)"
+        "M9 Class 9/10: Optimization 4 - Constrained optimization (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5046,7 +5046,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Class 9/10: Optimization 4 - Constrained optimization",
-        "M9 Class 10/10: Optimization 5 - Principal component analysis (part 2.3h of 2.8h)"
+        "M9 Class 10/10: Optimization 5 - Principal component analysis (part 2.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5101,7 +5101,7 @@
       "isBuffer": false,
       "focusItems": [
         "M9 Mandatory Skill Test \u2014 Maths for ML \u2014 High Dimensional Data Analysis (+ revision)",
-        "M10 Class 1/13: ML: Intro to Machine Learning (part 0.5h of 2.8h)"
+        "M10 Class 1/13: ML: Intro to Machine Learning (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5118,7 +5118,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M10 Class 1/13: ML: Intro to Machine Learning (part 1.5h of 2.8h)"
+        "M10 Class 1/13: ML: Intro to Machine Learning (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5136,7 +5136,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 1/13: ML: Intro to Machine Learning",
-        "M10 Class 2/13: ML: Linear Regression-1 (part 2.2h of 2.8h)"
+        "M10 Class 2/13: ML: Linear Regression-1 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5154,7 +5154,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 2/13: ML: Linear Regression-1",
-        "M10 Class 3/13: ML: Linear Regression-2 (part 0.8h of 2.8h)"
+        "M10 Class 3/13: ML: Linear Regression-2 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5172,7 +5172,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 3/13: ML: Linear Regression-2",
-        "M10 Class 4/13: ML: Linear Regression-3 (part 1.0h of 2.8h)"
+        "M10 Class 4/13: ML: Linear Regression-3 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5205,7 +5205,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 4/13: ML: Linear Regression-3",
-        "M10 Class 5/13: Business Case: Delhivery Review, Jamboree Intro (part 1.2h of 2.8h)"
+        "M10 Class 5/13: Business Case: Delhivery Review, Jamboree Intro (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5222,7 +5222,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M10 Class 5/13: Business Case: Delhivery Review, Jamboree Intro (part 1.5h of 2.8h)"
+        "M10 Class 5/13: Business Case: Delhivery Review, Jamboree Intro (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5256,7 +5256,7 @@
       "focusItems": [
         "M10 Class 5/13: Business Case: Delhivery Review, Jamboree Intro",
         "M10 Class 6/13: ML: Linear Regression-4",
-        "M10 Class 7/13: ML:Polyomial Regression, Bias-Variance, Regularisation (part 1.0h of 2.8h)"
+        "M10 Class 7/13: ML:Polyomial Regression, Bias-Variance, Regularisation (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5274,7 +5274,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 7/13: ML:Polyomial Regression, Bias-Variance, Regularisation",
-        "M10 Class 8/13: ML: Cross Validation, Logistic Regression-1 (part 0.7h of 2.8h)"
+        "M10 Class 8/13: ML: Cross Validation, Logistic Regression-1 (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5292,7 +5292,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 8/13: ML: Cross Validation, Logistic Regression-1",
-        "M10 Class 9/13: ML: Logistic Regression-2 (part 1.8h of 2.8h)"
+        "M10 Class 9/13: ML: Logistic Regression-2 (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5310,7 +5310,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 9/13: ML: Logistic Regression-2",
-        "M10 Class 10/13: ML: Logistic Regression-3 (part 1.5h of 2.8h)"
+        "M10 Class 10/13: ML: Logistic Regression-3 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5328,7 +5328,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 10/13: ML: Logistic Regression-3",
-        "M10 Class 11/13: ML: Classification Metrics (CM) (part 0.2h of 2.8h)"
+        "M10 Class 11/13: ML: Classification Metrics (CM) (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5346,7 +5346,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 11/13: ML: Classification Metrics (CM)",
-        "M10 Class 12/13: ML: CM contd.  + Imbalanced Data (part 0.3h of 2.8h)"
+        "M10 Class 12/13: ML: CM contd.  + Imbalanced Data (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5363,7 +5363,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M10 Class 12/13: ML: CM contd.  + Imbalanced Data (part 1.5h of 2.8h)"
+        "M10 Class 12/13: ML: CM contd.  + Imbalanced Data (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5381,7 +5381,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Class 12/13: ML: CM contd.  + Imbalanced Data",
-        "M10 Class 13/13: Business Case: Jamboree Review, LoanTap Intro (part 2.0h of 2.8h)"
+        "M10 Class 13/13: Business Case: Jamboree Review, LoanTap Intro (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5451,7 +5451,7 @@
       "isBuffer": false,
       "focusItems": [
         "M10 Mandatory Skill Test \u2014 Intro to ML and NN \u2014 Foundation to Machine Learning (+ revision)",
-        "M11 Class 1/13: ML: k Nearest Neighbors (part 0.7h of 2.8h)"
+        "M11 Class 1/13: ML: k Nearest Neighbors (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5468,7 +5468,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M11 Class 1/13: ML: k Nearest Neighbors (part 1.5h of 2.8h)"
+        "M11 Class 1/13: ML: k Nearest Neighbors (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5501,7 +5501,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 1/13: ML: k Nearest Neighbors",
-        "M11 Class 2/13: ML : KNN Contd. (part 1.3h of 2.8h)"
+        "M11 Class 2/13: ML : KNN Contd. (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5533,7 +5533,7 @@
       "isTravelWeekend": true,
       "isBuffer": false,
       "focusItems": [
-        "M11 Class 2/13: ML : KNN Contd. (part 1.0h of 2.8h)"
+        "M11 Class 2/13: ML : KNN Contd. (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5566,7 +5566,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 2/13: ML : KNN Contd.",
-        "M11 Class 3/13: ML: Decision Trees-1 (part 1.0h of 2.8h)"
+        "M11 Class 3/13: ML: Decision Trees-1 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5584,7 +5584,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 3/13: ML: Decision Trees-1",
-        "M11 Class 4/13: Business Case: LoanTap Review,Ola Intro (part 1.2h of 2.8h)"
+        "M11 Class 4/13: Business Case: LoanTap Review,Ola Intro (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5601,7 +5601,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M11 Class 4/13: Business Case: LoanTap Review,Ola Intro (part 1.5h of 2.8h)"
+        "M11 Class 4/13: Business Case: LoanTap Review,Ola Intro (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5636,7 +5636,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M11 Class 6/13: ML: Decision Trees-3 (part 1.5h of 2.8h)"
+        "M11 Class 6/13: ML: Decision Trees-3 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5654,7 +5654,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 6/13: ML: Decision Trees-3",
-        "M11 Class 7/13: ML: Bagging and Random Forest (part 1.7h of 2.8h)"
+        "M11 Class 7/13: ML: Bagging and Random Forest (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5687,7 +5687,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 7/13: ML: Bagging and Random Forest",
-        "M11 Class 8/13: ML:  Boosting -1 (part 1.8h of 2.8h)"
+        "M11 Class 8/13: ML:  Boosting -1 (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5705,7 +5705,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 8/13: ML:  Boosting -1",
-        "M11 Class 9/13: ML:  Boosting -2 (part 0.5h of 2.8h)"
+        "M11 Class 9/13: ML:  Boosting -2 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5738,7 +5738,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 9/13: ML:  Boosting -2",
-        "M11 Class 10/13: ML: Other Ensemble Techniques (part 1.7h of 2.8h)"
+        "M11 Class 10/13: ML: Other Ensemble Techniques (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5756,7 +5756,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 10/13: ML: Other Ensemble Techniques",
-        "M11 Class 11/13: ML: SVM-1 (part 1.3h of 2.8h)"
+        "M11 Class 11/13: ML: SVM-1 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5774,7 +5774,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 11/13: ML: SVM-1",
-        "M11 Class 12/13: ML: SVM-2 (part 2.5h of 2.8h)"
+        "M11 Class 12/13: ML: SVM-2 (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5792,7 +5792,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Class 12/13: ML: SVM-2",
-        "M11 Class 13/13: Supervised ML wrap-up (part 2.2h of 2.8h)"
+        "M11 Class 13/13: Supervised ML wrap-up (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5864,7 +5864,7 @@
       "isBuffer": false,
       "focusItems": [
         "M11 Mandatory Skill Test \u2014 ML: Supervised Algorithms \u2014 Introduction to Machine Learning (+ revision)",
-        "M12 Class 1/11: ML: Intro to Unsupervised Learning, KMeans Revisited (part 2.3h of 2.8h)"
+        "M12 Class 1/11: ML: Intro to Unsupervised Learning, KMeans Revisited (part 2.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5882,7 +5882,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 1/11: ML: Intro to Unsupervised Learning, KMeans Revisited",
-        "M12 Class 2/11: ML: KMeans++ (part 1.0h of 2.8h)"
+        "M12 Class 2/11: ML: KMeans++ (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5900,7 +5900,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 2/11: ML: KMeans++",
-        "M12 Class 3/11: Business Case: OLA Review (part 1.2h of 2.8h)"
+        "M12 Class 3/11: Business Case: OLA Review (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5933,7 +5933,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 3/11: Business Case: OLA Review",
-        "M12 Class 4/11: ML : Hierarchical clustering (part 1.3h of 2.8h)"
+        "M12 Class 4/11: ML : Hierarchical clustering (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -5983,7 +5983,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 5/11: ML: Gaussian Mixture Models",
-        "M12 Class 6/11: ML:Anomaly/Outlier/Novelty Detection - 1 (part 1.2h of 2.8h)"
+        "M12 Class 6/11: ML:Anomaly/Outlier/Novelty Detection - 1 (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6001,7 +6001,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 6/11: ML:Anomaly/Outlier/Novelty Detection - 1",
-        "M12 Class 7/11: ML:Anomaly/Outlier/Novelty Detection - 2 (part 0.8h of 2.8h)"
+        "M12 Class 7/11: ML:Anomaly/Outlier/Novelty Detection - 2 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6019,7 +6019,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 7/11: ML:Anomaly/Outlier/Novelty Detection - 2",
-        "M12 Class 8/11: ML: High Dimensional Viz - PCA (part 2.0h of 2.8h)"
+        "M12 Class 8/11: ML: High Dimensional Viz - PCA (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6037,7 +6037,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 8/11: ML: High Dimensional Viz - PCA",
-        "M12 Class 9/11: ML: High Dimensional Viz - T-SNE (part 1.7h of 2.8h)"
+        "M12 Class 9/11: ML: High Dimensional Viz - T-SNE (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6055,7 +6055,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 9/11: ML: High Dimensional Viz - T-SNE",
-        "M12 Class 10/11: ML: High Dimensional Viz - UMAP (part 0.3h of 2.8h)"
+        "M12 Class 10/11: ML: High Dimensional Viz - UMAP (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6073,7 +6073,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Class 10/11: ML: High Dimensional Viz - UMAP",
-        "M12 Class 11/11: ML: Unsupervised Learning Wrap-up (part 0.5h of 2.8h)"
+        "M12 Class 11/11: ML: Unsupervised Learning Wrap-up (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6090,7 +6090,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M12 Class 11/11: ML: Unsupervised Learning Wrap-up (part 1.5h of 2.8h)"
+        "M12 Class 11/11: ML: Unsupervised Learning Wrap-up (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6178,7 +6178,7 @@
       "isBuffer": false,
       "focusItems": [
         "M12 Companion/Expert Mock Interview \u2014 ML: Adv Supervised Algorithms \u2014 Distributed Machine Learning",
-        "M13 Class 1/14: ML: Intro to Time Series and Forecasting (part 0.7h of 2.8h)"
+        "M13 Class 1/14: ML: Intro to Time Series and Forecasting (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6195,7 +6195,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M13 Class 1/14: ML: Intro to Time Series and Forecasting (part 1.5h of 2.8h)"
+        "M13 Class 1/14: ML: Intro to Time Series and Forecasting (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6229,7 +6229,7 @@
       "focusItems": [
         "M13 Class 1/14: ML: Intro to Time Series and Forecasting",
         "M13 Class 2/14: ML: Time Series Analysis - 1",
-        "M13 Class 3/14: ML: Time Series Analysis - 2 (part 0.5h of 2.8h)"
+        "M13 Class 3/14: ML: Time Series Analysis - 2 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6247,7 +6247,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 3/14: ML: Time Series Analysis - 2",
-        "M13 Class 4/14: ML: Time Series Analysis - 3 (part 0.2h of 2.8h)"
+        "M13 Class 4/14: ML: Time Series Analysis - 3 (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6265,7 +6265,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 4/14: ML: Time Series Analysis - 3",
-        "M13 Class 5/14: ML: Time Series Analysis - 4 (part 1.3h of 2.8h)"
+        "M13 Class 5/14: ML: Time Series Analysis - 4 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6283,7 +6283,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 5/14: ML: Time Series Analysis - 4",
-        "M13 Class 6/14: Business Case: Scaler Review (part 1.0h of 2.8h)"
+        "M13 Class 6/14: Business Case: Scaler Review (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6300,7 +6300,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M13 Class 6/14: Business Case: Scaler Review (part 1.5h of 2.8h)"
+        "M13 Class 6/14: Business Case: Scaler Review (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6318,7 +6318,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 6/14: Business Case: Scaler Review",
-        "M13 Class 7/14: ML: Time Series Analysis - 5 (part 2.7h of 2.8h)"
+        "M13 Class 7/14: ML: Time Series Analysis - 5 (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6336,7 +6336,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 7/14: ML: Time Series Analysis - 5",
-        "M13 Class 8/14: ML: Recommender Systems-1 (part 1.3h of 2.8h)"
+        "M13 Class 8/14: ML: Recommender Systems-1 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6354,7 +6354,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 8/14: ML: Recommender Systems-1",
-        "M13 Class 9/14: ML: Recommender Systems-2 (part 1.5h of 2.8h)"
+        "M13 Class 9/14: ML: Recommender Systems-2 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6372,7 +6372,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 9/14: ML: Recommender Systems-2",
-        "M13 Class 10/14: Business Case: AdEase review (part 0.2h of 2.8h)"
+        "M13 Class 10/14: Business Case: AdEase review (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6390,7 +6390,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 10/14: Business Case: AdEase review",
-        "M13 Class 11/14: ML: Recommender Systems-3 (part 0.3h of 2.8h)"
+        "M13 Class 11/14: ML: Recommender Systems-3 (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6423,7 +6423,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 11/14: ML: Recommender Systems-3",
-        "M13 Class 12/14: ML: Recommender Systems-4 (part 0.5h of 2.8h)"
+        "M13 Class 12/14: ML: Recommender Systems-4 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6440,7 +6440,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M13 Class 12/14: ML: Recommender Systems-4 (part 1.5h of 2.8h)"
+        "M13 Class 12/14: ML: Recommender Systems-4 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6473,7 +6473,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 12/14: ML: Recommender Systems-4",
-        "M13 Class 13/14: ML: Recommender Systems-5 (part 1.2h of 2.8h)"
+        "M13 Class 13/14: ML: Recommender Systems-5 (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6505,7 +6505,7 @@
       "isTravelWeekend": true,
       "isBuffer": false,
       "focusItems": [
-        "M13 Class 13/14: ML: Recommender Systems-5 (part 1.0h of 2.8h)"
+        "M13 Class 13/14: ML: Recommender Systems-5 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6538,7 +6538,7 @@
       "isBuffer": false,
       "focusItems": [
         "M13 Class 13/14: ML: Recommender Systems-5",
-        "M13 Class 14/14: ML: End-to-end Practical Session (part 0.8h of 2.8h)"
+        "M13 Class 14/14: ML: End-to-end Practical Session (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6864,7 +6864,7 @@
       "isBuffer": false,
       "focusItems": [
         "Capstone Project 1 (Applied ML, post Module 13) [ASSUMED \u2014 confirm scope/hours on platform]",
-        "M14 Class 1/13: Git & GitHub: Setup for MLOps (part 0.5h of 2.8h)"
+        "M14 Class 1/13: Git & GitHub: Setup for MLOps (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6897,7 +6897,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 1/13: Git & GitHub: Setup for MLOps",
-        "M14 Class 2/13: Building Cars24 ML tool using Streamlit (part 0.7h of 2.8h)"
+        "M14 Class 2/13: Building Cars24 ML tool using Streamlit (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6914,7 +6914,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M14 Class 2/13: Building Cars24 ML tool using Streamlit (part 1.5h of 2.8h)"
+        "M14 Class 2/13: Building Cars24 ML tool using Streamlit (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6948,7 +6948,7 @@
       "focusItems": [
         "M14 Class 2/13: Building Cars24 ML tool using Streamlit",
         "M14 Class 3/13: Develop Web APIs using Flask",
-        "M14 Class 4/13: Containerization - Docker & DockerHub (part 0.5h of 2.8h)"
+        "M14 Class 4/13: Containerization - Docker & DockerHub (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6966,7 +6966,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 4/13: Containerization - Docker & DockerHub",
-        "M14 Class 5/13: Deploying APIs on AWS using ECS (part 0.2h of 2.8h)"
+        "M14 Class 5/13: Deploying APIs on AWS using ECS (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -6984,7 +6984,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 5/13: Deploying APIs on AWS using ECS",
-        "M14 Class 6/13: GitHub Actions - Setting up CI/CD pipelines (part 1.3h of 2.8h)"
+        "M14 Class 6/13: GitHub Actions - Setting up CI/CD pipelines (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7002,7 +7002,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 6/13: GitHub Actions - Setting up CI/CD pipelines",
-        "M14 Class 7/13: GitHub Actions - Setting up CI/CD pipelines - 2 (part 1.0h of 2.8h)"
+        "M14 Class 7/13: GitHub Actions - Setting up CI/CD pipelines - 2 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7019,7 +7019,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M14 Class 7/13: GitHub Actions - Setting up CI/CD pipelines - 2 (part 1.5h of 2.8h)"
+        "M14 Class 7/13: GitHub Actions - Setting up CI/CD pipelines - 2 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7037,7 +7037,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 7/13: GitHub Actions - Setting up CI/CD pipelines - 2",
-        "M14 Class 8/13: Business Case:Zee Review (part 2.7h of 2.8h)"
+        "M14 Class 8/13: Business Case:Zee Review (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7055,7 +7055,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 8/13: Business Case:Zee Review",
-        "M14 Class 9/13: Experiment Tracking & Data Management using MLFlow (part 1.3h of 2.8h)"
+        "M14 Class 9/13: Experiment Tracking & Data Management using MLFlow (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7073,7 +7073,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 9/13: Experiment Tracking & Data Management using MLFlow",
-        "M14 Class 10/13: ML System Design - 1 (part 1.5h of 2.8h)"
+        "M14 Class 10/13: ML System Design - 1 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7091,7 +7091,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 10/13: ML System Design - 1",
-        "M14 Class 11/13: ML System Design - 2 (part 0.2h of 2.8h)"
+        "M14 Class 11/13: ML System Design - 2 (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7109,7 +7109,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 11/13: ML System Design - 2",
-        "M14 Class 12/13: Building ML pipelines with AWS Sagemaker (part 0.3h of 2.8h)"
+        "M14 Class 12/13: Building ML pipelines with AWS Sagemaker (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7142,7 +7142,7 @@
       "isBuffer": false,
       "focusItems": [
         "M14 Class 12/13: Building ML pipelines with AWS Sagemaker",
-        "M14 Class 13/13: Processing large scale data using Apache Spark (part 0.5h of 2.8h)"
+        "M14 Class 13/13: Processing large scale data using Apache Spark (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7159,7 +7159,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M14 Class 13/13: Processing large scale data using Apache Spark (part 1.5h of 2.8h)"
+        "M14 Class 13/13: Processing large scale data using Apache Spark (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7231,7 +7231,7 @@
       "focusItems": [
         "M14 Research Paper 4/4 (MLOps \u2014 Productionization of ML Systems)",
         "M14 Mandatory Skill Test \u2014 MLOps \u2014 Productionization of ML Systems (+ revision)",
-        "M15 Class 1/14: NN: Intro to Neural Networks (part 0.7h of 2.8h)"
+        "M15 Class 1/14: NN: Intro to Neural Networks (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7249,7 +7249,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 1/14: NN: Intro to Neural Networks",
-        "M15 Class 2/14: NN : Forward and Back Propagation (part 0.3h of 2.8h)"
+        "M15 Class 2/14: NN : Forward and Back Propagation (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7266,7 +7266,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M15 Class 2/14: NN : Forward and Back Propagation (part 1.5h of 2.8h)"
+        "M15 Class 2/14: NN : Forward and Back Propagation (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7284,7 +7284,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 2/14: NN : Forward and Back Propagation",
-        "M15 Class 3/14: N-Layer Neural Network - 1 (part 2.0h of 2.8h)"
+        "M15 Class 3/14: N-Layer Neural Network - 1 (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7302,7 +7302,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 3/14: N-Layer Neural Network - 1",
-        "M15 Class 4/14: N-Layer Neural Network - 2 (part 0.7h of 2.8h)"
+        "M15 Class 4/14: N-Layer Neural Network - 2 (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7320,7 +7320,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 4/14: N-Layer Neural Network - 2",
-        "M15 Class 5/14: N-Layer BackPropagation (part 0.8h of 2.8h)"
+        "M15 Class 5/14: N-Layer BackPropagation (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7337,7 +7337,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M15 Class 5/14: N-Layer BackPropagation (part 1.5h of 2.8h)"
+        "M15 Class 5/14: N-Layer BackPropagation (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7355,7 +7355,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 5/14: N-Layer BackPropagation",
-        "M15 Class 6/14: Tensorflow and Keras - 1 (part 2.5h of 2.8h)"
+        "M15 Class 6/14: Tensorflow and Keras - 1 (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7388,7 +7388,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 6/14: Tensorflow and Keras - 1",
-        "M15 Class 7/14: Tensorflow and Keras - 2 (part 2.7h of 2.8h)"
+        "M15 Class 7/14: Tensorflow and Keras - 2 (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7406,7 +7406,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 7/14: Tensorflow and Keras - 2",
-        "M15 Class 8/14: Optimizers for NNs (part 1.3h of 2.8h)"
+        "M15 Class 8/14: Optimizers for NNs (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7439,7 +7439,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 8/14: Optimizers for NNs",
-        "M15 Class 9/14: NN : Optimizers 2 (part 0.5h of 2.8h)"
+        "M15 Class 9/14: NN : Optimizers 2 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7471,7 +7471,7 @@
       "isTravelWeekend": true,
       "isBuffer": false,
       "focusItems": [
-        "M15 Class 9/14: NN : Optimizers 2 (part 1.0h of 2.8h)"
+        "M15 Class 9/14: NN : Optimizers 2 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7504,7 +7504,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 9/14: NN : Optimizers 2",
-        "M15 Class 10/14: Basic image classification of hand written digits (part 0.2h of 2.8h)"
+        "M15 Class 10/14: Basic image classification of hand written digits (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7522,7 +7522,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 10/14: Basic image classification of hand written digits",
-        "M15 Class 11/14: NN : Hyper Parameter Tuning for NNs (part 0.3h of 2.8h)"
+        "M15 Class 11/14: NN : Hyper Parameter Tuning for NNs (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7539,7 +7539,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M15 Class 11/14: NN : Hyper Parameter Tuning for NNs (part 1.5h of 2.8h)"
+        "M15 Class 11/14: NN : Hyper Parameter Tuning for NNs (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7557,7 +7557,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 11/14: NN : Hyper Parameter Tuning for NNs",
-        "M15 Class 12/14: Autoencoders (part 2.0h of 2.8h)"
+        "M15 Class 12/14: Autoencoders (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7575,7 +7575,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 12/14: Autoencoders",
-        "M15 Class 13/14: Practical aspects of designing MLPs and debugging (part 0.7h of 2.8h)"
+        "M15 Class 13/14: Practical aspects of designing MLPs and debugging (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7593,7 +7593,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Class 13/14: Practical aspects of designing MLPs and debugging",
-        "M15 Class 14/14: Model interpretability: LIME (part 0.8h of 2.8h)"
+        "M15 Class 14/14: Model interpretability: LIME (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7715,7 +7715,7 @@
       "isBuffer": false,
       "focusItems": [
         "M15 Mandatory Skill Test \u2014 Neural Networks \u2014 Introduction to Deep Learning (+ revision)",
-        "M16 Class 1/14: Business Case: Porter review (part 2.5h of 2.8h)"
+        "M16 Class 1/14: Business Case: Porter review (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7733,7 +7733,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 1/14: Business Case: Porter review",
-        "M16 Class 2/14: Introduction to Computer Vision(CNN) (part 2.2h of 2.8h)"
+        "M16 Class 2/14: Introduction to Computer Vision(CNN) (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7751,7 +7751,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 2/14: Introduction to Computer Vision(CNN)",
-        "M16 Class 3/14: Revisting CNN: Deal with Overfitting (part 0.8h of 2.8h)"
+        "M16 Class 3/14: Revisting CNN: Deal with Overfitting (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7769,7 +7769,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 3/14: Revisting CNN: Deal with Overfitting",
-        "M16 Class 4/14: Cnn under the hood (part 1.0h of 2.8h)"
+        "M16 Class 4/14: Cnn under the hood (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7786,7 +7786,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M16 Class 4/14: Cnn under the hood (part 1.5h of 2.8h)"
+        "M16 Class 4/14: Cnn under the hood (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7804,7 +7804,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 4/14: Cnn under the hood",
-        "M16 Class 5/14: Introduction to Transfer Learning (part 2.7h of 2.8h)"
+        "M16 Class 5/14: Introduction to Transfer Learning (part 2.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7822,7 +7822,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 5/14: Introduction to Transfer Learning",
-        "M16 Class 6/14: Image similarity: Understanding Embeddings (part 1.3h of 2.8h)"
+        "M16 Class 6/14: Image similarity: Understanding Embeddings (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7840,7 +7840,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 6/14: Image similarity: Understanding Embeddings",
-        "M16 Class 7/14: Cnn for medical diagnosis (part 1.5h of 2.8h)"
+        "M16 Class 7/14: Cnn for medical diagnosis (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7873,7 +7873,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 7/14: Cnn for medical diagnosis",
-        "M16 Class 8/14: CV : Cnn for medical diagnosis (part 1.7h of 2.8h)"
+        "M16 Class 8/14: CV : Cnn for medical diagnosis (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7891,7 +7891,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 8/14: CV : Cnn for medical diagnosis",
-        "M16 Class 9/14: Object Localisation and Detection -1 (part 0.3h of 2.8h)"
+        "M16 Class 9/14: Object Localisation and Detection -1 (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7924,7 +7924,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 9/14: Object Localisation and Detection -1",
-        "M16 Class 10/14: Object Localisation and Detection -2 (part 1.5h of 2.8h)"
+        "M16 Class 10/14: Object Localisation and Detection -2 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7942,7 +7942,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 10/14: Object Localisation and Detection -2",
-        "M16 Class 11/14: Object Segmentation (part 1.2h of 2.8h)"
+        "M16 Class 11/14: Object Segmentation (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7960,7 +7960,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 11/14: Object Segmentation",
-        "M16 Class 12/14: Open Discussion Ninjacart Review, Myntra: BuyMethatLook (part 2.3h of 2.8h)"
+        "M16 Class 12/14: Open Discussion Ninjacart Review, Myntra: BuyMethatLook (part 2.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7978,7 +7978,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 12/14: Open Discussion Ninjacart Review, Myntra: BuyMethatLook",
-        "M16 Class 13/14: Siamese networks (part 2.0h of 2.8h)"
+        "M16 Class 13/14: Siamese networks (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -7996,7 +7996,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Class 13/14: Siamese networks",
-        "M16 Class 14/14: Generative Models & GANs  Introduction (part 0.7h of 2.8h)"
+        "M16 Class 14/14: Generative Models & GANs  Introduction (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8086,7 +8086,7 @@
       "isBuffer": false,
       "focusItems": [
         "M16 Companion/Expert Mock Interview \u2014 Computer Vision \u2014 Deep Learning for Computer Vision",
-        "M17 Class 1/13: NLP : Intro to NLP (part 0.8h of 2.8h)"
+        "M17 Class 1/13: NLP : Intro to NLP (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8119,7 +8119,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 1/13: NLP : Intro to NLP",
-        "M17 Class 2/13: NLP : Text Representation (part 1.0h of 2.8h)"
+        "M17 Class 2/13: NLP : Text Representation (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8136,7 +8136,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M17 Class 2/13: NLP : Text Representation (part 1.5h of 2.8h)"
+        "M17 Class 2/13: NLP : Text Representation (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8170,7 +8170,7 @@
       "focusItems": [
         "M17 Class 2/13: NLP : Text Representation",
         "M17 Class 3/13: NLP : Word Embedding - Word2Vec",
-        "M17 Class 4/13: NLP : Language Modeling (part 0.8h of 2.8h)"
+        "M17 Class 4/13: NLP : Language Modeling (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8188,7 +8188,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 4/13: NLP : Language Modeling",
-        "M17 Class 5/13: NLP : RNNs (part 0.5h of 2.8h)"
+        "M17 Class 5/13: NLP : RNNs (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8206,7 +8206,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 5/13: NLP : RNNs",
-        "M17 Class 6/13: NLP : LSTM (part 1.7h of 2.8h)"
+        "M17 Class 6/13: NLP : LSTM (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8224,7 +8224,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 6/13: NLP : LSTM",
-        "M17 Class 7/13: NLP : LSTM Contd. (part 1.3h of 2.8h)"
+        "M17 Class 7/13: NLP : LSTM Contd. (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8259,7 +8259,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 8/13: NLP - NER",
-        "M17 Class 9/13: NLP : Topic Modeling (part 0.2h of 2.8h)"
+        "M17 Class 9/13: NLP : Topic Modeling (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8276,7 +8276,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M17 Class 9/13: NLP : Topic Modeling (part 1.5h of 2.8h)"
+        "M17 Class 9/13: NLP : Topic Modeling (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8294,7 +8294,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 9/13: NLP : Topic Modeling",
-        "M17 Class 10/13: NLP : Attention (part 1.8h of 2.8h)"
+        "M17 Class 10/13: NLP : Attention (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8312,7 +8312,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 10/13: NLP : Attention",
-        "M17 Class 11/13: NLP : Transformers (part 0.5h of 2.8h)"
+        "M17 Class 11/13: NLP : Transformers (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8330,7 +8330,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 11/13: NLP : Transformers",
-        "M17 Class 12/13: Business Case: Flip it News Review (part 0.7h of 2.8h)"
+        "M17 Class 12/13: Business Case: Flip it News Review (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8363,7 +8363,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Class 12/13: Business Case: Flip it News Review",
-        "M17 Class 13/13: NLP : BERT (part 0.8h of 2.8h)"
+        "M17 Class 13/13: NLP : BERT (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8380,7 +8380,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M17 Class 13/13: NLP : BERT (part 1.5h of 2.8h)"
+        "M17 Class 13/13: NLP : BERT (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8531,7 +8531,7 @@
       "isBuffer": false,
       "focusItems": [
         "M17 Companion/Expert Mock Interview \u2014 Natural Language Processing \u2014 Deep Learning for NLP",
-        "M18 Class 1/24: ML System Design & Data Engineering - Class 1 (part 2.5h of 2.8h)"
+        "M18 Class 1/24: ML System Design & Data Engineering - Class 1 (part 2.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8549,7 +8549,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 1/24: ML System Design & Data Engineering - Class 1",
-        "M18 Class 2/24: ML System Design & Data Engineering - Class 2 (part 1.2h of 2.8h)"
+        "M18 Class 2/24: ML System Design & Data Engineering - Class 2 (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8567,7 +8567,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 2/24: ML System Design & Data Engineering - Class 2",
-        "M18 Class 3/24: ML System Design & Data Engineering - Class 3 (part 1.3h of 2.8h)"
+        "M18 Class 3/24: ML System Design & Data Engineering - Class 3 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8600,7 +8600,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 3/24: ML System Design & Data Engineering - Class 3",
-        "M18 Class 4/24: ML System Design & Data Engineering - Class 4 (part 1.5h of 2.8h)"
+        "M18 Class 4/24: ML System Design & Data Engineering - Class 4 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8618,7 +8618,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 4/24: ML System Design & Data Engineering - Class 4",
-        "M18 Class 5/24: ML System Design & Data Engineering - Class 5 (part 0.2h of 2.8h)"
+        "M18 Class 5/24: ML System Design & Data Engineering - Class 5 (part 0.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8651,7 +8651,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 5/24: ML System Design & Data Engineering - Class 5",
-        "M18 Class 6/24: ML System Design & Data Engineering - Class 6 (part 1.3h of 2.8h)"
+        "M18 Class 6/24: ML System Design & Data Engineering - Class 6 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8669,7 +8669,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 6/24: ML System Design & Data Engineering - Class 6",
-        "M18 Class 7/24: ML System Design & Data Engineering - Class 7 (part 1.0h of 2.8h)"
+        "M18 Class 7/24: ML System Design & Data Engineering - Class 7 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8687,7 +8687,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 7/24: ML System Design & Data Engineering - Class 7",
-        "M18 Class 8/24: ML System Design & Data Engineering - Class 8 (part 2.2h of 2.8h)"
+        "M18 Class 8/24: ML System Design & Data Engineering - Class 8 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8705,7 +8705,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 8/24: ML System Design & Data Engineering - Class 8",
-        "M18 Class 9/24: ML System Design & Data Engineering - Class 9 (part 1.8h of 2.8h)"
+        "M18 Class 9/24: ML System Design & Data Engineering - Class 9 (part 1.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8723,7 +8723,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 9/24: ML System Design & Data Engineering - Class 9",
-        "M18 Class 10/24: ML System Design & Data Engineering - Class 10 (part 0.5h of 2.8h)"
+        "M18 Class 10/24: ML System Design & Data Engineering - Class 10 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8741,7 +8741,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 10/24: ML System Design & Data Engineering - Class 10",
-        "M18 Class 11/24: ML System Design & Data Engineering - Class 11 (part 0.7h of 2.8h)"
+        "M18 Class 11/24: ML System Design & Data Engineering - Class 11 (part 0.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8758,7 +8758,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M18 Class 11/24: ML System Design & Data Engineering - Class 11 (part 1.5h of 2.8h)"
+        "M18 Class 11/24: ML System Design & Data Engineering - Class 11 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8776,7 +8776,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 11/24: ML System Design & Data Engineering - Class 11",
-        "M18 Class 12/24: ML System Design & Data Engineering - Class 12 (part 2.3h of 2.8h)"
+        "M18 Class 12/24: ML System Design & Data Engineering - Class 12 (part 2.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8794,7 +8794,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 12/24: ML System Design & Data Engineering - Class 12",
-        "M18 Class 13/24: ML System Design & Data Engineering - Class 13 (part 1.0h of 2.8h)"
+        "M18 Class 13/24: ML System Design & Data Engineering - Class 13 (part 1.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8812,7 +8812,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 13/24: ML System Design & Data Engineering - Class 13",
-        "M18 Class 14/24: ML System Design & Data Engineering - Class 14 (part 1.2h of 2.8h)"
+        "M18 Class 14/24: ML System Design & Data Engineering - Class 14 (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8845,7 +8845,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 14/24: ML System Design & Data Engineering - Class 14",
-        "M18 Class 15/24: ML System Design & Data Engineering - Class 15 (part 1.3h of 2.8h)"
+        "M18 Class 15/24: ML System Design & Data Engineering - Class 15 (part 1.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8895,7 +8895,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 16/24: ML System Design & Data Engineering - Class 16",
-        "M18 Class 17/24: ML System Design & Data Engineering - Class 17 (part 1.2h of 2.8h)"
+        "M18 Class 17/24: ML System Design & Data Engineering - Class 17 (part 1.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8913,7 +8913,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 17/24: ML System Design & Data Engineering - Class 17",
-        "M18 Class 18/24: ML System Design & Data Engineering - Class 18 (part 0.8h of 2.8h)"
+        "M18 Class 18/24: ML System Design & Data Engineering - Class 18 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8931,7 +8931,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 18/24: ML System Design & Data Engineering - Class 18",
-        "M18 Class 19/24: ML System Design & Data Engineering - Class 19 (part 2.0h of 2.8h)"
+        "M18 Class 19/24: ML System Design & Data Engineering - Class 19 (part 2.0h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8949,7 +8949,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 19/24: ML System Design & Data Engineering - Class 19",
-        "M18 Class 20/24: ML System Design & Data Engineering - Class 20 (part 1.7h of 2.8h)"
+        "M18 Class 20/24: ML System Design & Data Engineering - Class 20 (part 1.7h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8967,7 +8967,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 20/24: ML System Design & Data Engineering - Class 20",
-        "M18 Class 21/24: ML System Design & Data Engineering - Class 21 (part 0.3h of 2.8h)"
+        "M18 Class 21/24: ML System Design & Data Engineering - Class 21 (part 0.3h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -8985,7 +8985,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 21/24: ML System Design & Data Engineering - Class 21",
-        "M18 Class 22/24: ML System Design & Data Engineering - Class 22 (part 0.5h of 2.8h)"
+        "M18 Class 22/24: ML System Design & Data Engineering - Class 22 (part 0.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -9002,7 +9002,7 @@
       "isTravelWeekend": false,
       "isBuffer": false,
       "focusItems": [
-        "M18 Class 22/24: ML System Design & Data Engineering - Class 22 (part 1.5h of 2.8h)"
+        "M18 Class 22/24: ML System Design & Data Engineering - Class 22 (part 1.5h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -9020,7 +9020,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 22/24: ML System Design & Data Engineering - Class 22",
-        "M18 Class 23/24: ML System Design & Data Engineering - Class 23 (part 2.2h of 2.8h)"
+        "M18 Class 23/24: ML System Design & Data Engineering - Class 23 (part 2.2h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,
@@ -9038,7 +9038,7 @@
       "isBuffer": false,
       "focusItems": [
         "M18 Class 23/24: ML System Design & Data Engineering - Class 23",
-        "M18 Class 24/24: ML System Design & Data Engineering - Class 24 (part 0.8h of 2.8h)"
+        "M18 Class 24/24: ML System Design & Data Engineering - Class 24 (part 0.8h of 3.0h)"
       ],
       "actualHours": null,
       "sleepHours": null,

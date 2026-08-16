@@ -45,6 +45,11 @@ export function isClassItemFullyCompleted(item: SyllabusItem): boolean {
 export function normalizeSyllabusItem(item: SyllabusItem): SyllabusItem {
   if (item.type !== 'Class') return item;
 
+  let estimatedHours = item.estimatedHours;
+  if (!estimatedHours || Math.abs(estimatedHours - 2.833) < 0.1 || Math.abs(estimatedHours - 2.83) < 0.1) {
+    estimatedHours = 3.0;
+  }
+
   const hasVideo = item.hasVideo !== false;
   const hasAssignment = item.hasAssignment !== false;
   const hasAdditionalProblems = item.hasAdditionalProblems !== false;
@@ -55,6 +60,7 @@ export function normalizeSyllabusItem(item: SyllabusItem): SyllabusItem {
 
   const completed = isClassItemFullyCompleted({
     ...item,
+    estimatedHours,
     hasVideo,
     videoCompleted,
     hasAssignment,
@@ -65,6 +71,7 @@ export function normalizeSyllabusItem(item: SyllabusItem): SyllabusItem {
 
   return {
     ...item,
+    estimatedHours,
     hasVideo,
     videoCompleted,
     hasAssignment,

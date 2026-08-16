@@ -26,11 +26,32 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
   const actualHours = block.actualHours ?? 0;
   const sleepHours = block.sleepHours ?? 7.0;
 
-  // Resolve item titles & completion
-  const blockSyllabusItems = (block.itemIds || [])
-    .map((id) => syllabusItems.find((item) => item.id === id))
-    .filter((item): item is SyllabusItem => Boolean(item))
-    .map(normalizeSyllabusItem);
+  // Resolve item titles & completion with robust string matching fallback
+  const blockSyllabusItems = React.useMemo(() => {
+    let items: SyllabusItem[] = [];
+
+    if (block.itemIds && block.itemIds.length > 0) {
+      items = block.itemIds
+        .map((id) => syllabusItems.find((item) => item.id === id))
+        .filter((item): item is SyllabusItem => Boolean(item));
+    }
+
+    if (items.length === 0 && block.focusItems && Array.isArray(block.focusItems)) {
+      for (const focusStr of block.focusItems) {
+        const cleaned = cleanFocusTitle(focusStr).toLowerCase();
+        if (!cleaned) continue;
+        const matched = syllabusItems.find((item) => {
+          const titleLower = item.title.trim().toLowerCase();
+          return titleLower === cleaned || titleLower.includes(cleaned) || cleaned.includes(titleLower);
+        });
+        if (matched && !items.some((i) => i.id === matched.id)) {
+          items.push(matched);
+        }
+      }
+    }
+
+    return items.map(normalizeSyllabusItem);
+  }, [block, syllabusItems]);
 
   const handleActualHoursChange = (newVal: number) => {
     const clamped = Math.max(0, Math.min(8, Math.round(newVal * 4) / 4));
@@ -265,15 +286,83 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
             })}
           </div>
         ) : (
-          <div className="space-y-1.5">
-            {block.focusItems.map((focusStr, idx) => (
-              <div
-                key={idx}
-                className="p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/80 text-xs text-slate-300"
-              >
-                {cleanFocusTitle(focusStr)}
-              </div>
-            ))}
+          <div className="space-y-2.5">
+            {block.focusItems.map((focusStr, idx) => {
+              const cleaned = cleanFocusTitle(focusStr);
+              const sessionHours = parseFocusItemHours(focusStr, 2.5);
+              return (
+                <div
+                  key={idx}
+                  className={`p-3 rounded-xl border transition-all ${
+                    block.completed
+                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
+                      : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
+                  }`}
+                >
+                  <div
+                    className="flex items-start space-x-3 cursor-pointer"
+                    onClick={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                  >
+                    <div
+                      className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
+                        block.completed
+                          ? 'bg-emerald-500 border-emerald-400 text-slate-950'
+                          : 'border-slate-600 bg-slate-800'
+                      }`}
+                    >
+                      {block.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                    </div>
+                    <div className="flex-1 text-xs leading-snug">
+                      <span className={block.completed ? 'line-through opacity-80' : 'font-medium'}>
+                        {cleaned}
+                      </span>
+                      <div className="text-[10px] text-slate-400 mt-0.5 flex flex-wrap items-center justify-between gap-1">
+                        <span>Session Est: <strong className="text-slate-300">{sessionHours}h</strong> • Type: Class</span>
+                        <span className="font-mono text-indigo-300 font-bold bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
+                          Coverage: {block.completed ? sessionHours : 0}h / {sessionHours}h ({block.completed ? '100' : '0'}%)
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sub-Components Checklist */}
+                  <div className="mt-3 pt-2.5 border-t border-slate-800/80 space-y-1.5">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                      Class Sub-Components
+                    </div>
+                    <div className="flex flex-col space-y-1 text-xs">
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+                        <div className="flex items-center space-x-2">
+                          <Video className="w-3.5 h-3.5 text-indigo-400" />
+                          <span className="text-slate-200 font-semibold">Recordings</span>
+                        </div>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
+                          {block.completed ? 'Completed' : 'Pending'}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+                        <div className="flex items-center space-x-2">
+                          <FileCode className="w-3.5 h-3.5 text-purple-400" />
+                          <span className="text-slate-200 font-semibold">Assignments</span>
+                        </div>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
+                          {block.completed ? 'Completed' : 'Pending'}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+                        <div className="flex items-center space-x-2">
+                          <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
+                          <span className="text-slate-200 font-semibold">Additional Problems</span>
+                        </div>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
+                          {block.completed ? 'Completed' : 'Pending'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

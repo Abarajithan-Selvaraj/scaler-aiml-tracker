@@ -5,7 +5,10 @@ import { ScheduleBlock, SyllabusItem } from '../types/tracker';
  */
 export function cleanFocusTitle(focusItemStr: string): string {
   if (!focusItemStr) return '';
-  return focusItemStr.replace(/\s*\(part\s+[\d.]+h\s+of\s+[\d.]+h\)/i, '').trim();
+  return focusItemStr
+    .replace(/\s*\(part\s+[\d.]+h\s+of\s+[\d.]+\s*h?\)/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**

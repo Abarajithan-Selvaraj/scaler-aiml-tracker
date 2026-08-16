@@ -298,6 +298,31 @@ export const TimetableScreen: React.FC = () => {
                               block.focusItems.map((f, i) => {
                                 const cleaned = cleanFocusTitle(f);
                                 const sessionHours = parseFocusItemHours(f, 2.5);
+                                const realMatch = syllabusItems.find(
+                                  (s) =>
+                                    s.title &&
+                                    (s.title.toLowerCase().trim().includes(cleaned.toLowerCase()) ||
+                                      cleaned.toLowerCase().includes(s.title.toLowerCase().trim()))
+                                );
+
+                                if (realMatch) {
+                                  const isSplit = sessionHours > 0 && sessionHours !== realMatch.estimatedHours;
+                                  const mod = modules.find((m) => m.id === realMatch.moduleId);
+                                  return (
+                                    <ClassCard
+                                      key={realMatch.id}
+                                      item={realMatch}
+                                      scheduleBlocks={scheduleBlocks}
+                                      moduleName={mod?.name}
+                                      moduleNumber={mod?.moduleNumber}
+                                      sessionHours={sessionHours}
+                                      isSplit={isSplit}
+                                      onToggleItem={toggleItemCompletion}
+                                      onToggleSubComponent={toggleSubComponentCompletion}
+                                    />
+                                  );
+                                }
+
                                 const fallbackItem: SyllabusItem = {
                                   id: `virtual-tt-${i}`,
                                   moduleId: 'm4',
@@ -319,6 +344,20 @@ export const TimetableScreen: React.FC = () => {
                                     sessionHours={sessionHours}
                                     isSplit={false}
                                     onToggleItem={() => updateBlockLog(block.id, { completed: !block.completed })}
+                                    onToggleSubComponent={(_id, subComp) => {
+                                      const updatedSub = !fallbackItem[
+                                        subComp === 'video'
+                                          ? 'videoCompleted'
+                                          : subComp === 'assignment'
+                                          ? 'assignmentCompleted'
+                                          : 'additionalProblemsCompleted'
+                                      ];
+                                      const nextVid = subComp === 'video' ? updatedSub : fallbackItem.videoCompleted;
+                                      const nextAssign = subComp === 'assignment' ? updatedSub : fallbackItem.assignmentCompleted;
+                                      const nextAdd = subComp === 'additional' ? updatedSub : fallbackItem.additionalProblemsCompleted;
+                                      const allDone = nextVid && nextAssign && nextAdd;
+                                      updateBlockLog(block.id, { completed: allDone });
+                                    }}
                                   />
                                 );
                               })

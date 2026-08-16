@@ -39,6 +39,12 @@ export const ClassCard: React.FC<ClassCardProps> = ({
   index = 0,
 }) => {
   const coverage = getClassHoursCoverage(item, scheduleBlocks);
+  const isFullyCompleted =
+    Boolean(item.completed) ||
+    (item.type === 'Class' &&
+      Boolean(item.videoCompleted) &&
+      Boolean(item.assignmentCompleted) &&
+      Boolean(item.additionalProblemsCompleted));
 
   return (
     <div
@@ -87,12 +93,12 @@ export const ClassCard: React.FC<ClassCardProps> = ({
         >
           <div
             className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-              item.completed
+              isFullyCompleted
                 ? 'bg-emerald-500 border-emerald-400 text-slate-950'
                 : 'border-slate-600 bg-slate-800'
             }`}
           >
-            {item.completed && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
+            {isFullyCompleted && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -117,7 +123,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
 
             <div
               className={`text-xs font-semibold mt-1 leading-snug ${
-                item.completed ? 'line-through opacity-75' : 'text-slate-100'
+                isFullyCompleted ? 'line-through opacity-75' : 'text-slate-100'
               }`}
             >
               {item.title}

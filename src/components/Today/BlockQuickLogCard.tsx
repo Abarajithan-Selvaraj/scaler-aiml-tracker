@@ -132,6 +132,28 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
             {block.focusItems.map((focusStr, idx) => {
               const cleaned = cleanFocusTitle(focusStr);
               const sessionHours = parseFocusItemHours(focusStr, 2.5);
+              const realMatch = syllabusItems.find(
+                (s) =>
+                  s.title &&
+                  (s.title.toLowerCase().trim().includes(cleaned.toLowerCase()) ||
+                    cleaned.toLowerCase().includes(s.title.toLowerCase().trim()))
+              );
+
+              if (realMatch) {
+                const isSplit = sessionHours > 0 && sessionHours !== realMatch.estimatedHours;
+                return (
+                  <ClassCard
+                    key={realMatch.id}
+                    item={realMatch}
+                    scheduleBlocks={scheduleBlocks}
+                    sessionHours={sessionHours}
+                    isSplit={isSplit}
+                    onToggleItem={onToggleItem}
+                    onToggleSubComponent={onToggleSubComponent}
+                  />
+                );
+              }
+
               const fallbackItem: SyllabusItem = {
                 id: `virtual-${idx}`,
                 moduleId: 'm4',
@@ -153,6 +175,20 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                   sessionHours={sessionHours}
                   isSplit={false}
                   onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                  onToggleSubComponent={(_id, subComp) => {
+                    const updatedSub = !fallbackItem[
+                      subComp === 'video'
+                        ? 'videoCompleted'
+                        : subComp === 'assignment'
+                        ? 'assignmentCompleted'
+                        : 'additionalProblemsCompleted'
+                    ];
+                    const nextVid = subComp === 'video' ? updatedSub : fallbackItem.videoCompleted;
+                    const nextAssign = subComp === 'assignment' ? updatedSub : fallbackItem.assignmentCompleted;
+                    const nextAdd = subComp === 'additional' ? updatedSub : fallbackItem.additionalProblemsCompleted;
+                    const allDone = nextVid && nextAssign && nextAdd;
+                    onUpdateBlock(block.id, { completed: allDone });
+                  }}
                 />
               );
             })}

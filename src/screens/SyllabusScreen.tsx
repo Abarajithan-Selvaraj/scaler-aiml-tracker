@@ -1,10 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { useTrackerStore, normalizeSyllabusItem } from '../store/useTrackerStore';
-import { Search, BookOpen, CheckCircle, Video, FileCode, HelpCircle, Check } from 'lucide-react';
+import { Search, BookOpen, CheckCircle, Video, FileCode, HelpCircle, Check, GripVertical, ChevronUp, ChevronDown } from 'lucide-react';
 
 export const SyllabusScreen: React.FC = () => {
-  const { syllabusItems, modules, toggleItemCompletion, toggleSubComponentCompletion } =
-    useTrackerStore();
+  const {
+    syllabusItems,
+    modules,
+    toggleItemCompletion,
+    toggleSubComponentCompletion,
+    reorderSyllabusItems,
+    moveSyllabusItem,
+  } = useTrackerStore();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('all');
@@ -115,57 +121,103 @@ export const SyllabusScreen: React.FC = () => {
           return (
             <div
               key={item.id}
-              className={`glass-panel rounded-xl p-3.5 border transition-all ${
+              draggable
+              onDragStart={(e) => {
+                e.dataTransfer.setData('text/plain', item.id);
+              }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                const sourceId = e.dataTransfer.getData('text/plain');
+                if (sourceId && sourceId !== item.id) {
+                  reorderSyllabusItems(sourceId, item.id);
+                }
+              }}
+              className={`glass-panel rounded-xl p-3.5 border transition-all cursor-grab active:cursor-grabbing ${
                 item.completed
                   ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
                   : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
               }`}
             >
-              <div
-                className="flex items-start space-x-3.5 cursor-pointer"
-                onClick={() => toggleItemCompletion(item.id)}
-              >
-                <div
-                  className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-                    item.completed
-                      ? 'bg-emerald-500 border-emerald-400 text-slate-950'
-                      : 'border-slate-600 bg-slate-800'
-                  }`}
-                >
-                  {item.completed && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
+              <div className="flex items-start space-x-3">
+                {/* Drag Handle & Reorder Controls */}
+                <div className="flex flex-col items-center justify-center shrink-0 pt-0.5 text-slate-500 hover:text-slate-300 space-y-0.5" title="Drag to reorder">
+                  <GripVertical className="w-4 h-4 cursor-grab" />
+                  <div className="flex flex-col">
+                    <button
+                      type="button"
+                      title="Move up"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        moveSyllabusItem(item.id, 'up');
+                      }}
+                      className="p-0.5 hover:text-indigo-300 transition-colors"
+                    >
+                      <ChevronUp className="w-3 h-3" />
+                    </button>
+                    <button
+                      type="button"
+                      title="Move down"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        moveSyllabusItem(item.id, 'down');
+                      }}
+                      className="p-0.5 hover:text-indigo-300 transition-colors"
+                    >
+                      <ChevronDown className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2">
-                    <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                        item.type === 'Class'
-                          ? 'bg-indigo-500/20 text-indigo-300'
-                          : item.type === 'Paper'
-                          ? 'bg-purple-500/20 text-purple-300'
-                          : 'bg-amber-500/20 text-amber-300'
-                      }`}
-                    >
-                      {item.type} #{item.sequence}
-                    </span>
-                    {mod && (
-                      <span className="text-[10px] text-slate-400 truncate">
-                        M{mod.moduleNumber}: {mod.name}
-                      </span>
-                    )}
-                  </div>
-
+                <div
+                  className="flex-1 flex items-start space-x-3 cursor-pointer"
+                  onClick={() => toggleItemCompletion(item.id)}
+                >
                   <div
-                    className={`text-xs font-semibold mt-1 leading-snug ${
-                      item.completed ? 'line-through opacity-75' : 'text-slate-100'
+                    className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
+                      item.completed
+                        ? 'bg-emerald-500 border-emerald-400 text-slate-950'
+                        : 'border-slate-600 bg-slate-800'
                     }`}
                   >
-                    {item.title}
+                    {item.completed && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
                   </div>
-                </div>
 
-                <div className="text-right shrink-0 text-[11px] font-semibold text-slate-400">
-                  {item.estimatedHours}h est.
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                          item.type === 'Class'
+                            ? 'bg-indigo-500/20 text-indigo-300'
+                            : item.type === 'Paper'
+                            ? 'bg-purple-500/20 text-purple-300'
+                            : 'bg-amber-500/20 text-amber-300'
+                        }`}
+                      >
+                        {item.type} #{item.sequence}
+                      </span>
+                      {mod && (
+                        <span className="text-[10px] text-slate-400 truncate">
+                          M{mod.moduleNumber}: {mod.name}
+                        </span>
+                      )}
+                    </div>
+
+                    <div
+                      className={`text-xs font-semibold mt-1 leading-snug ${
+                        item.completed ? 'line-through opacity-75' : 'text-slate-100'
+                      }`}
+                    >
+                      {item.title}
+                    </div>
+                  </div>
+
+                  <div className="text-right shrink-0 text-[11px] font-semibold text-slate-400">
+                    {item.estimatedHours}h est.
+                  </div>
                 </div>
               </div>
 

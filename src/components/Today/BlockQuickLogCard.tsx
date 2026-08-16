@@ -92,24 +92,27 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                 <div
                   key={item.id}
                   className={`p-3 rounded-xl border transition-all ${
-                    block.completed || item.completed
+                    block.completed
                       ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
                       : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
                   }`}
                 >
-                  {/* Main Class Checkbox */}
-                  <div className="flex items-start space-x-3 cursor-pointer" onClick={() => onToggleItem(item.id)}>
+                  {/* Main Session Block Checkbox */}
+                  <div
+                    className="flex items-start space-x-3 cursor-pointer"
+                    onClick={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                  >
                     <div
                       className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-                        item.completed || block.completed
+                        block.completed
                           ? 'bg-emerald-500 border-emerald-400 text-slate-950'
                           : 'border-slate-600 bg-slate-800'
                       }`}
                     >
-                      {(item.completed || block.completed) && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                      {block.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                     </div>
                     <div className="flex-1 text-xs leading-snug">
-                      <span className={item.completed || block.completed ? 'line-through opacity-80' : 'font-medium'}>
+                      <span className={block.completed ? 'line-through opacity-80' : 'font-medium'}>
                         {item.title}
                       </span>
                       <div className="text-[10px] text-slate-400 mt-0.5">

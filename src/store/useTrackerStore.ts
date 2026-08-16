@@ -90,6 +90,8 @@ interface TrackerState {
   importData: (json: string) => Promise<void>;
   resetToSeed: () => Promise<void>;
   reassignScheduleBlockDate: (blockId: string, newDateIso: string) => Promise<void>;
+  reorderSyllabusItems: (sourceItemId: string, targetItemId: string) => Promise<void>;
+  moveSyllabusItem: (itemId: string, direction: 'up' | 'down') => Promise<void>;
   getMetrics: () => TrackerMetrics | null;
 }
 
@@ -489,6 +491,44 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     );
 
     set({ scheduleBlocks: updatedBlocks });
+  },
+
+  reorderSyllabusItems: async (sourceItemId: string, targetItemId: string) => {
+    const { syllabusItems, activeBackend } = get();
+    const sourceIdx = syllabusItems.findIndex(i => i.id === sourceItemId);
+    const targetIdx = syllabusItems.findIndex(i => i.id === targetItemId);
+
+    if (sourceIdx === -1 || targetIdx === -1 || sourceIdx === targetIdx) return;
+
+    const reordered = [...syllabusItems];
+    const [movedItem] = reordered.splice(sourceIdx, 1);
+    reordered.splice(targetIdx, 0, movedItem);
+
+    const updatedSyllabusItems = reordered.map((item, idx) => ({
+      ...item,
+      sequence: idx + 1,
+    }));
+
+    set({ syllabusItems: updatedSyllabusItems });
+
+    const dataService = getDataService(activeBackend);
+    const sourceUpdated = updatedSyllabusItems.find(i => i.id === sourceItemId);
+    const targetUpdated = updatedSyllabusItems.find(i => i.id === targetItemId);
+
+    if (sourceUpdated) await dataService.updateSyllabusItem(sourceItemId, { sequence: sourceUpdated.sequence });
+    if (targetUpdated) await dataService.updateSyllabusItem(targetItemId, { sequence: targetUpdated.sequence });
+  },
+
+  moveSyllabusItem: async (itemId: string, direction: 'up' | 'down') => {
+    const { syllabusItems } = get();
+    const idx = syllabusItems.findIndex(i => i.id === itemId);
+    if (idx === -1) return;
+
+    const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+    if (targetIdx < 0 || targetIdx >= syllabusItems.length) return;
+
+    const targetItemId = syllabusItems[targetIdx].id;
+    await get().reorderSyllabusItems(itemId, targetItemId);
   },
 
   updateModuleData: async (moduleId, patch) => {

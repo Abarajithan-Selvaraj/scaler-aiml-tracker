@@ -186,17 +186,6 @@ export const TimetableScreen: React.FC = () => {
                       ? 'border-slate-700 bg-slate-900/30'
                       : 'border-slate-800'
                   }`}
-                  onDragOver={(e) => {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'move';
-                  }}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    const blockId = e.dataTransfer.getData('text/plain');
-                    if (blockId) {
-                      reassignScheduleBlockDate(blockId, group.date);
-                    }
-                  }}
                 >
                   {/* Date Group Header */}
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -245,56 +234,21 @@ export const TimetableScreen: React.FC = () => {
                       return (
                         <div
                           key={block.id}
-                          draggable
-                          onDragStart={(e) => {
-                            e.dataTransfer.setData('text/plain', block.id);
-                          }}
-                          className="bg-slate-900/60 rounded-xl p-3.5 border border-slate-800/80 space-y-3 cursor-grab active:cursor-grabbing hover:border-slate-700 transition-colors"
+                          className="bg-slate-900/60 rounded-xl p-3.5 border border-slate-800/80 space-y-3"
                         >
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <span
-                                className={`text-[11px] font-bold px-2 py-0.5 rounded ${
-                                  block.block === 'AM'
-                                    ? 'bg-amber-500/20 text-amber-300'
-                                    : 'bg-indigo-500/20 text-indigo-300'
-                                }`}
-                              >
-                                {block.block} ({block.timeWindow})
-                              </span>
-                              <span className="text-xs font-medium text-slate-400">
-                                Target: {block.targetHours}h
-                              </span>
-                            </div>
-
-                            {/* Reschedule / Reassign Date Actions */}
-                            <div className="flex items-center space-x-1">
-                              <button
-                                type="button"
-                                title="Shift block to next day (+1d)"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  const d = new Date(block.date);
-                                  d.setDate(d.getDate() + 1);
-                                  reassignScheduleBlockDate(block.id, d.toISOString().split('T')[0]);
-                                }}
-                                className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-semibold text-slate-300 flex items-center space-x-1 border border-slate-700 transition-colors"
-                              >
-                                <Move className="w-3 h-3 text-indigo-400" />
-                                <span>+1d</span>
-                              </button>
-                              <input
-                                type="date"
-                                title="Reassign to date"
-                                value={block.date}
-                                onChange={(e) => {
-                                  if (e.target.value) {
-                                    reassignScheduleBlockDate(block.id, e.target.value);
-                                  }
-                                }}
-                                className="bg-slate-900 border border-slate-800 rounded px-1.5 py-0.5 text-[10px] text-slate-300 font-mono focus:outline-none focus:border-indigo-500"
-                              />
-                            </div>
+                            <span
+                              className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+                                block.block === 'AM'
+                                  ? 'bg-amber-500/20 text-amber-300'
+                                  : 'bg-indigo-500/20 text-indigo-300'
+                              }`}
+                            >
+                              {block.block} ({block.timeWindow})
+                            </span>
+                            <span className="text-xs font-medium text-slate-400">
+                              Target: {block.targetHours}h
+                            </span>
                           </div>
 
                           {/* Focus Items List with Sub-Components & Session Split Hours */}
@@ -308,22 +262,22 @@ export const TimetableScreen: React.FC = () => {
                                 return (
                                   <div key={item.id} className="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-1.5">
                                     <button
-                                      onClick={() => toggleItemCompletion(item.id)}
+                                      onClick={() => updateBlockLog(block.id, { completed: !block.completed })}
                                       className="w-full text-left flex items-start space-x-2 text-xs"
                                     >
                                       <div
                                         className={`w-4 h-4 rounded border flex items-center justify-center mt-0.5 shrink-0 ${
-                                          item.completed || block.completed
+                                          block.completed
                                             ? 'bg-emerald-500 border-emerald-400 text-slate-950'
                                             : 'border-slate-600 bg-slate-800'
                                         }`}
                                       >
-                                        {(item.completed || block.completed) && <CheckCircle className="w-3 h-3" />}
+                                        {block.completed && <CheckCircle className="w-3 h-3" />}
                                       </div>
                                       <div className="flex-1">
                                         <span
                                           className={
-                                            item.completed || block.completed ? 'line-through text-slate-500' : 'text-slate-200 font-medium'
+                                            block.completed ? 'line-through text-slate-500' : 'text-slate-200 font-medium'
                                           }
                                         >
                                           {item.title}

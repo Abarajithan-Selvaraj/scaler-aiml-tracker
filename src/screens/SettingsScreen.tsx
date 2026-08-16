@@ -16,6 +16,8 @@ import {
   LogOut,
   LogIn,
   Bug,
+  Shield,
+  Check,
 } from 'lucide-react';
 
 export const SettingsScreen: React.FC = () => {
@@ -37,6 +39,33 @@ export const SettingsScreen: React.FC = () => {
   const [authError, setAuthError] = useState<string | null>(null);
   const [user, setUser] = useState(auth.currentUser);
   const [showDiag, setShowDiag] = useState(false);
+  const [pendingStartDate, setPendingStartDate] = useState(settings?.courseStartDate || '2026-08-01');
+  const [pendingFinishDate, setPendingFinishDate] = useState(settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18');
+  const [showDateConfirmModal, setShowDateConfirmModal] = useState(false);
+  const [dateChangeSuccess, setDateChangeSuccess] = useState(false);
+
+  useEffect(() => {
+    if (settings) {
+      setPendingStartDate(settings.courseStartDate);
+      setPendingFinishDate(settings.chosenPaceFinish || settings.targetDeadline || '2027-02-18');
+    }
+  }, [settings]);
+
+  const handleApplyDateChanges = async () => {
+    if (!auth.currentUser) {
+      setAuthError('Authentication required: You must be signed in with Google to confirm official schedule date edits.');
+      return;
+    }
+    setAuthError(null);
+    await updateSettingsData({
+      courseStartDate: pendingStartDate,
+      chosenPaceFinish: pendingFinishDate,
+      targetDeadline: pendingFinishDate,
+    });
+    setShowDateConfirmModal(false);
+    setDateChangeSuccess(true);
+    setTimeout(() => setDateChangeSuccess(false), 4000);
+  };
 
   // Keep user state in sync with Firebase auth so the UI reflects real state
   useEffect(() => {
@@ -135,14 +164,14 @@ export const SettingsScreen: React.FC = () => {
         </p>
       </div>
 
-      {/* Course Start & Target Deadline Configuration (Authenticated) */}
+      {/* Course Start & Target Deadline Configuration (Authenticated + Confirmation Modal) */}
       <div className="glass-panel rounded-2xl p-5 space-y-4">
         <div className="flex items-center space-x-2 text-xs font-bold text-slate-200 uppercase tracking-wider">
           <Calendar className="w-4 h-4 text-indigo-400" />
           <span>Course Start & Target Finish Date Configuration</span>
         </div>
         <p className="text-xs text-slate-400 leading-relaxed">
-          Configure official course start date and target completion deadline. Authentication is required to update cloud settings.
+          Configure official course start date and target completion deadline. Changing dates requires explicit authentication confirmation before saving to cloud/local settings.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
@@ -152,16 +181,8 @@ export const SettingsScreen: React.FC = () => {
             </label>
             <input
               type="date"
-              value={settings?.courseStartDate || '2026-08-01'}
-              onChange={(e) => {
-                const val = e.target.value;
-                if (!auth.currentUser) {
-                  setAuthError('Authentication required: Sign in with Google to edit official course dates.');
-                  return;
-                }
-                setAuthError(null);
-                updateSettingsData({ courseStartDate: val });
-              }}
+              value={pendingStartDate}
+              onChange={(e) => setPendingStartDate(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-indigo-300 font-mono focus:outline-none focus:border-indigo-500"
             />
           </div>
@@ -172,19 +193,35 @@ export const SettingsScreen: React.FC = () => {
             </label>
             <input
               type="date"
-              value={settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18'}
-              onChange={(e) => {
-                const val = e.target.value;
-                if (!auth.currentUser) {
-                  setAuthError('Authentication required: Sign in with Google to edit official course dates.');
-                  return;
-                }
-                setAuthError(null);
-                updateSettingsData({ chosenPaceFinish: val, targetDeadline: val });
-              }}
+              value={pendingFinishDate}
+              onChange={(e) => setPendingFinishDate(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-indigo-300 font-mono focus:outline-none focus:border-indigo-500"
             />
           </div>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+          <button
+            type="button"
+            onClick={() => {
+              if (!auth.currentUser) {
+                setAuthError('Authentication required: Sign in with Google below to modify official course dates.');
+                return;
+              }
+              setAuthError(null);
+              setShowDateConfirmModal(true);
+            }}
+            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition-all shadow-lg shadow-indigo-600/20 active:scale-95 flex items-center space-x-1.5"
+          >
+            <Shield className="w-3.5 h-3.5" />
+            <span>Confirm & Save Date Changes</span>
+          </button>
+
+          {dateChangeSuccess && (
+            <span className="text-xs font-semibold text-emerald-400 flex items-center">
+              <Check className="w-4 h-4 mr-1" /> Dates Updated Successfully!
+            </span>
+          )}
         </div>
 
         {!user && (
@@ -507,6 +544,55 @@ export const SettingsScreen: React.FC = () => {
                 className="px-4 py-2 rounded-xl bg-rose-600 text-xs font-bold text-white hover:bg-rose-500 shadow-lg shadow-rose-600/20"
               >
                 Confirm Wipe & Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showDateConfirmModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="glass-panel max-w-md w-full rounded-3xl p-6 space-y-4 border border-indigo-500/40 shadow-2xl">
+            <h3 className="text-base font-bold text-indigo-300 flex items-center">
+              <Shield className="w-5 h-5 mr-2 text-indigo-400" />
+              Confirm Schedule Date Changes
+            </h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Modifying official course dates will re-anchor schedule velocity projections and burndown calculations for all connected devices.
+            </p>
+
+            <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-2 text-xs font-mono">
+              <div className="flex justify-between">
+                <span className="text-slate-400">Current Start:</span>
+                <span className="text-slate-200">{settings?.courseStartDate || '2026-08-01'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-indigo-400 font-bold">New Proposed Start:</span>
+                <span className="text-indigo-300 font-bold">{pendingStartDate}</span>
+              </div>
+              <div className="border-t border-slate-800 pt-2 flex justify-between">
+                <span className="text-slate-400">Current Finish:</span>
+                <span className="text-slate-200">{settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-indigo-400 font-bold">New Target Finish:</span>
+                <span className="text-indigo-300 font-bold">{pendingFinishDate}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowDateConfirmModal(false)}
+                className="px-4 py-2 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleApplyDateChanges}
+                className="px-4 py-2 rounded-xl bg-indigo-600 text-xs font-bold text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/20"
+              >
+                Confirm & Apply Changes
               </button>
             </div>
           </div>

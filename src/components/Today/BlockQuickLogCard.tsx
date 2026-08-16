@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
 import { Check, Clock, Moon, Plus, Minus, Plane, Shield, CheckCircle } from 'lucide-react';
-import { cleanFocusTitle, parseFocusItemHours, getSessionHoursAndSplitState } from '../../utils/seedMigration';
+import { cleanFocusTitle, parseFocusItemHours, getSessionHoursAndSplitState, calculateBlockActualHours } from '../../utils/seedMigration';
 import { useTrackerStore, normalizeSyllabusItem } from '../../store/useTrackerStore';
 import { ClassSessionCard } from '../Common/ClassSessionCard';
 
@@ -24,7 +24,9 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
   onUpdateBlock,
 }) => {
   const { scheduleBlocks, modules } = useTrackerStore();
-  const actualHours = block.actualHours ?? 0;
+  const calculatedActualHours = React.useMemo(() => {
+    return calculateBlockActualHours(block, syllabusItems, scheduleBlocks);
+  }, [block, syllabusItems, scheduleBlocks]);
   const sleepHours = block.sleepHours ?? 7.0;
 
   // Resolve item titles & completion with robust string matching fallback
@@ -200,46 +202,39 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
         )}
       </div>
 
-      {/* Actual Hours Quick Stepper & Slider */}
-      <div className="pt-2 border-t border-slate-800/80 space-y-2">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-slate-300 flex items-center">
-            <Clock className="w-3.5 h-3.5 mr-1.5 text-indigo-400" />
-            Actual Hours Studied
-          </span>
-          <span className="font-bold text-indigo-300 font-mono text-sm">
-            {actualHours.toFixed(2)} hrs
-          </span>
-        </div>
+      {/* Auto-Calculated Actual Hours Logged Pill */}
+      <div className="pt-2 border-t border-slate-800/80">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-slate-800/90 shadow-sm">
+          <div className="flex items-center space-x-2.5">
+            <div
+              className={`p-2 rounded-lg ${
+                calculatedActualHours > 0
+                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                  : 'bg-slate-800 text-slate-400 border border-slate-700'
+              }`}
+            >
+              <Clock className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-slate-200">
+                Actual Hours Logged
+              </div>
+              <div className="text-[10px] text-slate-400">
+                Auto-appended from session progress ({block.targetHours}h target)
+              </div>
+            </div>
+          </div>
 
-        <div className="flex items-center space-x-3">
-          <button
-            type="button"
-            onClick={() => handleActualHoursChange(actualHours - 0.25)}
-            className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 flex items-center justify-center font-bold text-lg transition-transform"
-            aria-label="Decrease hours"
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-
-          <input
-            type="range"
-            min="0"
-            max="8"
-            step="0.25"
-            value={actualHours}
-            onChange={(e) => handleActualHoursChange(parseFloat(e.target.value))}
-            className="flex-1 accent-indigo-500 h-2 bg-slate-800 rounded-lg cursor-pointer"
-          />
-
-          <button
-            type="button"
-            onClick={() => handleActualHoursChange(actualHours + 0.25)}
-            className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 flex items-center justify-center font-bold text-lg transition-transform"
-            aria-label="Increase hours"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
+          <div className="text-right">
+            <span
+              className={`text-base font-bold font-mono ${
+                calculatedActualHours > 0 ? 'text-indigo-300' : 'text-slate-400'
+              }`}
+            >
+              {calculatedActualHours.toFixed(2)}{' '}
+              <span className="text-xs font-sans font-normal text-slate-400">hrs</span>
+            </span>
+          </div>
         </div>
       </div>
 

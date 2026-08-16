@@ -199,3 +199,60 @@ export function getClassHoursCoverage(
     progressPct,
   };
 }
+
+/**
+ * Calculates actual hours achieved for a ScheduleBlock based on completion status of its items & sub-components
+ */
+export function calculateBlockActualHours(
+  block: ScheduleBlock,
+  syllabusItems: SyllabusItem[],
+  allScheduleBlocks: ScheduleBlock[]
+): number {
+  if (block.completed) {
+    return Math.round((block.targetHours || 3.0) * 100) / 100;
+  }
+
+  let itemsInBlock: SyllabusItem[] = [];
+
+  if (block.itemIds && block.itemIds.length > 0) {
+    itemsInBlock = block.itemIds
+      .map((id) => syllabusItems.find((item) => item.id === id))
+      .filter((item): item is SyllabusItem => Boolean(item));
+  }
+
+  if (itemsInBlock.length === 0 && block.focusItems && Array.isArray(block.focusItems)) {
+    for (const focusStr of block.focusItems) {
+      const cleaned = cleanFocusTitle(focusStr).toLowerCase();
+      if (!cleaned) continue;
+      const matched = syllabusItems.find((item) => {
+        const titleLower = item.title.trim().toLowerCase();
+        return titleLower === cleaned || titleLower.includes(cleaned) || cleaned.includes(titleLower);
+      });
+      if (matched && !itemsInBlock.some((i) => i.id === matched.id)) {
+        itemsInBlock.push(matched);
+      }
+    }
+  }
+
+  if (itemsInBlock.length === 0) {
+    return block.actualHours ?? 0;
+  }
+
+  let totalBlockHours = 0;
+  for (const item of itemsInBlock) {
+    const { sessionHours } = getSessionHoursAndSplitState(item, block, allScheduleBlocks);
+
+    if (item.completed) {
+      totalBlockHours += sessionHours;
+    } else if (item.type === 'Class') {
+      let pct = 0;
+      if (item.videoCompleted) pct += 70;
+      if (item.assignmentCompleted) pct += 20;
+      if (item.additionalProblemsCompleted) pct += 10;
+
+      totalBlockHours += sessionHours * (pct / 100);
+    }
+  }
+
+  return Math.round(totalBlockHours * 100) / 100;
+}

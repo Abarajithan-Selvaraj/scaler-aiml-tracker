@@ -6,7 +6,7 @@ import { auth, isFirebaseConfigured } from '../services/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firestoreService } from '../services/firestoreService';
 import { indexedDbService } from '../services/indexedDbService';
-import { linkScheduleBlockItems, cleanFocusTitle } from '../utils/seedMigration';
+import { linkScheduleBlockItems, cleanFocusTitle, calculateBlockActualHours } from '../utils/seedMigration';
 
 /**
  * Robustly matches a ScheduleBlock to a SyllabusItem either by explicit itemIds or fuzzy title matching.
@@ -407,15 +407,14 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       if (blockMatchesSyllabusItem(block, item)) {
         if (!newCompleted) {
           block.completed = false;
-          await dataService.updateScheduleBlock(block.id, { completed: false });
         } else {
           const blockItems = updatedSyllabusItems.filter((i) => blockMatchesSyllabusItem(block, i));
           const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
-          if (block.completed !== blockFullyDone) {
-            block.completed = blockFullyDone;
-            await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
-          }
+          block.completed = blockFullyDone;
         }
+        const calcActual = calculateBlockActualHours(block, updatedSyllabusItems, updatedBlocks);
+        block.actualHours = calcActual;
+        await dataService.updateScheduleBlock(block.id, { completed: block.completed, actualHours: calcActual });
       }
     }
 
@@ -469,21 +468,20 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       m.id === item.moduleId ? { ...m, status: moduleStatus } : m
     );
 
-    // Update schedule blocks referencing this item
+    // Update schedule blocks referencing this item & auto-sync actualHours
     const updatedBlocks = [...scheduleBlocks];
     for (const block of updatedBlocks) {
       if (blockMatchesSyllabusItem(block, item)) {
         if (!autoCompleted) {
           block.completed = false;
-          await dataService.updateScheduleBlock(block.id, { completed: false });
         } else {
           const blockItems = updatedSyllabusItems.filter((i) => blockMatchesSyllabusItem(block, i));
           const blockFullyDone = blockItems.length > 0 && blockItems.every((i) => i.completed);
-          if (block.completed !== blockFullyDone) {
-            block.completed = blockFullyDone;
-            await dataService.updateScheduleBlock(block.id, { completed: blockFullyDone });
-          }
+          block.completed = blockFullyDone;
         }
+        const calcActual = calculateBlockActualHours(block, updatedSyllabusItems, updatedBlocks);
+        block.actualHours = calcActual;
+        await dataService.updateScheduleBlock(block.id, { completed: block.completed, actualHours: calcActual });
       }
     }
 
@@ -497,9 +495,8 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   updateBlockLog: async (blockId, patch) => {
     const { scheduleBlocks, syllabusItems, modules, activeBackend } = get();
     const dataService = getDataService(activeBackend);
-    await dataService.updateScheduleBlock(blockId, patch);
 
-    const updatedBlocks = scheduleBlocks.map((b) =>
+    let updatedBlocks = scheduleBlocks.map((b) =>
       b.id === blockId ? { ...b, ...patch } : b
     );
 
@@ -522,7 +519,6 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
             itemPatch.assignmentCompleted = true;
             itemPatch.additionalProblemsCompleted = true;
           } else if (patch.completed === false) {
-            // When a block is unchecked, mark the syllabus master item incomplete as well
             itemPatch.completed = false;
           }
         }
@@ -548,6 +544,19 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         updatedModules = updatedModules.map((m) =>
           m.id === item.moduleId ? { ...m, status: moduleStatus } : m
         );
+      }
+    }
+
+    // Auto-calculate actualHours for all updated blocks
+    updatedBlocks = updatedBlocks.map((b) => {
+      const calcActual = calculateBlockActualHours(b, updatedSyllabusItems, updatedBlocks);
+      return { ...b, actualHours: calcActual };
+    });
+
+    for (const b of updatedBlocks) {
+      const orig = scheduleBlocks.find((o) => o.id === b.id);
+      if (orig && (orig.actualHours !== b.actualHours || orig.completed !== b.completed)) {
+        await dataService.updateScheduleBlock(b.id, { actualHours: b.actualHours, completed: b.completed });
       }
     }
 

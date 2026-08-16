@@ -20,9 +20,9 @@ graph TD
     end
 
     subgraph StateLayer ["🧠 State & Business Logic Layer"]
-        Store["useTrackerStore (Global State)"]
+        Store["useTrackerStore (Global State & Chip Weight Engine)"]
         Calc["calculations.ts (Forecast Engine)"]
-        Normalize["normalizeSyllabusItem (Auto-Completion)"]
+        Normalize["normalizeSyllabusItem (Auto-Completion & Sub-Components)"]
         Seed["seedMigration.ts (Focus String Linker)"]
     end
 
@@ -53,22 +53,24 @@ graph TD
 
 ## 🔄 Business Logic & Forecast Process Flow
 
-The flowchart below illustrates how daily logging, class sub-component completion, deficit rollover, and live finish date forecasting interact in real time:
+The flowchart below illustrates how daily logging, class sub-component completion (Recording, Assignments, Homeworks), auto-appended study hours, deficit rollover, and live finish date forecasting interact in real time:
 
 ```mermaid
 flowchart TD
     Start(["👤 User opens Today / Timetable Screen"]) --> Action{"Logging Action"}
     
-    Action -- "Checks Sub-Component" --> SubCheck["Update Sub-Component Status"]
-    SubCheck --> FullyDone{"All Sub-Components Checked?"}
+    Action -- "Toggles Sub-Component (Recording / Assignments / Homeworks)" --> SubCheck["Update Sub-Component Status"]
+    SubCheck --> AutoAppend["⚡ Auto-Append Actual Study Hours from Weight (70% / 20% / 10%)"]
+    SubCheck --> FullyDone{"All Active Sub-Components Checked?"}
     FullyDone -- Yes --> AutoComplete["Set SyllabusItem.completed = true"]
     FullyDone -- No --> Incomplete["Set SyllabusItem.completed = false"]
 
-    Action -- "Logs Actual Study Hours" --> LogHours["Update ScheduleBlock.actualHours"]
+    Action -- "Logs Sleep Hours via Preset Pills" --> LogSleep["Update ScheduleBlock.sleepHours (Default 6.0h)"]
 
     AutoComplete --> Recalc["⚡ Trigger Metric Recalculation"]
     Incomplete --> Recalc
-    LogHours --> Recalc
+    AutoAppend --> Recalc
+    LogSleep --> Recalc
 
     subgraph Engine ["🧮 Forecast Engine"]
         Recalc --> RemHours["1. Subtract Completed Content from Curriculum Remaining Hours"]
@@ -115,6 +117,8 @@ erDiagram
         boolean videoCompleted
         boolean assignmentCompleted
         boolean additionalProblemsCompleted
+        boolean hasAssignment "Optional deletion flag"
+        boolean hasAdditionalProblems "Optional deletion flag"
         float estimatedHours
     }
 
@@ -143,48 +147,56 @@ erDiagram
 
 ## 🌟 Key Features
 
-### 1. 📹 Class Sub-Components (Auto-Completion)
-Each Class lecture tracks three granular sub-components:
-- 📹 **Video Recording** (`videoCompleted`)
-- 📝 **Assignments** (`assignmentCompleted`)
-- 🧩 **Additional Problems** (`additionalProblemsCompleted`)
+### 1. 📹 Class Sub-Components & Dynamic Weight Redistribution
+Each Class lecture tracks three standardized sub-components:
+- 📹 **Recording** (`videoCompleted`) — *Default weight: 70%*
+- 📝 **Assignments** (`assignmentCompleted`) — *Default weight: 20%*
+- 🧩 **Homeworks** (`additionalProblemsCompleted`) — *Default weight: 10%*
 
-* **Auto-Completion**: When all active sub-components are checked, the main class item marks itself **Completed (`completed = true`)** automatically. Unchecking any sub-component reverts it to incomplete.
-* **Bidirectional Sync**: Toggling the main class checkbox checks or unchecks all 3 sub-components simultaneously.
-* **Multi-Screen Integration**: Interactive pill buttons render across Today, Timetable, Modules, and Syllabus views.
+* **Auto-Appended Actual Hours**: Actual study hours automatically accumulate as you mark each sub-component complete (e.g. 1.05h for 70% Recording, 0.30h for 20% Assignments, 0.15h for 10% Homeworks), eliminating tedious manual hours typing.
+* **Inline Deletion Chips (`✕`)**: Delete non-applicable Assignments or Homeworks directly inside their pill chips. Deleting a sub-component automatically transfers its percentage weight to the **Recording** chip (up to 100%).
+* **Sub-Component Restoration (`+ Add` Dropdown)**: Restore deleted Assignments or Homeworks anytime via the dashed `+ Add` button dropdown menu (`+ Assignments (20%)`, `+ Homeworks (10%)`).
+* **Auto-Completion & Bi-Directional Sync**: When all active sub-components are checked, the main class item marks itself **Completed (`completed = true`)** automatically. State updates sync bidirectionally across Today, Timetable, Modules, and Syllabus views in real time.
 
 ---
 
-### 2. 🔄 Deficit Rollover & Hours Carry-Forward
+### 2. 😴 Simplistic Sleep Logging (Default 6.0h)
+* **1-Tap Preset Selector**: Log nightly sleep instantly using 1-tap preset pills (`5.0h`, `5.5h`, `6.0h` (default), `6.5h`, `7.0h`, `7.5h`, `8.0h`, `8.5h`, `9.0h`).
+* **Fine-Tuner Steppers**: Adjust sleep hours by `-15 mins` or `+15 mins` with stepper controls.
+* **Dedicated Recovery Card**: Placed in a distinct section on the Today page (`DailySleepLogCard.tsx`) separate from daily study blocks.
+* **Sleep Floor Warning Banner**: Persistent alert triggered when trailing 5 logged days fall below the 6.0-hour sleep floor.
+
+---
+
+### 3. 🔄 Deficit Rollover & Hours Carry-Forward
 * **Unstudied Hours Rollover**: When study sessions or streaks are interrupted or under-studied, the unstudied hours deficit (`targetHours - actualHours`) is carried forward into your remaining workload.
 * **Dynamic Completion Forecast**: Adjusts your effective remaining workload and automatically shifts your projected completion date to provide a realistic catch-up timeline.
 * **Fast Completion Efficiency**: When you complete 4.0 hours of curriculum content in 3.0 actual hours, **no deficit is generated** and your projected finish date moves earlier!
 
 ---
 
-### 3. 📊 Today (Home) Dashboard & Live Forecast Card
+### 4. 📊 Today (Home) Dashboard & Live Forecast Card
 * **Hero Course Completion Forecast**: Displays live projected finish date, finish delta (+/- days), carried-forward deficit, and rolling weekly pace.
 * **Date Navigator**: Stepper controls strictly bound between Course Start Date (**`1st August 2026`**) and the projected completion date.
-* **AM/PM Study Session Cards**: Log `actualHours` (0–8h) and `sleepHours` (0–12h) with instant steppers and sliders.
-* **Sleep Floor Warning Banner**: Persistent alert triggered when trailing 5 logged days fall below the 6.0-hour sleep floor.
+* **AM/PM Study Session Cards**: Display auto-appended actual study hours and class session fallback cards with full sub-component chip controls.
 
 ---
 
-### 4. 📅 Virtualized Timetable Screen
+### 5. 📅 Virtualized Timetable Screen
 * **High-Performance Scrolling**: Virtualized rendering of all 404 AM/PM blocks using `@tanstack/react-virtual`.
 * **Search & Multi-Filter**: Filter by Module, Day Type (Weekday, Weekend, Travel, Buffer), and Completion Status.
-* **Inline Logging**: Update actual hours, sleep hours, and notes directly from the calendar list.
+* **Inline Logging**: Update actual hours, sleep hours, sub-components, and notes directly from the calendar list.
 
 ---
 
-### 5. 📚 Modules & Syllabus Drilldown
+### 6. 📚 Modules & Syllabus Drilldown
 * **15 Module Progress Cards**: Visual progress bars, estimated vs logged hours, class/paper counts, and test/mock badges.
 * **Detail Drilldown Modal**: Drill down into extracted class titles, sub-component pills, and editable notes.
 * **Searchable Syllabus List**: Flat, instant client-side search across all 270 syllabus items with content-type filters.
 
 ---
 
-### 6. 📈 Insights, Analytics & Scope Cutting
+### 7. 📈 Insights, Analytics & Scope Cutting
 * **Rolling 14-Day Pace**: Dynamically tracks actual study velocity (hours/week) over the last 14 days.
 * **Burn-Down Chart**: Visualizes cumulative target hours vs actual logged hours over time.
 * **Sleep Trend Chart**: Bar chart tracking daily sleep hours against the 6.0h floor line.
@@ -192,7 +204,7 @@ Each Class lecture tracks three granular sub-components:
 
 ---
 
-### 7. 💾 Dual Storage Engine (`DataService`)
+### 8. 💾 Dual Storage Engine (`DataService`)
 Built with a swappable storage abstraction (`DataService` interface):
 * **Offline-First IndexedDB (`IndexedDBDataService`)**: 100% local persistence using `idb`. Requires zero login or backend setup.
 * **Cloud Sync Firestore (`FirestoreDataService`)**: Real-time cross-device synchronization powered by Firebase Firestore and Google Sign-In authentication.
@@ -212,7 +224,7 @@ Built with a swappable storage abstraction (`DataService` interface):
 | **Virtualization** | `@tanstack/react-virtual` | Smooth virtualized scrolling for 404 calendar blocks |
 | **Charts** | Recharts | Burn-down, sleep trend, and pace charts |
 | **Icons** | Lucide React | Modern iconography |
-| **Testing** | Vitest | Unit test runner (14 tests) |
+| **Testing** | Vitest | Unit test runner (113 automated unit tests) |
 
 ---
 
@@ -225,16 +237,18 @@ scaler-aiml-tracker/
 ├── public/                          # Static PWA assets & manifest
 ├── src/
 │   ├── components/
+│   │   ├── Common/                  # Reusable ClassCard & ClassSessionCard
 │   │   ├── Insights/                # Burndown, sleep trend & pace widgets
+│   │   ├── Layout/                  # AppLayout header & BottomNav
 │   │   ├── Modules/                 # Module cards & detail drilldown modal
 │   │   ├── Timetable/               # Virtualized timetable & filter controls
-│   │   └── Today/                   # Session cards, sleep alert & forecast card
+│   │   └── Today/                   # Session cards, DailySleepLogCard & forecast card
 │   ├── data/
 │   │   └── seed_data.json           # 15 modules, 270 items, 404 schedule blocks
 │   ├── screens/                     # Today, Timetable, Modules, Syllabus, Insights, Settings
 │   ├── services/                    # DataService interface, IndexedDB & Firestore
-│   ├── store/                       # Zustand useTrackerStore & sub-component logic
-│   ├── test/                        # Vitest unit test suites (14 tests)
+│   ├── store/                       # Zustand useTrackerStore & sub-component weight logic
+│   ├── test/                        # Vitest unit test suites (113 tests)
 │   ├── types/                       # TypeScript interfaces (tracker.ts)
 │   └── utils/                       # Calculations, date math & seed migration
 ├── .gitignore                       # Git exclusion rules
@@ -255,7 +269,7 @@ scaler-aiml-tracker/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Abarajithan-Selvaraj/scaler-aiml-tracker.git
+   git clone https://github.com/Abarajithanselvaraj/scaler-aiml-tracker.git
    cd scaler-aiml-tracker
    ```
 
@@ -311,13 +325,15 @@ The app is built using `HashRouter` and `IndexedDBDataService`, making it 100% c
 
 ## 🧪 Unit Testing
 
-The repository includes comprehensive automated unit tests covering key business logic:
-* `src/test/seedLinking.test.ts`: Validates seed data linking (15 modules, 270 syllabus items, 404 schedule blocks).
-* `src/test/calculations.test.ts`: Validates pace projections, burn-down calculations, and sleep floor alerts.
-* `src/test/classSubComponents.test.ts`: Validates Video, Assignment, and Additional Problems sub-component auto-completion logic.
+The repository includes **113 automated unit tests** covering key business logic across 10 test suites:
+* `src/test/classSubComponents.test.ts`: Validates Video (`Recording`), Assignment (`Assignments`), and Additional Problems (`Homeworks`) sub-component auto-completion, dynamic weight redistribution (70%/20%/10%), inline deletion, and `restoreSubComponent` logic.
 * `src/test/carryForwardTrend.test.ts`: Validates deficit rollover, hours carry-forward, fast-completion efficiency, and finish date shifting.
+* `src/test/calculations.test.ts`: Validates pace projections, burn-down calculations, and sleep floor alerts.
+* `src/test/firestoreService.test.ts`: Validates Firestore Cloud Sync operations (38 unit tests).
+* `src/test/indexedDbService.test.ts`: Validates IndexedDB offline storage operations (41 unit tests).
+* `src/test/seedLinking.test.ts`: Validates seed data linking (15 modules, 270 syllabus items, 404 schedule blocks).
 
-Run all tests:
+Run all 113 unit tests:
 ```bash
 npx vitest run
 ```

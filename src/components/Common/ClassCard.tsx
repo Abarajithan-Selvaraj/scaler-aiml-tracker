@@ -145,23 +145,14 @@ export const ClassCard: React.FC<ClassCardProps> = ({
             </div>
           </div>
 
-          {/* Duration & Coverage Metrics */}
-          <div className="text-left sm:text-right shrink-0 space-y-1 mt-2 sm:mt-0">
+          {/* Duration Metric */}
+          <div className="text-right shrink-0 space-y-1 ml-2">
             <div className="text-[10px] font-semibold text-slate-400">
               {sessionHours && isSplit ? (
                 <span>Session: <strong className="text-slate-300 font-mono">{sessionHours}h</strong> (Total: {item.estimatedHours}h)</span>
               ) : (
                 <span>Est: <strong className="text-slate-300 font-mono">{item.estimatedHours}h</strong></span>
               )}
-            </div>
-            <div className="inline-block text-[10px] font-bold text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
-              {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
-            </div>
-            <div className="w-full sm:w-20 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800 sm:ml-auto">
-              <div
-                className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
-                style={{ width: `${coverage.progressPct}%` }}
-              />
             </div>
           </div>
         </div>
@@ -170,91 +161,108 @@ export const ClassCard: React.FC<ClassCardProps> = ({
       {/* Class Sub-Components Checklist as Interactive Chips */}
       {item.type === 'Class' && (
         <div className="mt-3 pt-2.5 border-t border-slate-800/80 space-y-1.5 pl-0 sm:pl-8">
-          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-            Class Sub-Components
+          <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+            <span>Class Sub-Components</span>
+            <span className="text-slate-500 font-normal">Syllabus Sync</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-1.5">
-            {/* Recordings Chip */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleSubComponent && onToggleSubComponent(item.id, 'video');
-              }}
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                item.videoCompleted
-                  ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm shadow-indigo-500/10'
-                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            {/* Sub-component Chips */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {/* Recordings Chip */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleSubComponent && onToggleSubComponent(item.id, 'video');
+                }}
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.videoCompleted
-                    ? 'bg-indigo-500 border-indigo-400 text-slate-950'
-                    : 'border-slate-600 bg-slate-800'
+                    ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm shadow-indigo-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
-              </div>
-              <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
-                Recordings
-              </span>
-            </button>
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                    item.videoCompleted
+                      ? 'bg-indigo-500 border-indigo-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
+                  }`}
+                >
+                  {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
+                </div>
+                <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
+                  Recordings
+                </span>
+              </button>
 
-            {/* Assignments Chip */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
-              }}
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                item.assignmentCompleted
-                  ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
-                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+              {/* Assignments Chip */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
+                }}
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.assignmentCompleted
-                    ? 'bg-purple-500 border-purple-400 text-slate-950'
-                    : 'border-slate-600 bg-slate-800'
+                    ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
-              </div>
-              <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
-                Assignments
-              </span>
-            </button>
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                    item.assignmentCompleted
+                      ? 'bg-purple-500 border-purple-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
+                  }`}
+                >
+                  {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
+                </div>
+                <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
+                  Assignments
+                </span>
+              </button>
 
-            {/* Additional Problems Chip */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
-              }}
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                item.additionalProblemsCompleted
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
-                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+              {/* Additional Problems Chip */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
+                }}
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.additionalProblemsCompleted
-                    ? 'bg-amber-500 border-amber-400 text-slate-950'
-                    : 'border-slate-600 bg-slate-800'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                    item.additionalProblemsCompleted
+                      ? 'bg-amber-500 border-amber-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
+                  }`}
+                >
+                  {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
+                </div>
+                <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
+                  Additional Problems
+                </span>
+              </button>
+            </div>
+
+            {/* Coverage Badge & Progress Bar (Placed below SYLLABUS SYNC label) */}
+            <div className="flex items-center space-x-2 shrink-0 self-start sm:self-auto pt-1 sm:pt-0">
+              <div className="text-[10px] font-bold text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 whitespace-nowrap">
+                Coverage: {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
               </div>
-              <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
-                Additional Problems
-              </span>
-            </button>
+              <div className="w-16 sm:w-20 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800 shrink-0">
+                <div
+                  className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
+                  style={{ width: `${coverage.progressPct}%` }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}

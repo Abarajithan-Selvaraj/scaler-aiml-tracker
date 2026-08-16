@@ -80,59 +80,44 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
       </div>
 
       {/* Main Session Card Action & Details */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div className="flex items-start space-x-3 flex-1 min-w-0">
-          {/* Checkbox for Session Completion */}
-          <button
-            type="button"
-            onClick={() => onToggleBlockCompleted && onToggleBlockCompleted()}
-            className="mt-0.5 shrink-0 focus:outline-none min-h-[32px] min-w-[32px] flex items-center justify-center"
+      <div className="flex items-start space-x-3">
+        {/* Checkbox for Session Completion */}
+        <button
+          type="button"
+          onClick={() => onToggleBlockCompleted && onToggleBlockCompleted()}
+          className="mt-0.5 shrink-0 focus:outline-none min-h-[32px] min-w-[32px] flex items-center justify-center"
+        >
+          <div
+            className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
+              isCardChecked
+                ? 'bg-emerald-500 border-emerald-400 text-slate-950'
+                : 'border-slate-600 bg-slate-800 hover:border-slate-500'
+            }`}
           >
-            <div
-              className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
-                isCardChecked
-                  ? 'bg-emerald-500 border-emerald-400 text-slate-950'
-                  : 'border-slate-600 bg-slate-800 hover:border-slate-500'
-              }`}
-            >
-              {isCardChecked && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
-            </div>
-          </button>
+            {isCardChecked && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
+          </div>
+        </button>
 
-          {/* Title and Hours Distribution */}
-          <div className="flex-1 min-w-0">
-            <div
-              className={`text-xs font-semibold leading-snug cursor-pointer ${
-                isCardChecked ? 'line-through text-slate-400' : 'text-slate-100'
-              }`}
-              onClick={() => onToggleBlockCompleted && onToggleBlockCompleted()}
-            >
-              {item.title}
-            </div>
+        {/* Title and Hours Distribution */}
+        <div className="flex-1 min-w-0">
+          <div
+            className={`text-xs sm:text-sm font-semibold leading-snug cursor-pointer ${
+              isCardChecked ? 'line-through text-slate-400' : 'text-slate-100'
+            }`}
+            onClick={() => onToggleBlockCompleted && onToggleBlockCompleted()}
+          >
+            {item.title}
+          </div>
 
-            <div className="text-[10px] text-slate-400 mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+          <div className="text-[10px] text-slate-400 mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+            <span>
+              Session Est: <strong className="text-slate-200 font-mono">{sessionHours}h</strong>
+            </span>
+            {isSplit && (
               <span>
-                Session Est: <strong className="text-slate-200 font-mono">{sessionHours}h</strong>
+                (Class Total: <strong className="text-slate-300 font-mono">{item.estimatedHours}h</strong>)
               </span>
-              {isSplit && (
-                <span>
-                  (Class Total: <strong className="text-slate-300 font-mono">{item.estimatedHours}h</strong>)
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Coverage Badge & Progress Bar */}
-        <div className="text-left sm:text-right shrink-0 space-y-1 pl-8 sm:pl-0">
-          <div className="inline-block text-[10px] font-bold text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
-            Coverage: {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
-          </div>
-          <div className="w-full sm:w-24 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800 sm:ml-auto">
-            <div
-              className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
-              style={{ width: `${coverage.progressPct}%` }}
-            />
+            )}
           </div>
         </div>
       </div>
@@ -145,87 +130,103 @@ export const ClassSessionCard: React.FC<ClassSessionCardProps> = ({
             <span className="text-slate-500 font-normal">Syllabus Sync</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-1.5">
-            {/* Recordings Chip */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleSubComponent && onToggleSubComponent(item.id, 'video');
-              }}
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                item.videoCompleted
-                  ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm shadow-indigo-500/10'
-                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            {/* Sub-component Chips */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {/* Recordings Chip */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleSubComponent && onToggleSubComponent(item.id, 'video');
+                }}
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.videoCompleted
-                    ? 'bg-indigo-500 border-indigo-400 text-slate-950'
-                    : 'border-slate-600 bg-slate-800'
+                    ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm shadow-indigo-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
-              </div>
-              <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
-                Recordings
-              </span>
-            </button>
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                    item.videoCompleted
+                      ? 'bg-indigo-500 border-indigo-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
+                  }`}
+                >
+                  {item.videoCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <Video className="w-2 h-2 text-indigo-400" />}
+                </div>
+                <span className={item.videoCompleted ? 'line-through opacity-85' : ''}>
+                  Recordings
+                </span>
+              </button>
 
-            {/* Assignments Chip */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
-              }}
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                item.assignmentCompleted
-                  ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
-                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+              {/* Assignments Chip */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
+                }}
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.assignmentCompleted
-                    ? 'bg-purple-500 border-purple-400 text-slate-950'
-                    : 'border-slate-600 bg-slate-800'
+                    ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
-              </div>
-              <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
-                Assignments
-              </span>
-            </button>
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                    item.assignmentCompleted
+                      ? 'bg-purple-500 border-purple-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
+                  }`}
+                >
+                  {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
+                </div>
+                <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
+                  Assignments
+                </span>
+              </button>
 
-            {/* Additional Problems Chip */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
-              }}
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
-                item.additionalProblemsCompleted
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
-                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-              }`}
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+              {/* Additional Problems Chip */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
+                }}
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
                   item.additionalProblemsCompleted
-                    ? 'bg-amber-500 border-amber-400 text-slate-950'
-                    : 'border-slate-600 bg-slate-800'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
+                    : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                    item.additionalProblemsCompleted
+                      ? 'bg-amber-500 border-amber-400 text-slate-950'
+                      : 'border-slate-600 bg-slate-800'
+                  }`}
+                >
+                  {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
+                </div>
+                <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
+                  Additional Problems
+                </span>
+              </button>
+            </div>
+
+            {/* Coverage Badge & Progress Bar (Placed below SYLLABUS SYNC label) */}
+            <div className="flex items-center space-x-2 shrink-0 self-start sm:self-auto pt-1 sm:pt-0">
+              <div className="text-[10px] font-bold text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 whitespace-nowrap">
+                Coverage: {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
               </div>
-              <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
-                Additional Problems
-              </span>
-            </button>
+              <div className="w-16 sm:w-20 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800 shrink-0">
+                <div
+                  className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
+                  style={{ width: `${coverage.progressPct}%` }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}

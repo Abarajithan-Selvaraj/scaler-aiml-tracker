@@ -548,12 +548,46 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   },
 
   updateSettingsData: async (patch) => {
-    const { settings, activeBackend } = get();
+    const { settings, scheduleBlocks, activeBackend } = get();
     const dataService = getDataService(activeBackend);
+
+    const oldStartDate = settings?.courseStartDate;
+    const newStartDate = patch.courseStartDate;
+
+    let updatedBlocks = [...scheduleBlocks];
+    let newCurrentDateStr = get().currentDateStr;
+
+    if (oldStartDate && newStartDate && oldStartDate !== newStartDate) {
+      const [oldY, oldM, oldD] = oldStartDate.split('-').map(Number);
+      const [newY, newM, newD] = newStartDate.split('-').map(Number);
+      const oldUtc = Date.UTC(oldY, oldM - 1, oldD);
+      const newUtc = Date.UTC(newY, newM - 1, newD);
+      const diffDays = Math.round((newUtc - oldUtc) / (1000 * 3600 * 24));
+
+      if (diffDays !== 0) {
+        updatedBlocks = await Promise.all(
+          scheduleBlocks.map(async (block) => {
+            if (!block.date) return block;
+            const [y, m, d] = block.date.split('-').map(Number);
+            const dateObj = new Date(Date.UTC(y, m - 1, d));
+            dateObj.setUTCDate(dateObj.getUTCDate() + diffDays);
+            const shiftedDate = dateObj.toISOString().split('T')[0];
+            await dataService.updateScheduleBlock(block.id, { date: shiftedDate });
+            return { ...block, date: shiftedDate };
+          })
+        );
+        newCurrentDateStr = newStartDate;
+      }
+    }
+
     await dataService.updateSettings(patch);
 
     const updatedSettings = settings ? { ...settings, ...patch } : (patch as Settings);
-    set({ settings: updatedSettings });
+    set({
+      settings: updatedSettings,
+      scheduleBlocks: updatedBlocks,
+      currentDateStr: newCurrentDateStr,
+    });
   },
 
   setCurrentDateStr: (dateIso) => {

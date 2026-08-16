@@ -24,6 +24,84 @@ export function parseFocusItemHours(focusStr: string, fallbackHours?: number): n
 }
 
 /**
+ * Calculates session-specific target hours and split state for an item in a block.
+ */
+export function getSessionHoursAndSplitState(
+  item: SyllabusItem,
+  block: ScheduleBlock,
+  allScheduleBlocks: ScheduleBlock[]
+): { sessionHours: number; isSplit: boolean } {
+  // Find matching focus item string in block
+  const matchedFocusStr =
+    block.focusItems?.find((f) =>
+      cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim()) ||
+      item.title.toLowerCase().trim().includes(cleanFocusTitle(f).toLowerCase())
+    ) || '';
+
+  const explicitHours = parseFocusItemHours(matchedFocusStr, 0);
+
+  // Find all schedule blocks containing this item
+  const matchingBlocks = allScheduleBlocks.filter(
+    (b) =>
+      (b.itemIds && b.itemIds.includes(item.id)) ||
+      (b.focusItems &&
+        b.focusItems.some((f) => {
+          const cleaned = cleanFocusTitle(f).toLowerCase();
+          const itemTitle = item.title.toLowerCase().trim();
+          return cleaned && (cleaned.includes(itemTitle) || itemTitle.includes(cleaned));
+        }))
+  );
+
+  const isSplit = matchingBlocks.length > 1;
+
+  if (!isSplit) {
+    return {
+      sessionHours: explicitHours > 0 ? explicitHours : (item.estimatedHours || 3.0),
+      isSplit: false,
+    };
+  }
+
+  // If explicit hours specified for this block, return it
+  if (explicitHours > 0) {
+    return {
+      sessionHours: Math.round(explicitHours * 100) / 100,
+      isSplit: true,
+    };
+  }
+
+  // Item is split across multiple blocks, but this block lacks explicit (part X.Xh).
+  // Sum explicit hours from other blocks.
+  let otherExplicitSum = 0;
+  let blocksWithoutExplicit = 0;
+
+  for (const b of matchingBlocks) {
+    const fStr =
+      b.focusItems?.find((f) =>
+        cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim()) ||
+        item.title.toLowerCase().trim().includes(cleanFocusTitle(f).toLowerCase())
+      ) || '';
+    const h = parseFocusItemHours(fStr, 0);
+    if (h > 0) {
+      otherExplicitSum += h;
+    } else {
+      blocksWithoutExplicit += 1;
+    }
+  }
+
+  const totalEst = item.estimatedHours || 3.0;
+  const remaining = totalEst - otherExplicitSum;
+  const sessionHours =
+    remaining > 0
+      ? Math.round((remaining / Math.max(1, blocksWithoutExplicit)) * 100) / 100
+      : Math.round((totalEst / matchingBlocks.length) * 100) / 100;
+
+  return {
+    sessionHours,
+    isSplit: true,
+  };
+}
+
+/**
  * Performs Section 5.5 Seed-Linking Pass:
  * Maps each ScheduleBlock's focusItems strings to their corresponding SyllabusItem.id array.
  */

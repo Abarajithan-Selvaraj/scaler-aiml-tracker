@@ -4,7 +4,7 @@ import { TimetableFilters } from '../components/Timetable/TimetableFilters';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { ScheduleBlock, SyllabusItem } from '../types/tracker';
 import { Calendar, Plane, Shield, Clock, ArrowRight, Moon } from 'lucide-react';
-import { cleanFocusTitle, parseFocusItemHours } from '../utils/seedMigration';
+import { cleanFocusTitle, parseFocusItemHours, getSessionHoursAndSplitState } from '../utils/seedMigration';
 import { ClassSessionCard } from '../components/Common/ClassSessionCard';
 
 interface DateGroup {
@@ -272,12 +272,7 @@ export const TimetableScreen: React.FC = () => {
                           <div className="space-y-2.5">
                             {blockSyllabusItems.length > 0 ? (
                               blockSyllabusItems.map((item) => {
-                                const matchedFocusStr =
-                                  block.focusItems.find((f) =>
-                                    cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim())
-                                  ) || block.focusItems[0] || '';
-                                const sessionHours = parseFocusItemHours(matchedFocusStr, item.estimatedHours);
-                                const isSplit = sessionHours > 0 && sessionHours !== item.estimatedHours;
+                                const { sessionHours, isSplit } = getSessionHoursAndSplitState(item, block, scheduleBlocks);
                                 const mod = modules.find((m) => m.id === item.moduleId);
 
                                 return (
@@ -298,7 +293,7 @@ export const TimetableScreen: React.FC = () => {
                             ) : (
                               block.focusItems.map((f, i) => {
                                 const cleaned = cleanFocusTitle(f);
-                                const sessionHours = parseFocusItemHours(f, 2.5);
+                                const rawParsedHours = parseFocusItemHours(f, 2.5);
                                 const realMatch = syllabusItems.find(
                                   (s) =>
                                     s.title &&
@@ -307,7 +302,7 @@ export const TimetableScreen: React.FC = () => {
                                 );
 
                                 if (realMatch) {
-                                  const isSplit = sessionHours > 0 && sessionHours !== realMatch.estimatedHours;
+                                  const { sessionHours, isSplit } = getSessionHoursAndSplitState(realMatch, block, scheduleBlocks);
                                   const mod = modules.find((m) => m.id === realMatch.moduleId);
                                   return (
                                     <ClassSessionCard
@@ -331,7 +326,7 @@ export const TimetableScreen: React.FC = () => {
                                   sequence: i + 1,
                                   title: cleaned,
                                   type: 'Class',
-                                  estimatedHours: sessionHours,
+                                  estimatedHours: rawParsedHours,
                                   completed: block.completed || false,
                                   videoCompleted: block.completed || false,
                                   assignmentCompleted: block.completed || false,
@@ -344,7 +339,7 @@ export const TimetableScreen: React.FC = () => {
                                     item={fallbackItem}
                                     scheduleBlock={block}
                                     allScheduleBlocks={scheduleBlocks}
-                                    sessionHours={sessionHours}
+                                    sessionHours={rawParsedHours}
                                     isSplit={false}
                                     onToggleBlockCompleted={() => updateBlockLog(block.id, { completed: !block.completed })}
                                     onToggleSubComponent={(_id, subComp) => {

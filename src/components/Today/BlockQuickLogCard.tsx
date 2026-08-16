@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
 import { Check, Clock, Moon, Plus, Minus, Plane, Shield, CheckCircle } from 'lucide-react';
-import { cleanFocusTitle, parseFocusItemHours } from '../../utils/seedMigration';
+import { cleanFocusTitle, parseFocusItemHours, getSessionHoursAndSplitState } from '../../utils/seedMigration';
 import { useTrackerStore, normalizeSyllabusItem } from '../../store/useTrackerStore';
 import { ClassSessionCard } from '../Common/ClassSessionCard';
 
@@ -107,13 +107,7 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
         {blockSyllabusItems.length > 0 ? (
           <div className="space-y-2.5">
             {blockSyllabusItems.map((item) => {
-              const matchedFocusStr =
-                block.focusItems.find((f) =>
-                  cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim())
-                ) || block.focusItems[0] || '';
-              const sessionHours = parseFocusItemHours(matchedFocusStr, item.estimatedHours);
-              const isSplit = sessionHours > 0 && sessionHours !== item.estimatedHours;
-
+              const { sessionHours, isSplit } = getSessionHoursAndSplitState(item, block, scheduleBlocks);
               const mod = modules.find((m) => m.id === item.moduleId);
 
               return (

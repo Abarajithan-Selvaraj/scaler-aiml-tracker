@@ -121,7 +121,9 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                   scheduleBlocks={scheduleBlocks}
                   sessionHours={sessionHours}
                   isSplit={isSplit}
-                  onToggleItem={onToggleItem}
+                  blockCompleted={block.completed}
+                  onToggleBlock={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                  onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
                   onToggleSubComponent={onToggleSubComponent}
                 />
               );
@@ -148,7 +150,9 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
                     scheduleBlocks={scheduleBlocks}
                     sessionHours={sessionHours}
                     isSplit={isSplit}
-                    onToggleItem={onToggleItem}
+                    blockCompleted={block.completed}
+                    onToggleBlock={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                    onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
                     onToggleSubComponent={onToggleSubComponent}
                   />
                 );

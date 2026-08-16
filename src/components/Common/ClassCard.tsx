@@ -10,7 +10,9 @@ export interface ClassCardProps {
   moduleNumber?: number;
   sessionHours?: number;
   isSplit?: boolean;
+  blockCompleted?: boolean;
   onToggleItem?: (itemId: string) => void;
+  onToggleBlock?: () => void;
   onToggleSubComponent?: (itemId: string, subComponent: 'video' | 'assignment' | 'additional') => void;
   showDragHandle?: boolean;
   onDragStart?: (e: React.DragEvent, index: number) => void;
@@ -28,7 +30,9 @@ export const ClassCard: React.FC<ClassCardProps> = ({
   moduleNumber,
   sessionHours,
   isSplit,
+  blockCompleted,
   onToggleItem,
+  onToggleBlock,
   onToggleSubComponent,
   showDragHandle = false,
   onDragStart,
@@ -45,6 +49,11 @@ export const ClassCard: React.FC<ClassCardProps> = ({
       Boolean(item.videoCompleted) &&
       Boolean(item.assignmentCompleted) &&
       Boolean(item.additionalProblemsCompleted));
+
+  const isDone =
+    blockCompleted !== undefined
+      ? Boolean(blockCompleted) || isFullyCompleted
+      : isFullyCompleted;
 
   return (
     <div
@@ -89,16 +98,22 @@ export const ClassCard: React.FC<ClassCardProps> = ({
         {/* Checkbox & Item Details */}
         <div
           className="flex-1 flex items-start space-x-3 cursor-pointer"
-          onClick={() => onToggleItem && onToggleItem(item.id)}
+          onClick={() => {
+            if (onToggleBlock) {
+              onToggleBlock();
+            } else if (onToggleItem) {
+              onToggleItem(item.id);
+            }
+          }}
         >
           <div
             className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-              isFullyCompleted
+              isDone
                 ? 'bg-emerald-500 border-emerald-400 text-slate-950'
                 : 'border-slate-600 bg-slate-800'
             }`}
           >
-            {isFullyCompleted && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
+            {isDone && <CheckCircle className="w-3.5 h-3.5 stroke-[3]" />}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -123,7 +138,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
 
             <div
               className={`text-xs font-semibold mt-1 leading-snug ${
-                isFullyCompleted ? 'line-through opacity-75' : 'text-slate-100'
+                isDone ? 'line-through opacity-75' : 'text-slate-100'
               }`}
             >
               {item.title}

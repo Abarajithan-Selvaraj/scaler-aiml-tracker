@@ -289,7 +289,9 @@ export const TimetableScreen: React.FC = () => {
                                     moduleNumber={mod?.moduleNumber}
                                     sessionHours={sessionHours}
                                     isSplit={isSplit}
-                                    onToggleItem={toggleItemCompletion}
+                                    blockCompleted={block.completed}
+                                    onToggleBlock={() => updateBlockLog(block.id, { completed: !block.completed })}
+                                    onToggleItem={() => updateBlockLog(block.id, { completed: !block.completed })}
                                     onToggleSubComponent={toggleSubComponentCompletion}
                                   />
                                 );
@@ -317,7 +319,9 @@ export const TimetableScreen: React.FC = () => {
                                       moduleNumber={mod?.moduleNumber}
                                       sessionHours={sessionHours}
                                       isSplit={isSplit}
-                                      onToggleItem={toggleItemCompletion}
+                                      blockCompleted={block.completed}
+                                      onToggleBlock={() => updateBlockLog(block.id, { completed: !block.completed })}
+                                      onToggleItem={() => updateBlockLog(block.id, { completed: !block.completed })}
                                       onToggleSubComponent={toggleSubComponentCompletion}
                                     />
                                   );

@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { useTrackerStore, normalizeSyllabusItem } from '../store/useTrackerStore';
-import { Search, BookOpen, CheckCircle, Video, FileCode, HelpCircle, Check, GripVertical, ChevronUp, ChevronDown } from 'lucide-react';
+import { getClassHoursCoverage } from '../utils/seedMigration';
+import { Search, BookOpen, CheckCircle, Video, FileCode, HelpCircle, Check, GripVertical, ChevronUp, ChevronDown, Clock } from 'lucide-react';
 
 export const SyllabusScreen: React.FC = () => {
   const {
     syllabusItems,
+    scheduleBlocks,
     modules,
     toggleItemCompletion,
     toggleSubComponentCompletion,
@@ -215,64 +217,152 @@ export const SyllabusScreen: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="text-right shrink-0 text-[11px] font-semibold text-slate-400">
-                    {item.estimatedHours}h est.
-                  </div>
+                  {(() => {
+                    const coverage = getClassHoursCoverage(item, scheduleBlocks);
+                    return (
+                      <div className="text-right shrink-0 space-y-1 ml-2">
+                        <div className="text-[10px] font-semibold text-slate-400">
+                          Est: <strong className="text-slate-300 font-mono">{item.estimatedHours}h</strong>
+                        </div>
+                        <div className="text-[10px] font-bold text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                          {coverage.completedHours}h / {coverage.totalHours}h ({coverage.progressPct}%)
+                        </div>
+                        <div className="w-20 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800 ml-auto">
+                          <div
+                            className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
+                            style={{ width: `${coverage.progressPct}%` }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
 
-              {/* Sub-Components Pills for Class Items */}
+              {/* Sub-Components Checklist (Recordings, Assignments, Additional Problems) */}
               {item.type === 'Class' && (
-                <div className="mt-2.5 pt-2 border-t border-slate-800/60 flex flex-wrap gap-1.5 pl-8">
+                <div className="mt-3 pt-2.5 border-t border-slate-800/80 space-y-1.5 pl-8">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                    Class Sub-Components
+                  </div>
+
+                  {/* Recordings Row */}
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleSubComponentCompletion(item.id, 'video');
                     }}
-                    className={`flex items-center space-x-1 px-2 py-0.5 rounded-lg text-[10px] font-semibold border transition-colors ${
-                      item.videoCompleted
-                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
-                        : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-600'
-                    }`}
+                    className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-colors text-left"
                   >
-                    <Video className="w-3 h-3" />
-                    <span>Video Recording</span>
-                    {item.videoCompleted && <Check className="w-3 h-3 text-indigo-300 ml-0.5" />}
+                    <div className="flex items-center space-x-2.5 text-xs">
+                      <div
+                        className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                          item.videoCompleted
+                            ? 'bg-indigo-500 border-indigo-400 text-slate-950'
+                            : 'border-slate-600 bg-slate-800'
+                        }`}
+                      >
+                        {item.videoCompleted && <Check className="w-3 h-3 stroke-[3]" />}
+                      </div>
+                      <Video className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                      <span
+                        className={
+                          item.videoCompleted ? 'line-through text-slate-400 font-medium' : 'text-slate-200 font-semibold'
+                        }
+                      >
+                        Recordings
+                      </span>
+                    </div>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                        item.videoCompleted
+                          ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
+                          : 'bg-slate-800 text-slate-400 border-slate-700'
+                      }`}
+                    >
+                      {item.videoCompleted ? 'Completed' : 'Pending'}
+                    </span>
                   </button>
 
+                  {/* Assignments Row */}
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleSubComponentCompletion(item.id, 'assignment');
                     }}
-                    className={`flex items-center space-x-1 px-2 py-0.5 rounded-lg text-[10px] font-semibold border transition-colors ${
-                      item.assignmentCompleted
-                        ? 'bg-purple-500/20 text-purple-300 border-purple-500/40'
-                        : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-600'
-                    }`}
+                    className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-colors text-left"
                   >
-                    <FileCode className="w-3 h-3" />
-                    <span>Assignments</span>
-                    {item.assignmentCompleted && <Check className="w-3 h-3 text-purple-300 ml-0.5" />}
+                    <div className="flex items-center space-x-2.5 text-xs">
+                      <div
+                        className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                          item.assignmentCompleted
+                            ? 'bg-purple-500 border-purple-400 text-slate-950'
+                            : 'border-slate-600 bg-slate-800'
+                        }`}
+                      >
+                        {item.assignmentCompleted && <Check className="w-3 h-3 stroke-[3]" />}
+                      </div>
+                      <FileCode className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                      <span
+                        className={
+                          item.assignmentCompleted ? 'line-through text-slate-400 font-medium' : 'text-slate-200 font-semibold'
+                        }
+                      >
+                        Assignments
+                      </span>
+                    </div>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                        item.assignmentCompleted
+                          ? 'bg-purple-500/20 text-purple-300 border-purple-500/30'
+                          : 'bg-slate-800 text-slate-400 border-slate-700'
+                      }`}
+                    >
+                      {item.assignmentCompleted ? 'Completed' : 'Pending'}
+                    </span>
                   </button>
 
+                  {/* Additional Problems Row */}
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleSubComponentCompletion(item.id, 'additional');
                     }}
-                    className={`flex items-center space-x-1 px-2 py-0.5 rounded-lg text-[10px] font-semibold border transition-colors ${
-                      item.additionalProblemsCompleted
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                        : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-600'
-                    }`}
+                    className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-colors text-left"
                   >
-                    <HelpCircle className="w-3 h-3" />
-                    <span>Additional Problems</span>
-                    {item.additionalProblemsCompleted && <Check className="w-3 h-3 text-amber-300 ml-0.5" />}
+                    <div className="flex items-center space-x-2.5 text-xs">
+                      <div
+                        className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                          item.additionalProblemsCompleted
+                            ? 'bg-amber-500 border-amber-400 text-slate-950'
+                            : 'border-slate-600 bg-slate-800'
+                        }`}
+                      >
+                        {item.additionalProblemsCompleted && <Check className="w-3 h-3 stroke-[3]" />}
+                      </div>
+                      <HelpCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <span
+                        className={
+                          item.additionalProblemsCompleted
+                            ? 'line-through text-slate-400 font-medium'
+                            : 'text-slate-200 font-semibold'
+                        }
+                      >
+                        Additional Problems
+                      </span>
+                    </div>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                        item.additionalProblemsCompleted
+                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                          : 'bg-slate-800 text-slate-400 border-slate-700'
+                      }`}
+                    >
+                      {item.additionalProblemsCompleted ? 'Completed' : 'Pending'}
+                    </span>
                   </button>
                 </div>
               )}

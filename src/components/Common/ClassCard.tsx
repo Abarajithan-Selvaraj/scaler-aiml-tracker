@@ -200,90 +200,88 @@ export const ClassCard: React.FC<ClassCardProps> = ({
 
               {/* Assignments Chip */}
               {item.hasAssignment !== false && (
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
-                    }}
-                    className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleSubComponent && onToggleSubComponent(item.id, 'assignment');
+                  }}
+                  className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer group/chip ${
+                    item.assignmentCompleted
+                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10 hover:bg-purple-500/30'
+                      : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                  }`}
+                >
+                  <div
+                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
                       item.assignmentCompleted
-                        ? 'bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-sm shadow-purple-500/10'
-                        : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                        ? 'bg-purple-500 border-purple-400 text-slate-950'
+                        : 'border-slate-600 bg-slate-800'
                     }`}
                   >
-                    <div
-                      className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
-                        item.assignmentCompleted
-                          ? 'bg-purple-500 border-purple-400 text-slate-950'
-                          : 'border-slate-600 bg-slate-800'
-                      }`}
-                    >
-                      {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
-                    </div>
-                    <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
-                      Assignments
-                    </span>
-                  </button>
+                    {item.assignmentCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <FileCode className="w-2 h-2 text-purple-400" />}
+                  </div>
+                  <span className={item.assignmentCompleted ? 'line-through opacity-85' : ''}>
+                    Assignments
+                  </span>
                   {onRemoveSubComponent && (
-                    <button
-                      type="button"
+                    <span
+                      role="button"
+                      tabIndex={0}
                       onClick={(e) => {
                         e.stopPropagation();
                         onRemoveSubComponent(item.id, 'assignment');
                       }}
-                      className="ml-1 p-0.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                      className="ml-1 p-0.5 rounded-full hover:bg-rose-500/30 text-slate-400 hover:text-rose-300 transition-colors shrink-0 cursor-pointer"
                       title="Remove Assignments (adds 20% weight to Recording)"
                     >
                       <X className="w-3 h-3" />
-                    </button>
+                    </span>
                   )}
-                </div>
+                </button>
               )}
 
               {/* Homeworks Chip */}
               {item.hasAdditionalProblems !== false && (
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
-                    }}
-                    className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer ${
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleSubComponent && onToggleSubComponent(item.id, 'additional');
+                  }}
+                  className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all cursor-pointer group/chip ${
+                    item.additionalProblemsCompleted
+                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10 hover:bg-amber-500/30'
+                      : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                  }`}
+                >
+                  <div
+                    className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
                       item.additionalProblemsCompleted
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-sm shadow-amber-500/10'
-                        : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                        ? 'bg-amber-500 border-amber-400 text-slate-950'
+                        : 'border-slate-600 bg-slate-800'
                     }`}
                   >
-                    <div
-                      className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
-                        item.additionalProblemsCompleted
-                          ? 'bg-amber-500 border-amber-400 text-slate-950'
-                          : 'border-slate-600 bg-slate-800'
-                      }`}
-                    >
-                      {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
-                    </div>
-                    <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
-                      Homeworks
-                    </span>
-                  </button>
+                    {item.additionalProblemsCompleted ? <Check className="w-2.5 h-2.5 stroke-[3]" /> : <HelpCircle className="w-2 h-2 text-amber-400" />}
+                  </div>
+                  <span className={item.additionalProblemsCompleted ? 'line-through opacity-85' : ''}>
+                    Homeworks
+                  </span>
                   {onRemoveSubComponent && (
-                    <button
-                      type="button"
+                    <span
+                      role="button"
+                      tabIndex={0}
                       onClick={(e) => {
                         e.stopPropagation();
                         onRemoveSubComponent(item.id, 'additional');
                       }}
-                      className="ml-1 p-0.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                      className="ml-1 p-0.5 rounded-full hover:bg-rose-500/30 text-slate-400 hover:text-rose-300 transition-colors shrink-0 cursor-pointer"
                       title="Remove Homeworks (adds 10% weight to Recording)"
                     >
                       <X className="w-3 h-3" />
-                    </button>
+                    </span>
                   )}
-                </div>
+                </button>
               )}
             </div>
 

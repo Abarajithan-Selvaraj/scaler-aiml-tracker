@@ -122,6 +122,34 @@ const getInitialEffectiveDate = (settings: Settings | null): string => {
   return todayIso < courseStart ? courseStart : todayIso;
 };
 
+const mirrorToIndexedDB = (data: {
+  modules?: Module[];
+  syllabusItems?: SyllabusItem[];
+  scheduleBlocks?: ScheduleBlock[];
+  settings?: Settings | null;
+}) => {
+  indexedDbService.init().then(async () => {
+    if (data.modules) {
+      for (const m of data.modules) await indexedDbService.updateModule(m.id, m);
+    }
+    if (data.syllabusItems) {
+      for (const s of data.syllabusItems) await indexedDbService.updateSyllabusItem(s.id, s);
+    }
+    if (data.scheduleBlocks) {
+      if (indexedDbService.updateScheduleBlocksBulk) {
+        await indexedDbService.updateScheduleBlocksBulk(data.scheduleBlocks);
+      } else {
+        for (const b of data.scheduleBlocks) await indexedDbService.updateScheduleBlock(b.id, b);
+      }
+    }
+    if (data.settings) {
+      await indexedDbService.updateSettings(data.settings);
+    }
+  }).catch((err) => {
+    console.warn('Failed to mirror Firestore data to IndexedDB:', err);
+  });
+};
+
 const setupRealtimeSubscription = (set: any, get: any) => {
   if (realtimeUnsubscribe) {
     realtimeUnsubscribe();
@@ -145,6 +173,13 @@ const setupRealtimeSubscription = (set: any, get: any) => {
         settings: data.settings,
         currentDateStr: effectiveDate,
         isLoading: false,
+      });
+
+      mirrorToIndexedDB({
+        modules: data.modules,
+        syllabusItems,
+        scheduleBlocks: data.scheduleBlocks,
+        settings: data.settings,
       });
     },
     (err) => {
@@ -282,6 +317,9 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         currentDateStr: effectiveDate,
         isLoading: false,
       });
+      if (get().activeBackend === 'firestore') {
+        mirrorToIndexedDB({ modules, syllabusItems, scheduleBlocks, settings });
+      }
       setupRealtimeSubscription(set, get);
     } catch (err: any) {
       console.warn('Failed to load data from active backend, falling back to IndexedDB:', err);

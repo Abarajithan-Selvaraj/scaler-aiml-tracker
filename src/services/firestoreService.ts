@@ -5,6 +5,7 @@ import { db, auth } from './firebase';
 import { DataService, Module, ScheduleBlock, SyllabusItem, Settings, SeedData } from '../types/tracker';
 import rawSeedData from '../data/seed_data.json';
 import { linkScheduleBlockItems } from '../utils/seedMigration';
+import { indexedDbService } from './indexedDbService';
 
 export class FirestoreDataService implements DataService {
   private seedingPromise: Promise<void> | null = null;
@@ -21,11 +22,42 @@ export class FirestoreDataService implements DataService {
     const uid = auth.currentUser?.uid;
     if (!uid) return;
 
-    // Check if user has modules initialized
-    const modulesSnap = await getDocs(collection(db, 'users', uid, 'modules'));
-    if (modulesSnap.empty) {
-      await this.seedInitialData(uid);
+    if (this.seedingPromise) {
+      return this.seedingPromise;
     }
+
+    this.seedingPromise = (async () => {
+      // Check if user has modules initialized in Firestore
+      const modulesSnap = await getDocs(collection(db, 'users', uid, 'modules'));
+      if (modulesSnap.empty) {
+        // Check if user has existing local IndexedDB progress to upload instead of wiping with seed data
+        try {
+          await indexedDbService.init();
+          const [localMods, localItems, localBlocks, localSettings] = await Promise.all([
+            indexedDbService.getModules(),
+            indexedDbService.getSyllabusItems(),
+            indexedDbService.getScheduleBlocks(),
+            indexedDbService.getSettings(),
+          ]);
+          if (localMods.length > 0 && localBlocks.length > 0) {
+            await this.uploadLocalData({
+              modules: localMods,
+              syllabusItems: localItems,
+              scheduleBlocks: localBlocks,
+              settings: localSettings,
+            });
+            return;
+          }
+        } catch (err) {
+          console.warn('Failed to upload local IndexedDB data during Firestore init:', err);
+        }
+        await this.seedInitialData(uid);
+      }
+    })().finally(() => {
+      this.seedingPromise = null;
+    });
+
+    return this.seedingPromise;
   }
 
   private async commitInChunks(docsToSet: Array<{ ref: any; data: any }>): Promise<void> {

@@ -1,8 +1,9 @@
 import React from 'react';
 import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
-import { Check, Clock, Moon, Plus, Minus, CheckCircle, Plane, Shield, Video, FileCode, HelpCircle } from 'lucide-react';
-import { cleanFocusTitle, parseFocusItemHours, getClassHoursCoverage } from '../../utils/seedMigration';
+import { Check, Clock, Moon, Plus, Minus, Plane, Shield, CheckCircle } from 'lucide-react';
+import { cleanFocusTitle, parseFocusItemHours } from '../../utils/seedMigration';
 import { useTrackerStore, normalizeSyllabusItem } from '../../store/useTrackerStore';
+import { ClassCard } from '../Common/ClassCard';
 
 interface BlockQuickLogCardProps {
   block: ScheduleBlock;
@@ -106,183 +107,24 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
         {blockSyllabusItems.length > 0 ? (
           <div className="space-y-2.5">
             {blockSyllabusItems.map((item) => {
-              const matchedFocusStr = block.focusItems.find(f => cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim())) || block.focusItems[0] || '';
+              const matchedFocusStr =
+                block.focusItems.find((f) =>
+                  cleanFocusTitle(f).toLowerCase().includes(item.title.toLowerCase().trim())
+                ) || block.focusItems[0] || '';
               const sessionHours = parseFocusItemHours(matchedFocusStr, item.estimatedHours);
               const isSplit = sessionHours > 0 && sessionHours !== item.estimatedHours;
 
               return (
-                <div
+                <ClassCard
                   key={item.id}
-                  className={`p-3 rounded-xl border transition-all ${
-                    block.completed
-                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
-                      : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
-                  }`}
-                >
-                  {/* Main Session Block Checkbox */}
-                  <div
-                    className="flex items-start space-x-3 cursor-pointer"
-                    onClick={() => onUpdateBlock(block.id, { completed: !block.completed })}
-                  >
-                    <div
-                      className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-                        block.completed
-                          ? 'bg-emerald-500 border-emerald-400 text-slate-950'
-                          : 'border-slate-600 bg-slate-800'
-                      }`}
-                    >
-                      {block.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                    </div>
-                    <div className="flex-1 text-xs leading-snug">
-                      <span className={block.completed ? 'line-through opacity-80' : 'font-medium'}>
-                        {item.title}
-                      </span>
-                      <div className="text-[10px] text-slate-400 mt-0.5 flex flex-wrap items-center justify-between gap-1">
-                        <span>
-                          Session Est: <strong className="text-slate-300">{sessionHours}h</strong>
-                          {isSplit && <span> (Class Total: {item.estimatedHours}h)</span>} • Type: {item.type}
-                        </span>
-                        {(() => {
-                          const cov = getClassHoursCoverage(item, scheduleBlocks);
-                          return (
-                            <span className="font-mono text-indigo-300 font-bold bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
-                              Coverage: {cov.completedHours}h / {cov.totalHours}h ({cov.progressPct}%)
-                            </span>
-                          );
-                        })()}
-                      </div>
-                    </div>
-                  </div>
-
-                {/* Sub-Components Checklist (Recordings, Assignments, Additional Problems) */}
-                {item.type === 'Class' && (
-                  <div className="mt-3 pt-2.5 border-t border-slate-800/80 space-y-1.5">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-                      Class Sub-Components
-                    </div>
-
-                    {/* Recordings Row */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleSubComponent(item.id, 'video');
-                      }}
-                      className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-colors text-left"
-                    >
-                      <div className="flex items-center space-x-2.5 text-xs">
-                        <div
-                          className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                            item.videoCompleted
-                              ? 'bg-indigo-500 border-indigo-400 text-slate-950'
-                              : 'border-slate-600 bg-slate-800'
-                          }`}
-                        >
-                          {item.videoCompleted && <Check className="w-3 h-3 stroke-[3]" />}
-                        </div>
-                        <Video className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
-                        <span
-                          className={
-                            item.videoCompleted ? 'line-through text-slate-400 font-medium' : 'text-slate-200 font-semibold'
-                          }
-                        >
-                          Recordings
-                        </span>
-                      </div>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          item.videoCompleted
-                            ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
-                            : 'bg-slate-800 text-slate-400 border-slate-700'
-                        }`}
-                      >
-                        {item.videoCompleted ? 'Completed' : 'Pending'}
-                      </span>
-                    </button>
-
-                    {/* Assignments Row */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleSubComponent(item.id, 'assignment');
-                      }}
-                      className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-colors text-left"
-                    >
-                      <div className="flex items-center space-x-2.5 text-xs">
-                        <div
-                          className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                            item.assignmentCompleted
-                              ? 'bg-purple-500 border-purple-400 text-slate-950'
-                              : 'border-slate-600 bg-slate-800'
-                          }`}
-                        >
-                          {item.assignmentCompleted && <Check className="w-3 h-3 stroke-[3]" />}
-                        </div>
-                        <FileCode className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                        <span
-                          className={
-                            item.assignmentCompleted ? 'line-through text-slate-400 font-medium' : 'text-slate-200 font-semibold'
-                          }
-                        >
-                          Assignments
-                        </span>
-                      </div>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          item.assignmentCompleted
-                            ? 'bg-purple-500/20 text-purple-300 border-purple-500/30'
-                            : 'bg-slate-800 text-slate-400 border-slate-700'
-                        }`}
-                      >
-                        {item.assignmentCompleted ? 'Completed' : 'Pending'}
-                      </span>
-                    </button>
-
-                    {/* Additional Problems Row */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleSubComponent(item.id, 'additional');
-                      }}
-                      className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-colors text-left"
-                    >
-                      <div className="flex items-center space-x-2.5 text-xs">
-                        <div
-                          className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                            item.additionalProblemsCompleted
-                              ? 'bg-amber-500 border-amber-400 text-slate-950'
-                              : 'border-slate-600 bg-slate-800'
-                          }`}
-                        >
-                          {item.additionalProblemsCompleted && <Check className="w-3 h-3 stroke-[3]" />}
-                        </div>
-                        <HelpCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                        <span
-                          className={
-                            item.additionalProblemsCompleted
-                              ? 'line-through text-slate-400 font-medium'
-                              : 'text-slate-200 font-semibold'
-                          }
-                        >
-                          Additional Problems
-                        </span>
-                      </div>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          item.additionalProblemsCompleted
-                            ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                            : 'bg-slate-800 text-slate-400 border-slate-700'
-                        }`}
-                      >
-                        {item.additionalProblemsCompleted ? 'Completed' : 'Pending'}
-                      </span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            );
+                  item={item}
+                  scheduleBlocks={scheduleBlocks}
+                  sessionHours={sessionHours}
+                  isSplit={isSplit}
+                  onToggleItem={onToggleItem}
+                  onToggleSubComponent={onToggleSubComponent}
+                />
+              );
             })}
           </div>
         ) : (
@@ -290,77 +132,28 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
             {block.focusItems.map((focusStr, idx) => {
               const cleaned = cleanFocusTitle(focusStr);
               const sessionHours = parseFocusItemHours(focusStr, 2.5);
-              return (
-                <div
-                  key={idx}
-                  className={`p-3 rounded-xl border transition-all ${
-                    block.completed
-                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
-                      : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-200'
-                  }`}
-                >
-                  <div
-                    className="flex items-start space-x-3 cursor-pointer"
-                    onClick={() => onUpdateBlock(block.id, { completed: !block.completed })}
-                  >
-                    <div
-                      className={`w-5 h-5 rounded-md border flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
-                        block.completed
-                          ? 'bg-emerald-500 border-emerald-400 text-slate-950'
-                          : 'border-slate-600 bg-slate-800'
-                      }`}
-                    >
-                      {block.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                    </div>
-                    <div className="flex-1 text-xs leading-snug">
-                      <span className={block.completed ? 'line-through opacity-80' : 'font-medium'}>
-                        {cleaned}
-                      </span>
-                      <div className="text-[10px] text-slate-400 mt-0.5 flex flex-wrap items-center justify-between gap-1">
-                        <span>Session Est: <strong className="text-slate-300">{sessionHours}h</strong> • Type: Class</span>
-                        <span className="font-mono text-indigo-300 font-bold bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
-                          Coverage: {block.completed ? sessionHours : 0}h / {sessionHours}h ({block.completed ? '100' : '0'}%)
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+              const fallbackItem: SyllabusItem = {
+                id: `virtual-${idx}`,
+                moduleId: 'm4',
+                sequence: idx + 1,
+                title: cleaned,
+                type: 'Class',
+                estimatedHours: sessionHours,
+                completed: block.completed || false,
+                videoCompleted: block.completed || false,
+                assignmentCompleted: block.completed || false,
+                additionalProblemsCompleted: block.completed || false,
+              };
 
-                  {/* Sub-Components Checklist */}
-                  <div className="mt-3 pt-2.5 border-t border-slate-800/80 space-y-1.5">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-                      Class Sub-Components
-                    </div>
-                    <div className="flex flex-col space-y-1 text-xs">
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
-                        <div className="flex items-center space-x-2">
-                          <Video className="w-3.5 h-3.5 text-indigo-400" />
-                          <span className="text-slate-200 font-semibold">Recordings</span>
-                        </div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
-                          {block.completed ? 'Completed' : 'Pending'}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
-                        <div className="flex items-center space-x-2">
-                          <FileCode className="w-3.5 h-3.5 text-purple-400" />
-                          <span className="text-slate-200 font-semibold">Assignments</span>
-                        </div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
-                          {block.completed ? 'Completed' : 'Pending'}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
-                        <div className="flex items-center space-x-2">
-                          <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
-                          <span className="text-slate-200 font-semibold">Additional Problems</span>
-                        </div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
-                          {block.completed ? 'Completed' : 'Pending'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              return (
+                <ClassCard
+                  key={idx}
+                  item={fallbackItem}
+                  scheduleBlocks={scheduleBlocks}
+                  sessionHours={sessionHours}
+                  isSplit={false}
+                  onToggleItem={() => onUpdateBlock(block.id, { completed: !block.completed })}
+                />
               );
             })}
           </div>

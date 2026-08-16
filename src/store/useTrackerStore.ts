@@ -566,18 +566,23 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       const diffDays = Math.round((newUtc - oldUtc) / (1000 * 3600 * 24));
 
       if (diffDays !== 0) {
-        updatedBlocks = await Promise.all(
-          scheduleBlocks.map(async (block) => {
-            if (!block.date) return block;
-            const [y, m, d] = block.date.split('-').map(Number);
-            const dateObj = new Date(Date.UTC(y, m - 1, d));
-            dateObj.setUTCDate(dateObj.getUTCDate() + diffDays);
-            const shiftedDate = dateObj.toISOString().split('T')[0];
-            await dataService.updateScheduleBlock(block.id, { date: shiftedDate });
-            return { ...block, date: shiftedDate };
-          })
-        );
+        updatedBlocks = scheduleBlocks.map((block) => {
+          if (!block.date) return block;
+          const [y, m, d] = block.date.split('-').map(Number);
+          const dateObj = new Date(Date.UTC(y, m - 1, d));
+          dateObj.setUTCDate(dateObj.getUTCDate() + diffDays);
+          const shiftedDate = dateObj.toISOString().split('T')[0];
+          return { ...block, date: shiftedDate };
+        });
         newCurrentDateStr = newStartDate;
+
+        if (dataService.updateScheduleBlocksBulk) {
+          await dataService.updateScheduleBlocksBulk(updatedBlocks);
+        } else {
+          await Promise.all(
+            updatedBlocks.map((b) => dataService.updateScheduleBlock(b.id, { date: b.date }))
+          );
+        }
       }
     }
 

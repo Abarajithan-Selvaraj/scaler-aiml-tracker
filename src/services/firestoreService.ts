@@ -171,6 +171,20 @@ export class FirestoreDataService implements DataService {
     await updateDoc(doc(db, 'users', uid, 'scheduleBlocks', id), patch);
   }
 
+  async updateScheduleBlocksBulk(blocks: ScheduleBlock[]): Promise<void> {
+    const uid = this.getUserUid();
+    const batchSize = 400;
+    for (let i = 0; i < blocks.length; i += batchSize) {
+      const chunk = blocks.slice(i, i + batchSize);
+      const batch = writeBatch(db);
+      for (const blockItem of chunk) {
+        const ref = doc(db, 'users', uid, 'scheduleBlocks', blockItem.id);
+        batch.set(ref, blockItem, { merge: true });
+      }
+      await batch.commit();
+    }
+  }
+
   async updateSettings(patch: Partial<Settings>): Promise<void> {
     const uid = this.getUserUid();
     await updateDoc(doc(db, 'users', uid, 'settings', 'main'), patch);

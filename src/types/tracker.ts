@@ -102,6 +102,7 @@ export interface DataService {
   updateModule(id: string, patch: Partial<Module>): Promise<void>;
   updateSyllabusItem(id: string, patch: Partial<SyllabusItem>): Promise<void>;
   updateScheduleBlock(id: string, patch: Partial<ScheduleBlock>): Promise<void>;
+  updateScheduleBlocksBulk?(blocks: ScheduleBlock[]): Promise<void>;
   updateSettings(patch: Partial<Settings>): Promise<void>;
   resetData(): Promise<void>;
   importAll?(json: string): Promise<void>;

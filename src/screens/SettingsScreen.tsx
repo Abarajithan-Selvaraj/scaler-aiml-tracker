@@ -18,6 +18,7 @@ import {
   Bug,
   Shield,
   Check,
+  Loader2,
 } from 'lucide-react';
 
 export const SettingsScreen: React.FC = () => {
@@ -43,6 +44,7 @@ export const SettingsScreen: React.FC = () => {
   const [pendingFinishDate, setPendingFinishDate] = useState(settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18');
   const [showDateConfirmModal, setShowDateConfirmModal] = useState(false);
   const [dateChangeSuccess, setDateChangeSuccess] = useState(false);
+  const [isSavingDates, setIsSavingDates] = useState(false);
 
   useEffect(() => {
     if (settings) {
@@ -52,15 +54,22 @@ export const SettingsScreen: React.FC = () => {
   }, [settings]);
 
   const handleApplyDateChanges = async () => {
+    setIsSavingDates(true);
     setAuthError(null);
-    await updateSettingsData({
-      courseStartDate: pendingStartDate,
-      chosenPaceFinish: pendingFinishDate,
-      targetDeadline: pendingFinishDate,
-    });
-    setShowDateConfirmModal(false);
-    setDateChangeSuccess(true);
-    setTimeout(() => setDateChangeSuccess(false), 4000);
+    try {
+      await updateSettingsData({
+        courseStartDate: pendingStartDate,
+        chosenPaceFinish: pendingFinishDate,
+        targetDeadline: pendingFinishDate,
+      });
+      setShowDateConfirmModal(false);
+      setDateChangeSuccess(true);
+      setTimeout(() => setDateChangeSuccess(false), 4000);
+    } catch (err: any) {
+      setAuthError(err?.message || 'Failed to update schedule dates');
+    } finally {
+      setIsSavingDates(false);
+    }
   };
 
   // Keep user state in sync with Firebase auth so the UI reflects real state
@@ -545,39 +554,75 @@ export const SettingsScreen: React.FC = () => {
               Modifying official course dates will re-anchor schedule velocity projections and burndown calculations for all connected devices.
             </p>
 
-            <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-2 text-xs font-mono">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Current Start:</span>
-                <span className="text-slate-200">{settings?.courseStartDate || '2026-08-01'}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-indigo-400 font-bold">New Proposed Start:</span>
-                <span className="text-indigo-300 font-bold">{pendingStartDate}</span>
-              </div>
-              <div className="border-t border-slate-800 pt-2 flex justify-between">
-                <span className="text-slate-400">Current Finish:</span>
-                <span className="text-slate-200">{settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18'}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-indigo-400 font-bold">New Target Finish:</span>
-                <span className="text-indigo-300 font-bold">{pendingFinishDate}</span>
-              </div>
-            </div>
+            {(() => {
+              const currentStart = settings?.courseStartDate || '2026-08-01';
+              const [oldY, oldM, oldD] = currentStart.split('-').map(Number);
+              const [newY, newM, newD] = pendingStartDate.split('-').map(Number);
+              const diffDays = Math.round((Date.UTC(newY, newM - 1, newD) - Date.UTC(oldY, oldM - 1, oldD)) / (1000 * 3600 * 24));
+              return (
+                <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-2 text-xs font-mono">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Current Start:</span>
+                    <span className="text-slate-200">{currentStart}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-indigo-400 font-bold">New Proposed Start:</span>
+                    <span className="text-indigo-300 font-bold">{pendingStartDate}</span>
+                  </div>
+
+                  <div className="pt-1 pb-1">
+                    <span
+                      className={`inline-block px-2.5 py-1 rounded-md text-[11px] font-bold ${
+                        diffDays !== 0
+                          ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                          : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                      }`}
+                    >
+                      {diffDays > 0
+                        ? `📅 Schedule Shift: +${diffDays} Days Forward`
+                        : diffDays < 0
+                        ? `📅 Schedule Shift: ${diffDays} Days Backward`
+                        : '⚠️ No Start Date Change Selected'}
+                    </span>
+                  </div>
+
+                  <div className="border-t border-slate-800 pt-2 flex justify-between">
+                    <span className="text-slate-400">Current Finish:</span>
+                    <span className="text-slate-200">{settings?.chosenPaceFinish || settings?.targetDeadline || '2027-02-18'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-indigo-400 font-bold">New Target Finish:</span>
+                    <span className="text-indigo-300 font-bold">{pendingFinishDate}</span>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {authError && <div className="text-xs text-rose-400">{authError}</div>}
 
             <div className="flex justify-end space-x-3 pt-2">
               <button
                 type="button"
+                disabled={isSavingDates}
                 onClick={() => setShowDateConfirmModal(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700"
+                className="px-4 py-2 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
                 type="button"
+                disabled={isSavingDates}
                 onClick={handleApplyDateChanges}
-                className="px-4 py-2 rounded-xl bg-indigo-600 text-xs font-bold text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/20"
+                className="px-4 py-2 rounded-xl bg-indigo-600 text-xs font-bold text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 disabled:opacity-50 flex items-center space-x-2"
               >
-                Confirm & Apply Changes
+                {isSavingDates ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <span>Shifting Schedule...</span>
+                  </>
+                ) : (
+                  <span>Confirm & Apply Changes</span>
+                )}
               </button>
             </div>
           </div>

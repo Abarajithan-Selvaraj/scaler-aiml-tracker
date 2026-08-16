@@ -182,6 +182,21 @@ export class IndexedDBDataService implements DataService {
     }
   }
 
+  async updateScheduleBlocksBulk(blocks: ScheduleBlock[]): Promise<void> {
+    if (!this.isIndexedDBAvailable()) {
+      if (this.memoryStore) {
+        this.memoryStore.scheduleBlocks = blocks;
+      }
+      return;
+    }
+    const db = await this.getDB();
+    const tx = db.transaction('scheduleBlocks', 'readwrite');
+    for (const b of blocks) {
+      await tx.store.put(b);
+    }
+    await tx.done;
+  }
+
   async updateSettings(patch: Partial<Settings>): Promise<void> {
     if (!this.isIndexedDBAvailable()) {
       if (this.memoryStore) {

@@ -117,4 +117,23 @@ describe('Class Sub-Components Auto-Completion Logic', () => {
     let itemAfterRestore = useTrackerStore.getState().syllabusItems.find((i) => i.id === classItem.id)!;
     expect(itemAfterRestore.hasAssignment).toBe(true);
   });
+
+  it('should persist sleep log updates across page reloads', async () => {
+    const store = useTrackerStore.getState();
+    const firstAmBlock = store.scheduleBlocks.find((b) => b.block === 'AM')!;
+    expect(firstAmBlock).toBeDefined();
+
+    // Update sleep hours to 7.5
+    await store.updateBlockLog(firstAmBlock.id, { sleepHours: 7.5 });
+
+    // Verify in-memory state
+    let updatedAmBlock = useTrackerStore.getState().scheduleBlocks.find((b) => b.id === firstAmBlock.id)!;
+    expect(updatedAmBlock.sleepHours).toBe(7.5);
+
+    // Reload data from IndexedDB to simulate page refresh
+    await useTrackerStore.getState().loadData();
+
+    const reloadedAmBlock = useTrackerStore.getState().scheduleBlocks.find((b) => b.id === firstAmBlock.id)!;
+    expect(reloadedAmBlock.sleepHours).toBe(7.5);
+  });
 });

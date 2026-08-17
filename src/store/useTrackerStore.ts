@@ -699,8 +699,12 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
 
     for (const b of updatedBlocks) {
       const orig = scheduleBlocks.find((o) => o.id === b.id);
-      if (orig && (orig.actualHours !== b.actualHours || orig.completed !== b.completed)) {
-        await dataService.updateScheduleBlock(b.id, { actualHours: b.actualHours, completed: b.completed });
+      if (orig) {
+        if (b.id === blockId) {
+          await dataService.updateScheduleBlock(b.id, b);
+        } else if (orig.actualHours !== b.actualHours || orig.completed !== b.completed) {
+          await dataService.updateScheduleBlock(b.id, { actualHours: b.actualHours, completed: b.completed });
+        }
       }
     }
 

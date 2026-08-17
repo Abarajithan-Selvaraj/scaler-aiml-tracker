@@ -171,6 +171,43 @@ const mirrorToIndexedDB = (data: {
   });
 };
 
+const autoLogPastDefaultSleep = async (
+  blocks: ScheduleBlock[],
+  settings: Settings | null,
+  currentDateStr: string,
+  dataService: any,
+  activeBackend: string
+): Promise<ScheduleBlock[]> => {
+  const sleepFloor = settings?.sleepFloorHours ?? 6.0;
+  let hasChanges = false;
+
+  const updatedBlocks = blocks.map((b) => {
+    if (b.block === 'AM' && b.date < currentDateStr && (b.sleepHours === null || b.sleepHours === undefined)) {
+      hasChanges = true;
+      return { ...b, sleepHours: sleepFloor, isAutoLoggedSleep: true };
+    }
+    return b;
+  });
+
+  if (hasChanges) {
+    for (const b of updatedBlocks) {
+      const orig = blocks.find((o) => o.id === b.id);
+      if (orig && (orig.sleepHours !== b.sleepHours || orig.isAutoLoggedSleep !== b.isAutoLoggedSleep)) {
+        try {
+          await dataService.updateScheduleBlock(b.id, b);
+          if (activeBackend === 'firestore') {
+            await indexedDbService.updateScheduleBlock(b.id, b);
+          }
+        } catch (err) {
+          console.error('Failed to auto-log past sleep block:', err);
+        }
+      }
+    }
+  }
+
+  return updatedBlocks;
+};
+
 const setupRealtimeSubscription = (set: any, get: any) => {
   if (realtimeUnsubscribe) {
     realtimeUnsubscribe();
@@ -330,9 +367,11 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       }
 
       const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
-      const scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
+      let scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
       const currentSelectedDate = get().currentDateStr;
       const effectiveDate = currentSelectedDate || getInitialEffectiveDate(settings);
+
+      scheduleBlocks = await autoLogPastDefaultSleep(scheduleBlocks, settings, effectiveDate, dataService, get().activeBackend);
 
       set({
         modules,
@@ -358,9 +397,11 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
         ]);
 
         const syllabusItems = rawSyllabusItems.map(normalizeSyllabusItem);
-        const scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
+        let scheduleBlocks = linkScheduleBlockItems(rawScheduleBlocks, syllabusItems);
         const currentSelectedDate = get().currentDateStr;
         const effectiveDate = currentSelectedDate || getInitialEffectiveDate(settings);
+
+        scheduleBlocks = await autoLogPastDefaultSleep(scheduleBlocks, settings, effectiveDate, indexedDbService, 'indexeddb');
 
         set({
           modules,

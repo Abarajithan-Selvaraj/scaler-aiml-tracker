@@ -136,4 +136,17 @@ describe('Class Sub-Components Auto-Completion Logic', () => {
     const reloadedAmBlock = useTrackerStore.getState().scheduleBlocks.find((b) => b.id === firstAmBlock.id)!;
     expect(reloadedAmBlock.sleepHours).toBe(7.5);
   });
+
+  it('should auto-log default sleep floor hours for unlogged past AM blocks', async () => {
+    const store = useTrackerStore.getState();
+    
+    // Simulate active date on Day 5 (2026-08-05) so Days 1-4 are past days
+    store.setCurrentDateStr('2026-08-05');
+    await useTrackerStore.getState().loadData();
+
+    // Past AM block for 2026-08-01 should be auto-filled with default 6.0h
+    const pastAmBlock = useTrackerStore.getState().scheduleBlocks.find((b) => b.date === '2026-08-01' && b.block === 'AM')!;
+    expect(pastAmBlock.sleepHours).toBe(6.0);
+    expect(pastAmBlock.isAutoLoggedSleep).toBe(true);
+  });
 });

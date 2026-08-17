@@ -51,8 +51,13 @@ export const DailySleepLogCard: React.FC<DailySleepLogCardProps> = ({
                 </span>
               )}
             </div>
-            <div className="text-[10px] text-slate-400 mt-0.5">
-              Logged for last night's rest
+            <div className="text-[10px] text-slate-400 mt-0.5 flex flex-wrap items-center gap-1.5">
+              <span>Logged for last night's rest</span>
+              {amBlock.isAutoLoggedSleep && (
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  Auto-filled ({sleepFloorHours}h default)
+                </span>
+              )}
             </div>
           </div>
         </div>

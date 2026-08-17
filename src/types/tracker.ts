@@ -59,6 +59,7 @@ export interface ScheduleBlock {
   itemIds?: string[];         // resolved SyllabusItem.id array (FR-2 / 5.5 linking pass)
   actualHours: number | null; // USER-WRITABLE
   sleepHours: number | null;  // USER-WRITABLE, logged once/day on AM block
+  isAutoLoggedSleep?: boolean; // system auto-filled default sleep floor
   notes: string;              // USER-WRITABLE
   completed: boolean;         // USER-WRITABLE
 }

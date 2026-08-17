@@ -129,6 +129,12 @@ interface TrackerState {
 let realtimeUnsubscribe: (() => void) | null = null;
 
 const getInitialEffectiveDate = (settings: Settings | null): string => {
+  if (typeof localStorage !== 'undefined') {
+    const savedDate = localStorage.getItem('scaler_tracker_current_date');
+    if (savedDate && /^\d{4}-\d{2}-\d{2}$/.test(savedDate)) {
+      return savedDate;
+    }
+  }
   if (settings?.simulatedDate) {
     return settings.simulatedDate;
   }
@@ -701,9 +707,20 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
       const orig = scheduleBlocks.find((o) => o.id === b.id);
       if (orig) {
         if (b.id === blockId) {
-          await dataService.updateScheduleBlock(b.id, b);
+          try {
+            await dataService.updateScheduleBlock(b.id, b);
+            if (activeBackend === 'firestore') {
+              await indexedDbService.updateScheduleBlock(b.id, b);
+            }
+          } catch (err) {
+            console.error('Failed to update schedule block in storage:', err);
+          }
         } else if (orig.actualHours !== b.actualHours || orig.completed !== b.completed) {
-          await dataService.updateScheduleBlock(b.id, { actualHours: b.actualHours, completed: b.completed });
+          try {
+            await dataService.updateScheduleBlock(b.id, { actualHours: b.actualHours, completed: b.completed });
+          } catch (err) {
+            console.error('Failed to update schedule block actualHours in storage:', err);
+          }
         }
       }
     }
@@ -823,6 +840,9 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
   },
 
   setCurrentDateStr: (dateIso) => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('scaler_tracker_current_date', dateIso);
+    }
     set({ currentDateStr: dateIso });
   },
 

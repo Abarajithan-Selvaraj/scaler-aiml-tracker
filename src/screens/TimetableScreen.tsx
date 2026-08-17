@@ -406,7 +406,7 @@ export const TimetableScreen: React.FC = () => {
                                   step="0.25"
                                   min="0"
                                   max="12"
-                                  value={block.sleepHours ?? 7}
+                                  value={block.sleepHours ?? 6.0}
                                   onChange={(e) =>
                                     updateBlockLog(block.id, {
                                       sleepHours: parseFloat(e.target.value) || 0,

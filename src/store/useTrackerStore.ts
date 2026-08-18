@@ -112,7 +112,7 @@ interface TrackerState {
   ) => Promise<void>;
   updateBlockLog: (
     blockId: string,
-    patch: { actualHours?: number | null; sleepHours?: number | null; notes?: string; completed?: boolean }
+    patch: Partial<ScheduleBlock>
   ) => Promise<void>;
   updateModuleData: (moduleId: string, patch: Partial<Module>) => Promise<void>;
   updateSettingsData: (patch: Partial<Settings>) => Promise<void>;
@@ -687,9 +687,16 @@ export const useTrackerStore = create<TrackerState>((set, get) => ({
     const { scheduleBlocks, syllabusItems, modules, activeBackend } = get();
     const dataService = getDataService(activeBackend);
 
-    let updatedBlocks = scheduleBlocks.map((b) =>
-      b.id === blockId ? { ...b, ...patch } : b
-    );
+    let updatedBlocks = scheduleBlocks.map((b) => {
+      if (b.id === blockId) {
+        const patchCopy: Partial<ScheduleBlock> = { ...patch };
+        if (patchCopy.sleepHours !== undefined) {
+          patchCopy.isAutoLoggedSleep = false;
+        }
+        return { ...b, ...patchCopy };
+      }
+      return b;
+    });
 
     const targetBlock = updatedBlocks.find((b) => b.id === blockId);
     let updatedSyllabusItems = [...syllabusItems];

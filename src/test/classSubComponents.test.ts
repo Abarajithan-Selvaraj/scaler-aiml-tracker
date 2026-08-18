@@ -148,5 +148,11 @@ describe('Class Sub-Components Auto-Completion Logic', () => {
     const pastAmBlock = useTrackerStore.getState().scheduleBlocks.find((b) => b.date === '2026-08-01' && b.block === 'AM')!;
     expect(pastAmBlock.sleepHours).toBe(6.0);
     expect(pastAmBlock.isAutoLoggedSleep).toBe(true);
+
+    // Manually updating sleep hours to 5.0h should clear isAutoLoggedSleep flag
+    await store.updateBlockLog(pastAmBlock.id, { sleepHours: 5.0 });
+    const updatedPastBlock = useTrackerStore.getState().scheduleBlocks.find((b) => b.id === pastAmBlock.id)!;
+    expect(updatedPastBlock.sleepHours).toBe(5.0);
+    expect(updatedPastBlock.isAutoLoggedSleep).toBe(false);
   });
 });

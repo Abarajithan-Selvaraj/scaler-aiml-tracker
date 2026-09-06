@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTrackerStore } from '../store/useTrackerStore';
+import { GoogleCalendarSyncCard } from '../components/Calendar/GoogleCalendarSyncCard';
 import { auth, googleProvider, isFirebaseConfigured } from '../services/firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -262,6 +263,9 @@ export const SettingsScreen: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Google Calendar Backlog Integration Card */}
+      <GoogleCalendarSyncCard />
 
       {/* Firebase Cloud Sync & Authentication Section */}
       <div className="glass-panel rounded-2xl p-5 space-y-4">

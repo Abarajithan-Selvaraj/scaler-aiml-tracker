@@ -325,7 +325,8 @@ The app is built using `HashRouter` and `IndexedDBDataService`, making it 100% c
 
 ## 🧪 Unit Testing
 
-The repository includes **115 automated unit tests** covering key business logic across 10 test suites:
+The repository includes **118 automated unit tests** covering key business logic across 11 test suites:
+* `src/test/calendarExport.test.ts`: Validates 1-click Google Calendar URL formatting, timezone ISO conversions, and bulk iCalendar (`.ics`) backlog file exports.
 * `src/test/classSubComponents.test.ts`: Validates Video (`Recording`), Assignment (`Assignments`), and Additional Problems (`Homeworks`) sub-component auto-completion, dynamic weight redistribution (70%/20%/10%), inline deletion/restoration, sleep log persistence across refreshes, and automatic default sleep floor logging for unlogged past days.
 * `src/test/carryForwardTrend.test.ts`: Validates deficit rollover, hours carry-forward, fast-completion efficiency, and finish date shifting.
 * `src/test/calculations.test.ts`: Validates pace projections, burn-down calculations, and sleep floor alerts.
@@ -333,7 +334,7 @@ The repository includes **115 automated unit tests** covering key business logic
 * `src/test/indexedDbService.test.ts`: Validates IndexedDB offline storage operations (41 unit tests).
 * `src/test/seedLinking.test.ts`: Validates seed data linking (15 modules, 270 syllabus items, 404 schedule blocks).
 
-Run all 115 unit tests:
+Run all 118 unit tests:
 ```bash
 npx vitest run
 ```

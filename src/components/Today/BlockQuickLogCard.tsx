@@ -1,8 +1,9 @@
 import React from 'react';
 import { ScheduleBlock, SyllabusItem } from '../../types/tracker';
-import { Clock, Plane, Shield, CheckCircle } from 'lucide-react';
+import { Clock, Plane, Shield, CheckCircle, Calendar } from 'lucide-react';
 import { cleanFocusTitle, parseFocusItemHours, getSessionHoursAndSplitState, calculateBlockActualHours } from '../../utils/seedMigration';
 import { useTrackerStore, normalizeSyllabusItem } from '../../store/useTrackerStore';
+import { buildGoogleCalendarWebUrl } from '../../utils/calendarExport';
 import { ClassSessionCard } from '../Common/ClassSessionCard';
 
 interface BlockQuickLogCardProps {
@@ -89,6 +90,16 @@ export const BlockQuickLogCard: React.FC<BlockQuickLogCardProps> = ({
           <span className="text-xs font-semibold text-slate-400">
             Target: <strong className="text-slate-200">{block.targetHours}h</strong>
           </span>
+          <a
+            href={buildGoogleCalendarWebUrl(block, syllabusItems)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1 px-2 py-1 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/20 text-[10px] font-semibold transition-colors ml-1 cursor-pointer"
+            title="Add session to Google Calendar"
+          >
+            <Calendar className="w-3 h-3" />
+            <span className="hidden sm:inline">+ Google Cal</span>
+          </a>
         </div>
       </div>
 
